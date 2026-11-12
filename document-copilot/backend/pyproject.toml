@@ -1,0 +1,35 @@
+[project]
+name = "document-copilot-backend"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "alembic==1.20.1",
+    "docling==2.147.0",
+    "docling-core[chunking-openai]==2.106.0",
+    "fastapi==0.162.0",
+    "httpx==0.28.1",
+    "openai==3.42.1",
+    "pgvector==0.5.1",
+    "psycopg[binary]==3.3.7",
+    "pydantic==2.14.2",
+    "pydantic-ai==2.65.0",
+    "pydantic-settings==2.16.2",
+    "sqlalchemy==2.1.6",
+    "structlog==26.1.0",
+    "supabase==2.33.0",
+    "uvicorn==0.54.0",
+]
+
+[tool.uv]
+add-bounds = "exact"
+exclude-newer = "7 days"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
+[dependency-groups]
+dev = [
+    "ipykernel==7.4.0",
+    "pytest==9.2.0",
+    "ruff==0.17.3",
+]
