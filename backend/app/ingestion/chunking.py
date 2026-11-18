@@ -76,7 +76,9 @@ def document_from_html(path: Path) -> DoclingDocument:
     return result.document
 
 
-def document_from_html_string(html: str, *, name: str = "fixture.html") -> DoclingDocument:
+def document_from_html_string(
+    html: str, *, name: str = "fixture.html"
+) -> DoclingDocument:
     result = _html_converter().convert_string(html, format=InputFormat.HTML, name=name)
     if result.status.name != "SUCCESS":
         raise RuntimeError(f"{name} converted with status {result.status.name}")

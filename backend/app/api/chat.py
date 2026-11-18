@@ -8,7 +8,8 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from app.auth.dependencies import CurrentUser, get_current_user
 from app.chat.messages import IncomingMessage, latest_user_text
-from app.chat.streaming import encode_sse, stub_events, stub_reply
+from app.chat.orchestrator import AssistantError, RetrievalError, run_turn
+from app.chat.streaming import answer_events, encode_sse
 from app.database.chats import (
     ChatStoreError,
     StoredMessage,
@@ -21,6 +22,7 @@ from app.database.chats import (
     list_threads,
     require_owned_thread,
 )
+from app.grounding.validator import GroundingError
 
 router = APIRouter()
 log = structlog.get_logger()
@@ -156,22 +158,35 @@ async def stream_chat(
     except (ThreadNotFound, ThreadForbidden, ChatStoreError) as exc:
         _raise_store(exc)
 
-    reply = stub_reply(user_text)
-
     async def events():
-        async for chunk in stub_events(reply):
+        try:
+            turn = await run_turn(user, thread, user_text)
+        except GroundingError as exc:
+            log.info("grounding rejected the answer", error=str(exc))
+            yield _error_event("This answer could not be grounded in the filings.")
+            return
+        except RetrievalError as exc:
+            log.error("retrieval failed", error=str(exc))
+            yield _error_event("Retrieval failed. Try again.")
+            return
+        except AssistantError as exc:
+            log.error("assistant failed", error=str(exc))
+            yield _error_event("The assistant could not complete this answer.")
+            return
+        async for chunk in answer_events(turn.parts):
             yield chunk
         try:
-            await append_turn(user, thread, user_text, reply)
+            await append_turn(
+                user,
+                thread,
+                user_text,
+                turn.answer,
+                parts=turn.parts,
+                citations=list(turn.citations),
+            )
         except ChatStoreError as exc:
             log.error("chat store failed", error=str(exc))
-            yield encode_sse(
-                {
-                    "type": "error",
-                    "errorText": "Could not save this conversation.",
-                }
-            )
-            yield encode_sse("[DONE]")
+            yield _error_event("Could not save this conversation.")
             return
         yield encode_sse({"type": "finish", "finishReason": "stop"})
         yield encode_sse("[DONE]")
@@ -181,3 +196,7 @@ async def stream_chat(
         media_type="text/event-stream",
         headers=STREAM_HEADERS,
     )
+
+
+def _error_event(text: str) -> bytes:
+    return encode_sse({"type": "error", "errorText": text}) + encode_sse("[DONE]")

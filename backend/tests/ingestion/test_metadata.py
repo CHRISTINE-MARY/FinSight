@@ -59,8 +59,13 @@ def test_ingestion_skips_only_a_complete_existing_set() -> None:
 
 
 def test_revenue_chunk_prefers_the_passage_with_the_product_mix() -> None:
-    partial = _chunk(index=1, text="Greater China net sales of iPhone, Services, iPad, Mac and Wearables")
-    mix = _chunk(index=2, text="iPhone $ 209,586 Mac iPad Wearables Services Total net sales")
+    partial = _chunk(
+        index=1,
+        text="Greater China net sales of iPhone, Services, iPad, Mac and Wearables",
+    )
+    mix = _chunk(
+        index=2, text="iPhone $ 209,586 Mac iPad Wearables Services Total net sales"
+    )
     chosen = best_revenue_chunk([partial, mix])
 
     assert chosen.index == 2

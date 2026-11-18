@@ -39,6 +39,12 @@ class StoredMessage:
     parts: list[dict[str, object]]
 
 
+@dataclass(frozen=True, slots=True)
+class CitationInsert:
+    chunk_id: UUID
+    excerpt: str
+
+
 def _store_error(exc: APIError) -> ChatStoreError:
     message = getattr(exc, "message", None)
     return ChatStoreError(message if isinstance(message, str) else str(exc))
@@ -103,7 +109,9 @@ async def list_threads(user: CurrentUser) -> list[ThreadRecord]:
     except APIError as exc:
         raise _store_error(exc) from exc
     started_ids = {
-        str(row["thread_id"]) for row in _rows(started) if row.get("thread_id") is not None
+        str(row["thread_id"])
+        for row in _rows(started)
+        if row.get("thread_id") is not None
     }
     return [_thread(row) for row in _rows(response) if str(row["id"]) in started_ids]
 
@@ -196,8 +204,11 @@ async def append_turn(
     thread: ThreadRecord,
     user_text: str,
     assistant_text: str,
+    *,
+    parts: list[dict[str, object]],
+    citations: list[CitationInsert],
 ) -> None:
-    """Store the user message and assistant reply after a stream finishes."""
+    """Store the user message, assistant reply, and citation rows after a stream finishes."""
     client = await create_user_client(user.access_token)
     try:
         existing = await (
@@ -210,18 +221,45 @@ async def append_turn(
         )
         rows = _rows(existing)
         next_position = int(rows[0]["position"]) + 1 if rows else 0
-        await (
+        inserted = await (
             client.table("chat_messages")
             .insert(
                 [
-                    _message_row(thread.id, next_position, "user", user_text),
                     _message_row(
-                        thread.id, next_position + 1, "assistant", assistant_text
+                        thread.id,
+                        next_position,
+                        "user",
+                        user_text,
+                        [{"type": "text", "text": user_text}],
+                    ),
+                    _message_row(
+                        thread.id,
+                        next_position + 1,
+                        "assistant",
+                        assistant_text,
+                        parts,
                     ),
                 ]
             )
             .execute()
         )
+        if citations:
+            assistant_id = _assistant_message_id(inserted)
+            await (
+                client.table("message_citations")
+                .insert(
+                    [
+                        {
+                            "message_id": str(assistant_id),
+                            "chunk_id": str(citation.chunk_id),
+                            "citation_index": index,
+                            "excerpt": citation.excerpt,
+                        }
+                        for index, citation in enumerate(citations)
+                    ]
+                )
+                .execute()
+            )
         update: dict[str, str] = {"updated_at": datetime.now(UTC).isoformat()}
         if next_position == 0 and thread.title == DEFAULT_THREAD_TITLE:
             update["title"] = _title_from(user_text)
@@ -235,13 +273,26 @@ async def append_turn(
         raise _store_error(exc) from exc
 
 
-def _message_row(thread_id: UUID, position: int, role: str, text: str) -> dict[str, object]:
+def _assistant_message_id(response: object) -> UUID:
+    for row in _rows(response):
+        if str(row.get("role")) == "assistant":
+            return _as_uuid(row["id"])
+    raise ChatStoreError("Saving the assistant message did not return its id")
+
+
+def _message_row(
+    thread_id: UUID,
+    position: int,
+    role: str,
+    text: str,
+    parts: list[dict[str, object]],
+) -> dict[str, object]:
     return {
         "thread_id": str(thread_id),
         "position": position,
         "role": role,
         "content": text,
-        "parts": [{"type": "text", "text": text}],
+        "parts": parts,
     }
 
 

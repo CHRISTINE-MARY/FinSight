@@ -26,6 +26,9 @@ exclude-newer = "7 days"
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+markers = [
+    "integration: live database or external API",
+]
 
 [dependency-groups]
 dev = [

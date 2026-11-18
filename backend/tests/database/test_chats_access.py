@@ -61,7 +61,9 @@ def _patch(monkeypatch: pytest.MonkeyPatch, visible: object, owner: object) -> N
     monkeypatch.setattr(chats, "get_service_client", service_client)
 
 
-def test_list_threads_skips_chats_with_no_messages(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_list_threads_skips_chats_with_no_messages(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     empty_id = UUID("44444444-4444-4444-8444-444444444444")
 
     class _Rows:

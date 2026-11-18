@@ -81,7 +81,9 @@ def test_non_bearer_scheme_is_rejected() -> None:
     assert response.status_code == 401
 
 
-def test_valid_bearer_token_returns_verified_user(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_valid_bearer_token_returns_verified_user(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     auth = _Auth(_response())
     tokens: list[str] = []
 

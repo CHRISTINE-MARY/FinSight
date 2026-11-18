@@ -45,7 +45,9 @@ def database_engine() -> Engine:
     parsed = make_url(settings.database_url)
     if parsed.drivername != "postgresql+psycopg":
         parsed = parsed.set(drivername="postgresql+psycopg")
-    return create_engine(parsed.render_as_string(hide_password=False), pool_pre_ping=True)
+    return create_engine(
+        parsed.render_as_string(hide_password=False), pool_pre_ping=True
+    )
 
 
 def fetch_filing(accession_number: str) -> FilingContext:
@@ -62,8 +64,12 @@ def store_chunks(accession_number: str, rows: list[ChunkWrite]) -> StoreResult:
         stored = _chunk_count(connection, filing.id)
         action = ingestion_action(stored, len(rows))
         if action == "skip":
-            return StoreResult(action="skipped", document_id=filing.id, chunk_count=stored)
-        connection.execute(delete(DocumentChunk).where(DocumentChunk.document_id == filing.id))
+            return StoreResult(
+                action="skipped", document_id=filing.id, chunk_count=stored
+            )
+        connection.execute(
+            delete(DocumentChunk).where(DocumentChunk.document_id == filing.id)
+        )
         if rows:
             connection.execute(
                 DocumentChunk.__table__.insert(),
@@ -80,7 +86,9 @@ def store_chunks(accession_number: str, rows: list[ChunkWrite]) -> StoreResult:
                     for row in rows
                 ],
             )
-        return StoreResult(action="stored", document_id=filing.id, chunk_count=len(rows))
+        return StoreResult(
+            action="stored", document_id=filing.id, chunk_count=len(rows)
+        )
 
 
 def chunk_status_counts() -> dict[str, int]:
@@ -139,7 +147,9 @@ def mark_embedding_failed(chunk_ids: list[UUID]) -> None:
         )
 
 
-def chunk_evidence(document_id: UUID, chunk_index: int, query: str) -> dict[str, object]:
+def chunk_evidence(
+    document_id: UUID, chunk_index: int, query: str
+) -> dict[str, object]:
     """Read back one stored chunk, including the generated search vector."""
     statement = text(
         """

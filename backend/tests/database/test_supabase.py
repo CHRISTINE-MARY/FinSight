@@ -7,7 +7,9 @@ from app.config import settings
 from app.database.supabase import create_user_client, get_service_client
 
 
-def test_user_client_uses_anon_key_and_user_jwt(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_user_client_uses_anon_key_and_user_jwt(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     captured: dict[str, object] = {}
 
     async def fake_create(
@@ -35,7 +37,9 @@ def test_user_client_rejects_blank_token() -> None:
         asyncio.run(create_user_client("   "))
 
 
-def test_service_client_uses_service_role_key_once(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_service_client_uses_service_role_key_once(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     calls: list[str] = []
 
     async def fake_create(

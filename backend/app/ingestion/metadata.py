@@ -44,14 +44,14 @@ def ingestion_action(stored_count: int, new_count: int) -> str:
 def best_revenue_chunk(chunks: list[PreparedChunk]) -> PreparedChunk:
     """Pick the net-sales-by-category table, not a sentence that merely names products."""
     table = [
-        chunk
-        for chunk in chunks
-        if "209,586" in chunk.text and "iPhone" in chunk.text
+        chunk for chunk in chunks if "209,586" in chunk.text and "iPhone" in chunk.text
     ]
     if table:
         return table[0]
     required = ("iPhone", "Mac", "iPad", "Wearables", "Services")
-    candidates = [chunk for chunk in chunks if all(marker in chunk.text for marker in required)]
+    candidates = [
+        chunk for chunk in chunks if all(marker in chunk.text for marker in required)
+    ]
     if not candidates:
         raise LookupError("No chunk contains the Apple revenue mix")
     return candidates[0]

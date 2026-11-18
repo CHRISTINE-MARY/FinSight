@@ -22,6 +22,7 @@ class Settings(BaseSettings):
     openai_embedding_dimensions: int
     openrouter_api_key: str
     openrouter_embedding_model: str
+    openrouter_model: str
     allowed_origins: Annotated[list[str], NoDecode]
 
     @field_validator("allowed_origins", mode="before")

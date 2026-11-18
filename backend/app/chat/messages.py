@@ -29,3 +29,13 @@ def latest_user_text(messages: list[IncomingMessage]) -> str:
     if not text:
         raise ValueError("A user message is required")
     return text
+
+
+def assistant_parts(
+    answer: str, citations: list[dict[str, object]]
+) -> list[dict[str, object]]:
+    """AI SDK parts: the answer text, then one data part per citation."""
+    parts: list[dict[str, object]] = [{"type": "text", "text": answer}]
+    for index, data in enumerate(citations):
+        parts.append({"type": "data-citation", "id": f"citation-{index}", "data": data})
+    return parts

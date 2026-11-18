@@ -4,15 +4,19 @@ from app.ingestion.chunking import (
     hybrid_chunks,
 )
 
-FIXTURE = """
+FIXTURE = (
+    """
 <html><body>
 <h1>Net sales</h1>
 <p>iPhone, Mac, iPad, Wearables, and Services make up the revenue mix.</p>
 <ul><li>First product</li><li>Second product</li></ul>
 <h2>Discussion</h2>
-<p>""" + ("revenue " * 80) + """</p>
+<p>"""
+    + ("revenue " * 80)
+    + """</p>
 </body></html>
 """
+)
 
 
 def test_hierarchical_chunker_keeps_headings_and_merges_list_items() -> None:
