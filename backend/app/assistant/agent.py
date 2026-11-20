@@ -8,11 +8,12 @@ from uuid import UUID
 
 from pydantic_ai import Agent, PromptedOutput, RunContext
 from pydantic_ai.models.openai import OpenAIChatModel
-from pydantic_ai.providers.openrouter import OpenRouterProvider
+from pydantic_ai.providers.openai_compatible import OpenAICompatibleProvider
 
 from app.assistant.deps import DocumentAgentDeps
 from app.assistant.outputs import GroundedAnswer
-from app.config import settings
+from app.chat.status import threadsafe_report
+from app.config import NVIDIA_BASE_URL, settings
 from app.retrieval.retriever import RetrievedPassage
 
 _INSTRUCTIONS = (Path(__file__).parent / "instructions.md").read_text(encoding="utf-8")
@@ -24,8 +25,12 @@ def get_agent() -> Agent[DocumentAgentDeps, GroundedAnswer]:
     global _agent
     if _agent is None:
         model = OpenAIChatModel(
-            settings.openrouter_model,
-            provider=OpenRouterProvider(api_key=settings.openrouter_api_key),
+            settings.nvidia_chat_model,
+            provider=OpenAICompatibleProvider(
+                "nvidia",
+                base_url=NVIDIA_BASE_URL,
+                api_key=settings.nvidia_api_key,
+            ),
         )
         agent: Agent[DocumentAgentDeps, GroundedAnswer] = Agent(
             model,
@@ -33,6 +38,11 @@ def get_agent() -> Agent[DocumentAgentDeps, GroundedAnswer]:
             output_type=PromptedOutput(GroundedAnswer),
             instructions=_INSTRUCTIONS,
             name="document_copilot",
+            # Lightning reasons unless told not to. This assistant should answer
+            # from the passages, not spend the call on a hidden chain of thought.
+            model_settings={
+                "extra_body": {"chat_template_kwargs": {"enable_thinking": False}}
+            },
             retries={"output": 2},
         )
         agent.tool(search_filings)
@@ -53,7 +63,10 @@ async def search_filings(
     cleaned = query.strip()
     if not cleaned:
         return []
+    await _note(ctx, "tool", f"search_filings: {cleaned}")
     passages = await _search(ctx, cleaned)
+    noun = "passage" if len(passages) == 1 else "passages"
+    await _note(ctx, "tool", f"search_filings returned {len(passages)} {noun}")
     return [_summary(passage) for passage in passages]
 
 
@@ -68,6 +81,7 @@ async def read_chunk(
     parsed = _parse_chunk_id(chunk_id)
     if parsed is None:
         return {"error": "Unknown chunk id"}
+    await _note(ctx, "tool", f"read_chunk {chunk_id}")
     passage = await _read(ctx, parsed)
     if passage is None:
         return {"error": "Chunk was not found"}
@@ -85,6 +99,7 @@ async def read_surrounding_chunks(
     parsed = _parse_chunk_id(chunk_id)
     if parsed is None:
         return {"error": "Unknown chunk id"}
+    await _note(ctx, "tool", f"read_surrounding_chunks {chunk_id}")
     passages = await _surrounding(ctx, parsed)
     return [_summary(passage, full=True) for passage in passages]
 
@@ -93,10 +108,18 @@ def _remember(ctx: RunContext[DocumentAgentDeps], passage: RetrievedPassage) -> 
     ctx.deps.retrieved[passage.chunk_id] = passage
 
 
+async def _note(ctx: RunContext[DocumentAgentDeps], phase: str, detail: str) -> None:
+    if ctx.deps.report is not None:
+        await ctx.deps.report(phase, detail)
+
+
 async def _search(
     ctx: RunContext[DocumentAgentDeps], query: str
 ) -> list[RetrievedPassage]:
-    passages = await asyncio.to_thread(ctx.deps.retriever.search, query)
+    progress = threadsafe_report(ctx.deps.report) if ctx.deps.report else None
+    passages = await asyncio.to_thread(
+        ctx.deps.retriever.search, query, progress=progress
+    )
     for passage in passages:
         _remember(ctx, passage)
     return passages

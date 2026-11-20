@@ -4,7 +4,7 @@ import { Outlet, useNavigate, useParams } from "react-router-dom"
 import { ThreadSidebar } from "@/components/chat/thread-sidebar"
 import { api } from "@/lib/api"
 import type { ChatThread } from "@/lib/chat"
-import { ApiError } from "@/lib/http"
+import { describeRequestError } from "@/lib/chat-errors"
 import { useAuth } from "@/lib/use-auth"
 
 export type ChatOutletContext = {
@@ -38,7 +38,7 @@ export function ChatLayout() {
         if (!active) {
           return
         }
-        setError(caught instanceof ApiError ? caught.message : "Could not load chats")
+        setError(describeRequestError(caught, "Could not load chats"))
       })
     return () => {
       active = false

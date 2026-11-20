@@ -162,9 +162,14 @@ def test_stream_sends_the_answer_and_persists_citations(
         return _thread()
 
     async def fake_run(
-        _user: CurrentUser, _thread: ThreadRecord, question: str
+        _user: CurrentUser,
+        _thread: ThreadRecord,
+        question: str,
+        report=None,
     ) -> CompletedTurn:
         assert question == "How did revenue change?"
+        if report is not None:
+            await report("retrieve", "Retrieved 1 passage")
         data = {
             "chunkId": str(chunk_id),
             "ticker": "AAPL",
@@ -187,6 +192,12 @@ def test_stream_sends_the_answer_and_persists_citations(
         citations: list[CitationInsert],
     ) -> None:
         assert parts[1]["type"] == "data-citation"
+        assert any(
+            part.get("type") == "data-status"
+            and isinstance(part.get("data"), dict)
+            and part["data"].get("phase") == "stream"
+            for part in parts
+        )
         saved.append((user_text, assistant_text, citations))
 
     monkeypatch.setattr("app.api.chat.require_owned_thread", fake_require)
@@ -220,6 +231,13 @@ def test_stream_sends_the_answer_and_persists_citations(
     citations = [event for event in events if event.get("type") == "data-citation"]
     assert citations[0]["data"]["ticker"] == "AAPL"
     assert citations[0]["data"]["page"] == "42"
+    statuses = [event for event in events if event.get("type") == "data-status"]
+    assert [event["data"]["detail"] for event in statuses] == [
+        "Retrieved 1 passage",
+        "Writing the answer",
+        "Saving the answer and citations",
+    ]
+    assert events[0]["type"] == "start"
     assert "data: [DONE]" in response.text
     assert saved == [
         (

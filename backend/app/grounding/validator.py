@@ -98,6 +98,7 @@ def _citation_data(passage: RetrievedPassage, excerpt: str) -> dict[str, object]
         "page": _text(passage.metadata.get("page")),
         "section": _text(passage.metadata.get("section")),
         "excerpt": excerpt,
+        "content": passage.content,
     }
 
 

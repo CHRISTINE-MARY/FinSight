@@ -11,7 +11,7 @@ This is the FastAPI service for Document Copilot. Read [../AGENTS.md](../AGENTS.
 - `pytest` for tests
 - Supabase Python client (DB + auth)
 - SQLAlchemy models + Alembic migrations for database schema changes
-- OpenAI SDK for LLM & embeddings
+- OpenAI SDK against NVIDIA NIM for the chat model and embeddings
 - Supabase `pgvector` for semantic search and Postgres full-text search for keyword retrieval. Hybrid search should run vector and full-text queries separately, then fuse ranked results in Python with Reciprocal Rank Fusion.
 - `structlog` for logging
 - `uv` for dependency + project management

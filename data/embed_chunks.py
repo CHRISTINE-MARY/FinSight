@@ -1,7 +1,7 @@
-"""Embed pending document chunks, 8 texts per OpenRouter request.
+"""Embed pending document chunks, 8 texts per NVIDIA request.
 
-Stops when the free-model daily request cap is spent. A later run continues
-from the chunks still marked pending.
+A rate limit or a stalled request leaves the batch pending and retries.
+Other HTTP errors mark that batch failed and the run continues.
 
 From backend/:
 
@@ -10,10 +10,11 @@ From backend/:
 
 from __future__ import annotations
 
-import httpx
-from openai import APIStatusError
+import time
 
-from app.config import settings
+from openai import APIConnectionError, APIStatusError, APITimeoutError
+from sqlalchemy.exc import OperationalError
+
 from app.database.documents import (
     chunk_status_counts,
     fetch_chunks_for_embedding,
@@ -22,53 +23,62 @@ from app.database.documents import (
 )
 from app.ingestion.embeddings import EMBEDDING_BATCH_SIZE, embed_texts
 
-
-def free_requests_remaining() -> int:
-    """How many free-model requests this key can still make today."""
-    response = httpx.get(
-        "https://openrouter.ai/api/v1/key",
-        headers={"Authorization": f"Bearer {settings.openrouter_api_key}"},
-        timeout=20.0,
-    )
-    response.raise_for_status()
-    quota = response.json()["data"]["free_model_daily_requests"]
-    remaining = int(quota["remaining"])
-    print(
-        f"free requests remaining: {remaining} of {quota['limit']}",
-        flush=True,
-    )
-    return remaining
+_RETRYABLE_STATUS = {408, 429, 500, 502, 503, 504}
 
 
-def embed_pending(max_requests: int) -> None:
+def embed_pending() -> None:
     sent = 0
-    while sent < max_requests:
-        batch = fetch_chunks_for_embedding(EMBEDDING_BATCH_SIZE)
+    stalls = 0
+    print("resuming embedding", flush=True)
+    while True:
+        try:
+            batch = fetch_chunks_for_embedding(EMBEDDING_BATCH_SIZE)
+        except OperationalError:
+            stalls += 1
+            _wait(stalls, "database connection failed")
+            continue
         if not batch:
             break
         chunk_ids = [item.id for item in batch]
         try:
-            vectors = embed_texts([item.content for item in batch])
+            vectors = embed_texts(
+                [item.content for item in batch], input_type="passage"
+            )
         except APIStatusError as exc:
-            if exc.status_code == 429:
-                print("free request limit reached; batch left pending", flush=True)
-                break
+            if exc.status_code in _RETRYABLE_STATUS:
+                stalls += 1
+                _wait(stalls, f"NVIDIA HTTP {exc.status_code}")
+                continue
             mark_embedding_failed(chunk_ids)
-            raise
-        except Exception:
-            mark_embedding_failed(chunk_ids)
-            raise
-        save_embeddings(list(zip(chunk_ids, vectors, strict=True)))
+            print(
+                f"batch marked failed after HTTP {exc.status_code}",
+                flush=True,
+            )
+            continue
+        except (APITimeoutError, APIConnectionError) as exc:
+            stalls += 1
+            _wait(stalls, type(exc).__name__)
+            continue
+        stalls = 0
+        try:
+            save_embeddings(list(zip(chunk_ids, vectors, strict=True)))
+        except OperationalError:
+            stalls += 1
+            _wait(stalls, "database connection failed")
+            continue
         sent += 1
-        print(
-            f"request {sent}/{max_requests}: embedded {len(batch)} chunk(s)",
-            flush=True,
-        )
+        print(f"request {sent}: embedded {len(batch)} chunk(s)", flush=True)
     print(f"embedding_status counts: {chunk_status_counts()}", flush=True)
 
 
+def _wait(stalls: int, reason: str) -> None:
+    seconds = min(60, 5 * stalls)
+    print(f"{reason}; batch left pending, waiting {seconds}s", flush=True)
+    time.sleep(seconds)
+
+
 def main() -> None:
-    embed_pending(free_requests_remaining())
+    embed_pending()
 
 
 if __name__ == "__main__":

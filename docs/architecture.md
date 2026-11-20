@@ -24,8 +24,7 @@ flowchart LR
         db[(Postgres<br/>chats, documents, chunks<br/>pgvector + full-text)]
     end
 
-    openai[OpenAI<br/>LLM]
-    openrouter[OpenRouter<br/>free embeddings]
+    nvidia[NVIDIA NIM<br/>chat + embeddings]
     corpus[SEC filing corpus]
     ingestion[Ingestion pipeline<br/>download, parse, chunk, embed]
 
@@ -35,11 +34,11 @@ flowchart LR
     browser -->|chat request + JWT| backend
     backend -->|verify user| auth
     backend -->|retrieve passages<br/>persist chats + citations| db
-    backend -->|generate grounded answer| openai
+    backend -->|generate grounded answer<br/>embed query| nvidia
     backend -->|stream answer + citations| browser
 
     corpus --> ingestion
-    ingestion -->|create embeddings| openrouter
+    ingestion -->|create embeddings| nvidia
     ingestion -->|store documents + chunks| db
 ```
 
@@ -68,7 +67,7 @@ Backend:
 - FastAPI + Uvicorn
 - Pydantic v2 + pydantic-settings
 - PydanticAI for typed LLM orchestration
-- OpenAI SDK for generation, and for OpenRouter's OpenAI-compatible embeddings API
+- OpenAI SDK against NVIDIA NIM's OpenAI-compatible chat and embeddings API
 - Supabase Python client for server-side database access
 - SQLAlchemy models + Alembic migrations for schema management
 - Supabase `pgvector` for semantic search
@@ -201,7 +200,7 @@ Retrieval and grounding remain independent from PydanticAI. This keeps ingestion
 
 Document Copilot uses hybrid retrieval:
 
-1. Embed the user's query with the configured OpenRouter embedding model.
+1. Embed the user's query with the configured NVIDIA embedding model.
 2. Run a semantic search over `document_chunks.embedding` with `pgvector`.
 3. Run a lexical search over `document_chunks.search_vector` with Postgres full-text search.
 4. Fuse the two ranked lists in Python with Reciprocal Rank Fusion.
@@ -363,9 +362,9 @@ Backend settings:
 - `SUPABASE_ANON_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `DATABASE_URL` for Alembic and direct Postgres access
-- `OPENAI_API_KEY`
-- `OPENROUTER_API_KEY`
-- `OPENROUTER_EMBEDDING_MODEL`
+- `NVIDIA_API_KEY`
+- `NVIDIA_EMBEDDING_MODEL`
+- `NVIDIA_CHAT_MODEL`
 - `ALLOWED_ORIGINS`
 - embedding model name and stored dimensions (`vector(1536)`)
 

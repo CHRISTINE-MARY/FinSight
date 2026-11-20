@@ -46,8 +46,11 @@ class _Retriever:
     def __init__(self, passage: RetrievedPassage) -> None:
         self.passage = passage
 
-    def search(self, _question: str, *, top_k: int = 8) -> list[RetrievedPassage]:
+    def search(
+        self, _question: str, *, top_k: int = 8, progress: object = None
+    ) -> list[RetrievedPassage]:
         assert top_k == 8
+        assert progress is None
         return [self.passage]
 
     def read_chunk(self, chunk_id: UUID) -> RetrievedPassage | None:

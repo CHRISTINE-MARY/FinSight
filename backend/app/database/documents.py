@@ -41,13 +41,19 @@ class StoreResult:
     chunk_count: int
 
 
+_engine: Engine | None = None
+
+
 def database_engine() -> Engine:
-    parsed = make_url(settings.database_url)
-    if parsed.drivername != "postgresql+psycopg":
-        parsed = parsed.set(drivername="postgresql+psycopg")
-    return create_engine(
-        parsed.render_as_string(hide_password=False), pool_pre_ping=True
-    )
+    global _engine
+    if _engine is None:
+        parsed = make_url(settings.database_url)
+        if parsed.drivername != "postgresql+psycopg":
+            parsed = parsed.set(drivername="postgresql+psycopg")
+        _engine = create_engine(
+            parsed.render_as_string(hide_password=False), pool_pre_ping=True
+        )
+    return _engine
 
 
 def fetch_filing(accession_number: str) -> FilingContext:

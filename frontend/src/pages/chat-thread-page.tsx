@@ -2,11 +2,11 @@ import { useEffect, useState } from "react"
 import { useOutletContext, useParams } from "react-router-dom"
 
 import { api } from "@/lib/api"
-import { toUiMessages, type ThreadDetail } from "@/lib/chat"
+import { toUiMessages, type CopilotMessage, type ThreadDetail } from "@/lib/chat"
+import { describeRequestError } from "@/lib/chat-errors"
 import { ApiError } from "@/lib/http"
 import { ChatConversation } from "@/pages/chat-conversation"
 import type { ChatOutletContext } from "@/pages/chat-layout"
-import type { UIMessage } from "ai"
 
 export function ChatThreadPage() {
   const { threadId = "" } = useParams()
@@ -28,7 +28,7 @@ function ThreadHistory({
   threadId: string
   refreshThreads: () => Promise<void>
 }) {
-  const [messages, setMessages] = useState<UIMessage[] | null>(null)
+  const [messages, setMessages] = useState<CopilotMessage[] | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -48,9 +48,7 @@ function ThreadHistory({
           setError("You don't have access to this conversation.")
           return
         }
-        setError(
-          caught instanceof ApiError ? caught.message : "Could not load this chat",
-        )
+        setError(describeRequestError(caught, "Could not load this chat"))
       })
     return () => {
       active = false

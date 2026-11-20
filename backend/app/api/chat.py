@@ -1,5 +1,7 @@
+import asyncio
+import contextlib
 from typing import Annotated, Literal
-from uuid import UUID
+from uuid import UUID, uuid4
 
 import structlog
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -7,7 +9,7 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, ConfigDict, Field
 
 from app.auth.dependencies import CurrentUser, get_current_user
-from app.chat.messages import IncomingMessage, latest_user_text
+from app.chat.messages import IncomingMessage, latest_user_text, status_part
 from app.chat.orchestrator import AssistantError, RetrievalError, run_turn
 from app.chat.streaming import answer_events, encode_sse
 from app.database.chats import (
@@ -159,37 +161,71 @@ async def stream_chat(
         _raise_store(exc)
 
     async def events():
+        yield encode_sse({"type": "start", "messageId": str(uuid4())})
+        queue: asyncio.Queue[bytes | None] = asyncio.Queue()
+
+        async def report(phase: str, detail: str) -> None:
+            queue.put_nowait(encode_sse(status_part(phase, detail)))
+
+        async def run() -> None:
+            try:
+                turn = await run_turn(user, thread, user_text, report=report)
+            except GroundingError as exc:
+                log.info("grounding rejected the answer", error=str(exc))
+                queue.put_nowait(
+                    _error_event("This answer could not be grounded in the filings.")
+                )
+                return
+            except RetrievalError as exc:
+                log.error("retrieval failed", error=str(exc))
+                queue.put_nowait(_error_event("Retrieval failed. Try again."))
+                return
+            except AssistantError as exc:
+                log.error("assistant failed", error=str(exc))
+                queue.put_nowait(
+                    _error_event("The assistant could not complete this answer.")
+                )
+                return
+            parts = [*turn.parts, status_part("stream", "Writing the answer")]
+            queue.put_nowait(encode_sse(parts[-1]))
+            async for chunk in answer_events(turn.parts):
+                queue.put_nowait(chunk)
+            parts.append(status_part("save", "Saving the answer and citations"))
+            queue.put_nowait(encode_sse(parts[-1]))
+            try:
+                await append_turn(
+                    user,
+                    thread,
+                    user_text,
+                    turn.answer,
+                    parts=parts,
+                    citations=list(turn.citations),
+                )
+            except ChatStoreError as exc:
+                log.error("chat store failed", error=str(exc))
+                queue.put_nowait(_error_event("Could not save this conversation."))
+                return
+            queue.put_nowait(encode_sse({"type": "finish", "finishReason": "stop"}))
+            queue.put_nowait(encode_sse("[DONE]"))
+
+        async def guarded() -> None:
+            try:
+                await run()
+            finally:
+                queue.put_nowait(None)
+
+        task = asyncio.create_task(guarded())
         try:
-            turn = await run_turn(user, thread, user_text)
-        except GroundingError as exc:
-            log.info("grounding rejected the answer", error=str(exc))
-            yield _error_event("This answer could not be grounded in the filings.")
-            return
-        except RetrievalError as exc:
-            log.error("retrieval failed", error=str(exc))
-            yield _error_event("Retrieval failed. Try again.")
-            return
-        except AssistantError as exc:
-            log.error("assistant failed", error=str(exc))
-            yield _error_event("The assistant could not complete this answer.")
-            return
-        async for chunk in answer_events(turn.parts):
-            yield chunk
-        try:
-            await append_turn(
-                user,
-                thread,
-                user_text,
-                turn.answer,
-                parts=turn.parts,
-                citations=list(turn.citations),
-            )
-        except ChatStoreError as exc:
-            log.error("chat store failed", error=str(exc))
-            yield _error_event("Could not save this conversation.")
-            return
-        yield encode_sse({"type": "finish", "finishReason": "stop"})
-        yield encode_sse("[DONE]")
+            while True:
+                item = await queue.get()
+                if item is None:
+                    break
+                yield item
+        finally:
+            if not task.done():
+                task.cancel()
+            with contextlib.suppress(asyncio.CancelledError):
+                await task
 
     return StreamingResponse(
         events(),

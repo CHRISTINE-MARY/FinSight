@@ -1,7 +1,7 @@
-import { DefaultChatTransport, type UIMessage } from "ai"
+import { DefaultChatTransport } from "ai"
 
 import { api } from "@/lib/api"
-import type { ChatThread } from "@/lib/chat"
+import type { ChatThread, CopilotMessage } from "@/lib/chat"
 import { env } from "@/lib/env"
 import { getAccessToken } from "@/lib/session"
 
@@ -10,7 +10,7 @@ export function createChatTransport(
   onThread?: (id: string) => void,
 ) {
   let resolvedId = threadId
-  return new DefaultChatTransport<UIMessage>({
+  return new DefaultChatTransport<CopilotMessage>({
     api: `${env.apiBaseUrl}/chat/stream`,
     headers: async () => {
       const token = await getAccessToken()

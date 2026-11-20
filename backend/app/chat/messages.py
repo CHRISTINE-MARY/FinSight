@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from pydantic import BaseModel, ConfigDict, Field
 
 
@@ -31,11 +33,26 @@ def latest_user_text(messages: list[IncomingMessage]) -> str:
     return text
 
 
+def status_part(
+    phase: str, detail: str, *, index: int | None = None
+) -> dict[str, object]:
+    part_id = f"status-{index}" if index is not None else f"status-{uuid4()}"
+    return {
+        "type": "data-status",
+        "id": part_id,
+        "data": {"phase": phase, "detail": detail},
+    }
+
+
 def assistant_parts(
-    answer: str, citations: list[dict[str, object]]
+    answer: str,
+    citations: list[dict[str, object]],
+    statuses: list[dict[str, str]] | None = None,
 ) -> list[dict[str, object]]:
-    """AI SDK parts: the answer text, then one data part per citation."""
+    """AI SDK parts: answer text, pipeline statuses, then one data part per citation."""
     parts: list[dict[str, object]] = [{"type": "text", "text": answer}]
+    for index, status in enumerate(statuses or []):
+        parts.append(status_part(status["phase"], status["detail"], index=index))
     for index, data in enumerate(citations):
         parts.append({"type": "data-citation", "id": f"citation-{index}", "data": data})
     return parts

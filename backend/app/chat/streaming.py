@@ -1,7 +1,6 @@
 import asyncio
 import json
 from collections.abc import AsyncIterator
-from uuid import uuid4
 
 
 def text_pieces(text: str) -> list[str]:
@@ -21,11 +20,9 @@ def encode_sse(event: dict[str, object] | str) -> bytes:
 
 
 async def answer_events(parts: list[dict[str, object]]) -> AsyncIterator[bytes]:
-    """AI SDK UI message stream for a validated answer and its citations."""
-    message_id = str(uuid4())
+    """Text and citation events. The caller emits ``start`` before these."""
     text = _answer_text(parts)
     text_id = "text"
-    yield encode_sse({"type": "start", "messageId": message_id})
     yield encode_sse({"type": "text-start", "id": text_id})
     for piece in text_pieces(text):
         yield encode_sse({"type": "text-delta", "id": text_id, "delta": piece})

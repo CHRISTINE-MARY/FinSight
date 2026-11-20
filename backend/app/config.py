@@ -17,12 +17,9 @@ class Settings(BaseSettings):
     supabase_anon_key: str
     supabase_service_role_key: str
     database_url: str
-    openai_api_key: str
-    openai_embedding_model: str
-    openai_embedding_dimensions: int
-    openrouter_api_key: str
-    openrouter_embedding_model: str
-    openrouter_model: str
+    nvidia_api_key: str
+    nvidia_embedding_model: str
+    nvidia_chat_model: str
     allowed_origins: Annotated[list[str], NoDecode]
 
     @field_validator("allowed_origins", mode="before")
@@ -36,5 +33,8 @@ class Settings(BaseSettings):
             raise ValueError("ALLOWED_ORIGINS must list at least one origin")
         return origins
 
+
+# Hosted NIM. Chat and embeddings both use the OpenAI-compatible API.
+NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1"
 
 settings = Settings()

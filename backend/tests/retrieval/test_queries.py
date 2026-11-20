@@ -122,7 +122,8 @@ def test_retrieve_loads_only_the_fused_top_hits(
         ]
     )
     monkeypatch.setattr(
-        "app.retrieval.retriever.embed_texts", lambda _texts: [[0.1, 0.2]]
+        "app.retrieval.retriever.embed_texts",
+        lambda _texts, *, input_type: [[0.1, 0.2]] if input_type == "query" else [],
     )
     monkeypatch.setattr(
         "app.retrieval.retriever.semantic_search",
@@ -152,7 +153,8 @@ def test_retrieve_returns_empty_when_both_searches_miss(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     monkeypatch.setattr(
-        "app.retrieval.retriever.embed_texts", lambda _texts: [[0.1, 0.2]]
+        "app.retrieval.retriever.embed_texts",
+        lambda _texts, *, input_type: [[0.1, 0.2]] if input_type == "query" else [],
     )
     monkeypatch.setattr(
         "app.retrieval.retriever.semantic_search",
