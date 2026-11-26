@@ -49,6 +49,9 @@ def embed_pending() -> None:
                 stalls += 1
                 _wait(stalls, f"NVIDIA HTTP {exc.status_code}")
                 continue
+            if exc.status_code == 422:
+                _embed_individually(batch)
+                continue
             mark_embedding_failed(chunk_ids)
             print(
                 f"batch marked failed after HTTP {exc.status_code}",
@@ -69,6 +72,26 @@ def embed_pending() -> None:
         sent += 1
         print(f"request {sent}: embedded {len(batch)} chunk(s)", flush=True)
     print(f"embedding_status counts: {chunk_status_counts()}", flush=True)
+
+
+def _embed_individually(batch: list) -> None:
+    """One screened passage rejects the whole batch. Save the rest one by one."""
+    saved = 0
+    for item in batch:
+        try:
+            vectors = embed_texts([item.content], input_type="passage")
+        except APIStatusError as exc:
+            if exc.status_code in _RETRYABLE_STATUS:
+                raise
+            mark_embedding_failed([item.id])
+            print(
+                f"chunk marked failed after HTTP {exc.status_code}",
+                flush=True,
+            )
+            continue
+        save_embeddings([(item.id, vectors[0])])
+        saved += 1
+    print(f"embedded {saved} chunk(s) individually", flush=True)
 
 
 def _wait(stalls: int, reason: str) -> None:

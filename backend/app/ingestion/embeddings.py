@@ -19,7 +19,7 @@ from app.database.models.document_chunk import EMBEDDING_DIMENSIONS
 
 EMBEDDING_BATCH_SIZE = 8
 InputType = Literal["passage", "query"]
-_ATTEMPTS = 2
+_ATTEMPTS = 3
 _RETRYABLE_STATUS = {408, 429, 500, 502, 503, 504}
 
 

@@ -3,14 +3,21 @@
 from __future__ import annotations
 
 import asyncio
+import re
 from dataclasses import dataclass
 
 from app.assistant.agent import get_agent
 from app.assistant.deps import DocumentAgentDeps, StatusReport
+from app.assistant.outputs import compose_answer
 from app.auth.dependencies import CurrentUser
 from app.chat.messages import assistant_parts
 from app.chat.status import threadsafe_report
-from app.database.chats import CitationInsert, ThreadRecord
+from app.database.chats import (
+    CitationInsert,
+    StoredMessage,
+    ThreadRecord,
+    list_messages,
+)
 from app.grounding.validator import validate
 from app.retrieval.retriever import DocumentRetriever, RetrievedPassage
 
@@ -21,6 +28,39 @@ class RetrievalError(Exception):
 
 class AssistantError(Exception):
     pass
+
+
+_PRIOR_QUESTIONS = 6
+_COMPANIES = (
+    (("apple", "apples", "aapl"), "Apple"),
+    (("amazon", "amzn"), "Amazon"),
+    (("microsoft", "msft"), "Microsoft"),
+    (("nvidia", "nvda"), "NVIDIA"),
+    (("alphabet", "google", "googl", "goog"), "Alphabet"),
+)
+_THREAD_MARKERS = (
+    "prev question",
+    "previous question",
+    "talking about",
+    "which company",
+    "what company",
+    "which one",
+)
+_THREAD_FILLER = {
+    "a",
+    "about",
+    "an",
+    "and",
+    "company",
+    "i",
+    "me",
+    "or",
+    "the",
+    "this",
+    "wait",
+    "was",
+    "which",
+}
 
 
 @dataclass(frozen=True, slots=True)
@@ -52,8 +92,23 @@ async def run_turn(
         report=note,
     )
     try:
+        prior = _recent_user_questions(await list_messages(user, thread.id))
+    except Exception as exc:
+        raise RetrievalError("Retrieval failed") from exc
+    if _is_thread_question(question):
+        await note("retrieve", "Reading the earlier questions in this thread")
+        answer = _thread_answer(question, prior)
+        return CompletedTurn(
+            answer=answer,
+            parts=assistant_parts(answer, [], notes),
+            citations=(),
+        )
+    try:
         passages = await asyncio.to_thread(
-            retriever.search, question, progress=threadsafe_report(note)
+            retriever.search,
+            question,
+            prior_questions=prior,
+            progress=threadsafe_report(note),
         )
     except Exception as exc:
         raise RetrievalError("Retrieval failed") from exc
@@ -64,9 +119,12 @@ async def run_turn(
         noun = "passage" if len(passages) == 1 else "passages"
         await note("retrieve", f"Retrieved {len(passages)} {noun}: {labels}")
     try:
-        output = await _complete(_prompt(question, passages), deps, note)
+        output = await _complete(_prompt(question, passages, prior), deps, note)
     except Exception as exc:
         raise AssistantError("The assistant could not complete this answer") from exc
+    output = output.model_copy(
+        update={"answer": compose_answer(output.answer, output.table)}
+    )
     await note("validate", "Checking that every citation maps to a retrieved passage")
     validated = validate(output, deps.retrieved)
     count = len(validated.citations)
@@ -116,12 +174,105 @@ def _tool_labels(node: object) -> list[str]:
     return labels
 
 
-def _prompt(question: str, passages: list[RetrievedPassage]) -> str:
+def _prompt(
+    question: str, passages: list[RetrievedPassage], prior_questions: list[str]
+) -> str:
     if passages:
         blocks = "\n\n---\n\n".join(_block(passage) for passage in passages)
     else:
         blocks = "No passages were retrieved."
-    return f"Question:\n{question}\n\nRetrieved passages:\n{blocks}"
+    table_line = ""
+    if _wants_table(question):
+        table_line = (
+            "\n\nFill the table field. One row per segment or item, one column "
+            "per fiscal year in the question. The answer field is only the lead sentence."
+        )
+    history = _history_block(prior_questions)
+    return f"Question:\n{question}{table_line}{history}\n\nRetrieved passages:\n{blocks}"
+
+
+def _history_block(prior_questions: list[str]) -> str:
+    if not prior_questions:
+        return ""
+    lines = "\n".join(f"- {item}" for item in prior_questions)
+    return (
+        "\n\nThe analyst already asked:\n"
+        f"{lines}\n"
+        "If this question omits the company or the metric, keep them from those "
+        "earlier questions unless it names a different company."
+    )
+
+
+def _is_thread_question(question: str) -> bool:
+    lowered = question.lower()
+    if any(marker in lowered for marker in _THREAD_MARKERS):
+        return True
+    tokens = re.findall(r"[a-z0-9]+", lowered)
+    if len(_companies_in(question)) < 2:
+        return False
+    return all(token in _THREAD_FILLER or _company_named(token) for token in tokens)
+
+
+def _thread_answer(question: str, prior_questions: list[str]) -> str:
+    if not prior_questions:
+        return "This thread has no earlier question."
+    mentioned: list[str] = []
+    for text in prior_questions:
+        for name in _companies_in(text):
+            if name not in mentioned:
+                mentioned.append(name)
+    if not mentioned:
+        return "Your earlier questions did not name a company."
+    asked = _companies_in(question)
+    if len(asked) >= 2:
+        overlap = [name for name in asked if name in mentioned]
+        if not overlap:
+            return f"Your earlier questions did not name {_join(asked)}."
+        return f"Your earlier questions were about {_join(overlap)}."
+    return f"Your earlier questions were about {mentioned[-1]}."
+
+
+def _companies_in(text: str) -> list[str]:
+    tokens = set(re.findall(r"[a-z0-9]+", text.lower()))
+    return [name for aliases, name in _COMPANIES if tokens & set(aliases)]
+
+
+def _company_named(token: str) -> bool:
+    return any(token in aliases for aliases, _name in _COMPANIES)
+
+
+def _join(names: list[str]) -> str:
+    if len(names) == 1:
+        return names[0]
+    if len(names) == 2:
+        return f"{names[0]} and {names[1]}"
+    return f"{', '.join(names[:-1])}, and {names[-1]}"
+
+
+def _recent_user_questions(messages: list[StoredMessage]) -> list[str]:
+    questions: list[str] = []
+    for message in messages:
+        if message.role != "user":
+            continue
+        text = _part_text(message.parts)
+        if text:
+            questions.append(text)
+    return questions[-_PRIOR_QUESTIONS:]
+
+
+def _part_text(parts: list[dict[str, object]]) -> str:
+    chunks: list[str] = []
+    for part in parts:
+        if part.get("type") == "text" and isinstance(part.get("text"), str):
+            chunks.append(part["text"])
+    return "".join(chunks).strip()
+
+
+def _wants_table(question: str) -> bool:
+    lowered = question.lower()
+    if any(word in lowered for word in ("table", "compare", "comparison")):
+        return True
+    return "mix" in lowered and "year" in lowered
 
 
 def _passage_label(passage: RetrievedPassage) -> str:

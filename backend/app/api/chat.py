@@ -177,7 +177,8 @@ async def stream_chat(
                 )
                 return
             except RetrievalError as exc:
-                log.error("retrieval failed", error=str(exc))
+                cause = exc.__cause__ or exc
+                log.error("retrieval failed", error=str(cause))
                 queue.put_nowait(_error_event("Retrieval failed. Try again."))
                 return
             except AssistantError as exc:

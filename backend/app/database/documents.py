@@ -115,11 +115,7 @@ def fetch_chunks_for_embedding(limit: int) -> list[ChunkToEmbed]:
     with engine.connect() as connection:
         rows = connection.execute(
             select(DocumentChunk.id, DocumentChunk.content)
-            .where(
-                DocumentChunk.embedding_status.in_(
-                    (EMBEDDING_STATUS_PENDING, EMBEDDING_STATUS_FAILED)
-                )
-            )
+            .where(DocumentChunk.embedding_status == EMBEDDING_STATUS_PENDING)
             .order_by(DocumentChunk.document_id, DocumentChunk.chunk_index)
             .limit(limit)
         ).all()

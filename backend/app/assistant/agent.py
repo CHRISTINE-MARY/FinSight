@@ -16,7 +16,6 @@ from app.chat.status import threadsafe_report
 from app.config import NVIDIA_BASE_URL, settings
 from app.retrieval.retriever import RetrievedPassage
 
-_INSTRUCTIONS = (Path(__file__).parent / "instructions.md").read_text(encoding="utf-8")
 _EXCERPT_CHARS = 500
 _agent: Agent[DocumentAgentDeps, GroundedAnswer] | None = None
 
@@ -32,11 +31,14 @@ def get_agent() -> Agent[DocumentAgentDeps, GroundedAnswer]:
                 api_key=settings.nvidia_api_key,
             ),
         )
+        instructions = (Path(__file__).parent / "instructions.md").read_text(
+            encoding="utf-8"
+        )
         agent: Agent[DocumentAgentDeps, GroundedAnswer] = Agent(
             model,
             deps_type=DocumentAgentDeps,
             output_type=PromptedOutput(GroundedAnswer),
-            instructions=_INSTRUCTIONS,
+            instructions=instructions,
             name="document_copilot",
             # Lightning reasons unless told not to. This assistant should answer
             # from the passages, not spend the call on a hidden chain of thought.

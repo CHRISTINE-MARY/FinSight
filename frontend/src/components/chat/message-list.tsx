@@ -1,3 +1,4 @@
+import { MarkdownAnswer } from "@/components/chat/markdown-answer"
 import { PipelineStatusList } from "@/components/chat/pipeline-status"
 import {
   citationLabel,
@@ -44,13 +45,17 @@ export function MessageList({
               className={
                 message.role === "user"
                   ? "ml-auto max-w-xl rounded-xl bg-muted px-3 py-2 text-sm"
-                  : "mr-auto w-full max-w-2xl text-sm"
+                  : "mr-auto w-full max-w-3xl text-sm"
               }
             >
               <p className="mb-1 text-xs text-muted-foreground">
                 {message.role === "user" ? "You" : "Copilot"}
               </p>
-              <p className="whitespace-pre-wrap">{text}</p>
+              {message.role === "user" ? (
+                <p className="whitespace-pre-wrap">{text}</p>
+              ) : (
+                <MarkdownAnswer text={text} />
+              )}
               {noMatch ? (
                 <p className="mt-3 rounded-lg border border-dashed px-3 py-2 text-muted-foreground">
                   No matching passage in the corpus.
