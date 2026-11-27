@@ -1,6 +1,6 @@
 # FinSight
 
-Ask questions in plain English about SEC filings and get answers that cite the source passage.
+FinSight is a research assistant for reading SEC filings. Analysts ask questions in plain English about a corpus of 10-Ks. The app retrieves the relevant passages and answers with a citation back to the filing, so each claim can be checked against the source. If the filings do not support the question, it says so instead of guessing.
 
 ## Setup
 
