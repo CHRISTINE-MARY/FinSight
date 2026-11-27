@@ -2,14 +2,62 @@
 
 from __future__ import annotations
 
+from typing import Self
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
+
+
+class Claim(BaseModel):
+    """One factual sentence and the numbered passage it comes from."""
+
+    text: str = Field(
+        description=(
+            "One factual sentence. Copy figures as printed. "
+            "Do not put the passage number in the text."
+        )
+    )
+    chunk: int = Field(
+        ge=1,
+        description=(
+            "Passage number printed on a chunk in this request. "
+            "Required for every factual claim. Do not invent a number."
+        ),
+    )
+    label: str = Field(
+        default="",
+        description=(
+            "Row name or short name copied from that passage. Do not rebuild the row."
+        ),
+    )
+    figure: str = Field(
+        default="",
+        description=(
+            "The printed number used from that passage. "
+            "Leave empty when the claim has no number. Do not rebuild the row."
+        ),
+    )
 
 
 class Citation(BaseModel):
-    chunk_id: UUID = Field(description="Id of a chunk returned for this request")
-    excerpt: str = Field(description="Contiguous text copied from that chunk")
+    chunk_id: UUID = Field(description="Id of a chunk returned for this request.")
+    label: str = Field(
+        default="",
+        description=(
+            "Row name or short name copied from that chunk. Do not rebuild the row."
+        ),
+    )
+    figure: str = Field(
+        default="",
+        description=(
+            "The printed number used from that chunk. "
+            "Leave empty when the claim has no number. Do not rebuild the row."
+        ),
+    )
+    excerpt: str = Field(
+        default="",
+        description="Leave empty. The server copies the original line.",
+    )
 
 
 class SourcePassage(BaseModel):
@@ -44,6 +92,50 @@ class AnswerTable(BaseModel):
             "Copy the figures from the passages."
         ),
     )
+
+
+REFUSAL_SENTENCE = "The corpus does not contain enough evidence."
+
+
+class ModelAnswer(BaseModel):
+    """JSON answer. Set claims, or set answer to the refusal sentence. Both empty is invalid."""
+
+    claims: list[Claim] = Field(
+        default_factory=list,
+        description=(
+            "One entry per factual sentence. Each entry's chunk is a passage "
+            "number from this request. Leave this empty only when answer is "
+            f"exactly: {REFUSAL_SENTENCE}"
+        ),
+    )
+    answer: str = Field(
+        default="",
+        description=(
+            "Empty string when claims is set. When the passages do not contain "
+            f"the facts, set this to exactly: {REFUSAL_SENTENCE} "
+            "Do not leave this empty when claims is empty."
+        ),
+    )
+    table: AnswerTable | None = Field(
+        default=None,
+        description=(
+            "Required when the user asks for a table or the question compares "
+            "years, segments, or companies. Null when a table does not apply."
+        ),
+    )
+
+    @model_validator(mode="after")
+    def require_claims_or_refusal(self) -> Self:
+        # {} matches the defaults, so the schema accepts it. Reject it here so
+        # the output retry asks for claims or the refusal sentence.
+        if any(claim.text.strip() for claim in self.claims):
+            return self
+        if self.answer.strip() == REFUSAL_SENTENCE:
+            return self
+        raise ValueError(
+            "Set claims to one entry per factual sentence, or set answer to "
+            f"exactly {REFUSAL_SENTENCE!r}. An empty object is not an answer."
+        )
 
 
 class GroundedAnswer(BaseModel):

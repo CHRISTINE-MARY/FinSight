@@ -62,6 +62,16 @@ def fetch_filing(accession_number: str) -> FilingContext:
         return _filing(connection, accession_number)
 
 
+def list_filers() -> list[tuple[str, str]]:
+    """Distinct ticker and company name from filing metadata."""
+    engine = database_engine()
+    with engine.connect() as connection:
+        rows = connection.execute(
+            select(SourceDocument.ticker, SourceDocument.company_name).distinct()
+        ).all()
+    return [(row.ticker, row.company_name) for row in rows]
+
+
 def store_chunks(accession_number: str, rows: list[ChunkWrite]) -> StoreResult:
     """Insert chunks, or skip when this accession was already stored in full."""
     engine = database_engine()
@@ -95,6 +105,40 @@ def store_chunks(accession_number: str, rows: list[ChunkWrite]) -> StoreResult:
         return StoreResult(
             action="stored", document_id=filing.id, chunk_count=len(rows)
         )
+
+
+def tag_stored_cover_pages() -> int:
+    """Label chunks before the first Item or Part. Embeddings stay as they are.
+
+    Matches tag_cover_chunks. The street is often a different sentence from
+    "Address of principal executive offices", and Microsoft's cover omits that
+    phrase entirely.
+    """
+    engine = database_engine()
+    statement = text(
+        r"""
+        WITH first_body AS (
+            SELECT document_id, MIN(chunk_index) AS body_index
+            FROM document_chunks
+            WHERE content ~* '\m(item|part)[[:space:]]+([0-9]+|[ivx]+)\M'
+            GROUP BY document_id
+        )
+        UPDATE document_chunks AS chunk
+        SET metadata = jsonb_set(
+            COALESCE(chunk.metadata, '{}'::jsonb),
+            '{section}',
+            '["Cover"]'::jsonb,
+            true
+        )
+        FROM first_body
+        WHERE chunk.document_id = first_body.document_id
+          AND chunk.chunk_index < first_body.body_index
+          AND NOT (COALESCE(chunk.metadata->'section', '[]'::jsonb) ? 'Cover')
+        """
+    )
+    with engine.begin() as connection:
+        result = connection.execute(statement)
+        return result.rowcount or 0
 
 
 def chunk_status_counts() -> dict[str, int]:

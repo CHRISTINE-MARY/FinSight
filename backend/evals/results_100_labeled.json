@@ -1,0 +1,3776 @@
+{
+  "scoring": {
+    "Recall@8": "share of gold chunks in the first search's top 8, averaged over answerable questions",
+    "MRR@8": "1/rank of the first gold chunk in that top 8, else 0",
+    "Precision@8": "gold chunks in the top 8, divided by 8",
+    "Answer Accuracy": "every gold figure is present; temporal values stay in gold order; unanswerable items must refuse",
+    "Citation Precision": "share of cited chunks that are gold, averaged over answerable questions",
+    "Abstention Accuracy": "answerable questions that did not refuse, plus unanswerable questions that refused with no citation",
+    "P95 Latency": "nearest-rank 95th percentile of full-turn seconds"
+  },
+  "summary": {
+    "overall": {
+      "n": 100,
+      "citation_mistake": 8,
+      "hallucination": 29,
+      "Recall@8": 0.5595,
+      "MRR@8": 0.3026,
+      "Precision@8": 0.0908,
+      "Answer Accuracy": 0.42,
+      "Citation Precision": 0.2579,
+      "Abstention Accuracy": 0.95,
+      "P95 Latency": 12.018
+    },
+    "by_category": {
+      "factual": {
+        "n": 20,
+        "citation_mistake": 1,
+        "hallucination": 3,
+        "Recall@8": 0.65,
+        "MRR@8": 0.3458,
+        "Precision@8": 0.0813,
+        "Answer Accuracy": 0.55,
+        "Citation Precision": 0.3417,
+        "Abstention Accuracy": 1.0,
+        "P95 Latency": 12.58
+      },
+      "numerical": {
+        "n": 24,
+        "citation_mistake": 0,
+        "hallucination": 8,
+        "Recall@8": 0.7083,
+        "MRR@8": 0.4076,
+        "Precision@8": 0.0885,
+        "Answer Accuracy": 0.4167,
+        "Citation Precision": 0.3125,
+        "Abstention Accuracy": 0.9583,
+        "P95 Latency": 11.311
+      },
+      "multi_hop": {
+        "n": 20,
+        "citation_mistake": 4,
+        "hallucination": 6,
+        "Recall@8": 0.45,
+        "MRR@8": 0.2298,
+        "Precision@8": 0.1,
+        "Answer Accuracy": 0.25,
+        "Citation Precision": 0.1917,
+        "Abstention Accuracy": 0.95,
+        "P95 Latency": 11.602
+      },
+      "temporal": {
+        "n": 20,
+        "citation_mistake": 3,
+        "hallucination": 12,
+        "Recall@8": 0.4,
+        "MRR@8": 0.2059,
+        "Precision@8": 0.0938,
+        "Answer Accuracy": 0.15,
+        "Citation Precision": 0.175,
+        "Abstention Accuracy": 1.0,
+        "P95 Latency": 10.754
+      },
+      "unanswerable": {
+        "n": 16,
+        "citation_mistake": 0,
+        "hallucination": 0,
+        "Recall@8": null,
+        "MRR@8": null,
+        "Precision@8": null,
+        "Answer Accuracy": 0.8125,
+        "Citation Precision": null,
+        "Abstention Accuracy": 0.8125,
+        "P95 Latency": 12.498
+      }
+    }
+  },
+  "questions": [
+    {
+      "id": "qf-01",
+      "category": "factual",
+      "outcome": "hallucination",
+      "latency_s": 15.61,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "ade1ff5b-0100-45fc-83bc-bcec825c190f",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "One Apple Park Way                                              | One Apple Park Way                                              | One Apple Park Way                                              |    |    |    |"
+        }
+      ],
+      "retrieved": [
+        "40c56b0c-79a7-4d1f-80cc-18f6698b22a7",
+        "7a8060b8-9a06-4fe7-ac93-b799f2486289",
+        "824a9fe9-6fee-45a1-90a1-2c4f3c16a0b3",
+        "49fd26b3-5043-4cac-9b9d-39ed33f121d2",
+        "46b0f699-64b6-4c46-beb7-8d8f6a53f776",
+        "b8515385-9778-4cd5-9e3a-9401430af2b7",
+        "f492adf1-e48e-4940-b196-c8033c132148",
+        "2487033d-5461-48d3-922a-61b1ef675198"
+      ],
+      "cited": [],
+      "answer": "Claim \"Apple's fiscal 2025 Form 10-K lists its principal executive offices at One Apple Park Way, Cupertino, California 95014.\" failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qf-02",
+      "category": "factual",
+      "outcome": "answered",
+      "latency_s": 5.344,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "4a4de040-cf4c-4c2a-ac34-5d0990768893",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "ONE MICROSOFT WAY, REDMOND, Washington 98052-6399"
+        }
+      ],
+      "retrieved": [
+        "c148b539-c789-4f5e-9179-9b92e7986362",
+        "ff6139dd-97f4-4865-9727-c73360c5d4f2",
+        "aea42a37-1c12-4659-8af9-06566afeb702",
+        "89944d86-f24b-4f6c-b32f-4a49e733ee67",
+        "7df7ddad-d5ca-45c9-8816-855a97e3f6d2",
+        "d207fde3-dd4d-4f39-b195-d4150e03f684",
+        "613b7163-c0fd-49f4-a801-3deb3517fdd5",
+        "88386dc8-a842-44b3-9a7b-a57ab756cc35"
+      ],
+      "cited": [
+        "88386dc8-a842-44b3-9a7b-a57ab756cc35",
+        "75634ad7-f5df-4b47-b9e1-d6e6b624b046"
+      ],
+      "answer": "Microsoft's principal executive offices are located in Redmond, Washington. The filing states Seattle, Washington in the Deloitte & Touche LLP signature block for the 10-K FY2025."
+    },
+    {
+      "id": "qf-03",
+      "category": "factual",
+      "outcome": "answered",
+      "latency_s": 3.543,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "74909f4a-9ba9-4795-a1a0-d37ef2a6240f",
+          "ticker": "AMZN",
+          "company_name": "Amazon.com, Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "410 Terry Avenue North"
+        }
+      ],
+      "retrieved": [
+        "413f46cc-0b29-4489-96b7-1be3d7a026f4",
+        "eaa2afde-5b6c-42fc-a831-3018f6b84662",
+        "fab16ad4-4d07-4e18-ae1a-cd08bda04832",
+        "823a27ac-ad7b-48b8-8f57-1b8672a0eeba",
+        "4384618f-aaeb-4ace-bf90-428affe7c346",
+        "1628c97e-ff71-4232-9e10-e55183378675",
+        "41d51460-632a-4308-b1ae-fad452cb417a",
+        "0a72f635-2a8f-4abf-9146-d32223f9dc38"
+      ],
+      "cited": [
+        "2b9ef0f9-ccc2-44ec-8a81-082df28770b7"
+      ],
+      "answer": "Amazon's principal executive offices are located at 440 Terry Avenue North, Seattle, WA 98109."
+    },
+    {
+      "id": "qf-04",
+      "category": "factual",
+      "outcome": "answered",
+      "latency_s": 7.894,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 1.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "a1be0d94-f357-4d4f-8187-1b828c2d5e34",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "1600 Amphitheatre Parkway"
+        }
+      ],
+      "retrieved": [
+        "14b34ac7-235e-47f2-b67a-c49179ad5e40",
+        "a2c2e034-0ecf-42c7-a83b-362f0577b4b3",
+        "e3bab9e7-a0c2-4229-b1f1-9f07218e27b8",
+        "1015a911-4818-4b29-bd54-b4e4378f4b69",
+        "ddb56832-ff8c-4bef-b4dd-4309a34b0812",
+        "2a58556a-a84f-4423-bd81-bf8598b1c869",
+        "f1bb2c05-2f3c-4f7b-a4a8-292dee13725b",
+        "3d321ef0-c91d-480d-9a79-8bb393d29816"
+      ],
+      "cited": [
+        "3dae6681-dafa-47da-9966-5cd1d829edcc",
+        "ddb56832-ff8c-4bef-b4dd-4309a34b0812"
+      ],
+      "answer": "Alphabet's fiscal 2025 Form 10-K places its principal executive offices at 1600 Amphitheatre Parkway, Mountain View, CA 94043. Sundar Pichai is identified as Chief Executive Officer and Principal Executive Officer of the Registrant in the Form 10-K."
+    },
+    {
+      "id": "qf-05",
+      "category": "factual",
+      "outcome": "AssistantError: The assistant could not complete this answer (UnexpectedModelBehavior: Exceeded maximum output retries (2))",
+      "latency_s": 9.185,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.5,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "46c24b2e-3dce-4d11-9104-1f4b48248cad",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "2788 San Tomas Expressway, Santa Clara, CA 95051"
+        }
+      ],
+      "retrieved": [
+        "830904a7-5941-49d3-9b5e-d688e91c8021",
+        "46c24b2e-3dce-4d11-9104-1f4b48248cad",
+        "70368dae-3f7b-4c1c-b8e3-ec694f4aa92e",
+        "4aea7dd3-ce82-490e-bbda-75f69deb2d1e",
+        "b9ea287f-f7f3-4dcb-bcdb-a3b7e4fccb24",
+        "df3058cf-a13f-495c-bd6a-07d76f488be4",
+        "08ed93b8-104e-4310-9cca-e381cc866b32",
+        "473deea8-1002-4d17-93e4-531b5db768de"
+      ],
+      "cited": [],
+      "answer": ""
+    },
+    {
+      "id": "qf-06",
+      "category": "factual",
+      "outcome": "answered",
+      "latency_s": 6.157,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 1.0,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 1.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "acedffa5-93a5-4a7c-9659-95b354e7283a",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "auditor since 2009."
+        }
+      ],
+      "retrieved": [
+        "acedffa5-93a5-4a7c-9659-95b354e7283a",
+        "7a8060b8-9a06-4fe7-ac93-b799f2486289",
+        "5a02e9d9-8d80-4718-9eff-623aebe02532",
+        "40c56b0c-79a7-4d1f-80cc-18f6698b22a7",
+        "e772b42f-b7c7-47c5-9b04-b1733a202c71",
+        "49fd26b3-5043-4cac-9b9d-39ed33f121d2",
+        "b8515385-9778-4cd5-9e3a-9401430af2b7",
+        "46b0f699-64b6-4c46-beb7-8d8f6a53f776"
+      ],
+      "cited": [
+        "acedffa5-93a5-4a7c-9659-95b354e7283a"
+      ],
+      "answer": "Ernst & Young LLP has served as Apple's auditor since 2009."
+    },
+    {
+      "id": "qf-07",
+      "category": "factual",
+      "outcome": "citation_mistake",
+      "latency_s": 6.97,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "75634ad7-f5df-4b47-b9e1-d6e6b624b046",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "DELOITTE & TOUCHE LLP"
+        }
+      ],
+      "retrieved": [
+        "d5049acb-ae9f-4ef9-92df-09da3212f6af",
+        "42401c68-c789-43a4-af87-9b0035b56ae9",
+        "c148b539-c789-4f5e-9179-9b92e7986362",
+        "873db7da-ea1f-4a27-816b-6a66fdbf07de",
+        "d207fde3-dd4d-4f39-b195-d4150e03f684",
+        "613b7163-c0fd-49f4-a801-3deb3517fdd5",
+        "ff6139dd-97f4-4865-9727-c73360c5d4f2",
+        "d494106c-f22e-4954-ab26-a4d975892d8a"
+      ],
+      "cited": [],
+      "answer": "Claim \"The independent registered public accounting firm that audited Microsoft's fiscal 2025 consolidated financial statements was Deloitte & Touche LLP. Deloitte & Touche LLP has audited the Company's internal control over financial reporting as of June 30, 2025.\" failed: Citation mistake: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qf-08",
+      "category": "factual",
+      "outcome": "answered",
+      "latency_s": 4.906,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.5,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 1.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "9bfb912f-7698-4fe3-add4-bf1acd88bd40",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "audited by PricewaterhouseCoopers LLP, an independent registered public accounting firm, as stated in its report which is included herein."
+        }
+      ],
+      "retrieved": [
+        "dea94a5d-ab0c-4930-a055-ecc016c31c30",
+        "9bfb912f-7698-4fe3-add4-bf1acd88bd40",
+        "ae76bbe0-f08e-47fc-aac4-5d87abb0323c",
+        "46c24b2e-3dce-4d11-9104-1f4b48248cad",
+        "f74bfe99-e672-436a-a8bc-5b813a40ea7e",
+        "4246efbf-824b-46a1-b89d-2bc8f5c26446",
+        "de82ae96-437c-4829-9062-fea058daae21",
+        "79a93df6-ef45-41e8-b24c-b961c9d0e6f7"
+      ],
+      "cited": [
+        "9bfb912f-7698-4fe3-add4-bf1acd88bd40"
+      ],
+      "answer": "The Company's internal control over financial reporting as of January 26, 2025, was audited by PricewaterhouseCoopers LLP."
+    },
+    {
+      "id": "qf-09",
+      "category": "factual",
+      "outcome": "answered",
+      "latency_s": 7.439,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.25,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "07b229f6-10f8-428f-a0b8-ddd7a0da6221",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "Greater China, Japan and Rest of Asia Pacific. Americas includes both North and South America. Europe includes European countries, as well as India, the Middle East and Africa. Greater China includes China mainland, Hong Kong and Taiwan. Re"
+        }
+      ],
+      "retrieved": [
+        "e772b42f-b7c7-47c5-9b04-b1733a202c71",
+        "46b0f699-64b6-4c46-beb7-8d8f6a53f776",
+        "31c9bc80-fccf-47bf-a526-9e1c72035071",
+        "07b229f6-10f8-428f-a0b8-ddd7a0da6221",
+        "7a8060b8-9a06-4fe7-ac93-b799f2486289",
+        "40c56b0c-79a7-4d1f-80cc-18f6698b22a7",
+        "822aff0e-dcf6-43ad-a415-c43587a9ef07",
+        "2703a0ea-afcd-4194-be60-72f5ac9ea6ba"
+      ],
+      "cited": [
+        "31c9bc80-fccf-47bf-a526-9e1c72035071",
+        "dc6a400f-fa61-4d0d-9fa2-fe73504ef400"
+      ],
+      "answer": "The Company's reportable segments consist of the Americas, Europe, Greater China, Japan and Rest of Asia Pacific. Net sales for Americas in 2025 were $178,353 million. Net sales for Europe in 2025 were $111,032 million. Net sales for Greater China in 2025 were $64,377 million. Net sales for Japan in 2025 were $28,703 million. Net sales for Rest of Asia Pacific in 2025 were $33,696 million.\n\n| Segment | 2025 | 2024 | 2023 |\n| --- | --- | --- | --- |\n| Americas | $178,353 |  |  |\n| Europe | $111,032 |  |  |\n| Greater China | $64,377 |  |  |\n| Japan | $28,703 |  |  |\n| Rest of Asia Pacific | $33,696 |  |  |\n| Corporate | - | - | - |\n| Total | $416,161 |  |  |"
+    },
+    {
+      "id": "qf-10",
+      "category": "factual",
+      "outcome": "answered",
+      "latency_s": 11.431,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.5,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 0.5,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "608a3e4d-b07f-45a4-9431-461240e02df2",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "Productivity and Business Processes, Intelligent Cloud, and More Personal Computing. The segment amounts included in MD&A are presented on a basis consistent with our internal management reporting."
+        }
+      ],
+      "retrieved": [
+        "7df7ddad-d5ca-45c9-8816-855a97e3f6d2",
+        "608a3e4d-b07f-45a4-9431-461240e02df2",
+        "b4c99860-3323-4ffa-980d-e711b8fa4ac3",
+        "bc46c8ac-1922-464d-8d2e-79f0038ac08b",
+        "873db7da-ea1f-4a27-816b-6a66fdbf07de",
+        "5b432453-2266-42a3-9312-84c6f1ea725f",
+        "ca3b3a0c-7c10-43d6-aca3-df02fd36a1a9",
+        "d5049acb-ae9f-4ef9-92df-09da3212f6af"
+      ],
+      "cited": [
+        "7df7ddad-d5ca-45c9-8816-855a97e3f6d2",
+        "608a3e4d-b07f-45a4-9431-461240e02df2"
+      ],
+      "answer": "Microsoft uses three segments to measure financial performance: Productivity and Business Processes, Intelligent Cloud, and More Personal Computing. The company reports financial performance based on the following segments: Productivity and Business Processes, Intelligent Cloud, and More Personal Computing."
+    },
+    {
+      "id": "qf-11",
+      "category": "factual",
+      "outcome": "answered",
+      "latency_s": 8.846,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.5,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 0.3333,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "bae5385b-e279-49f4-b5f5-b218d6563066",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "revenues generated on YouTube properties; and"
+        }
+      ],
+      "retrieved": [
+        "de9b990a-4e3b-458e-add5-3ec0f7caefaa",
+        "bae5385b-e279-49f4-b5f5-b218d6563066",
+        "1015a911-4818-4b29-bd54-b4e4378f4b69",
+        "2a58556a-a84f-4423-bd81-bf8598b1c869",
+        "8fc0add9-61ef-4e1d-b791-d2c224fa49e4",
+        "6a949408-7b18-4176-b577-9eb19b53643e",
+        "4e92fea5-444b-47fe-9bcd-f570efcce685",
+        "31bf6c52-7abc-464f-b3a1-602e18ed2707"
+      ],
+      "cited": [
+        "bae5385b-e279-49f4-b5f5-b218d6563066",
+        "6a949408-7b18-4176-b577-9eb19b53643e",
+        "28ad91c1-5906-470b-929c-9d1bef4b8247"
+      ],
+      "answer": "Alphabet's fiscal 2025 Form 10-K defines YouTube ads revenue as the revenues generated on YouTube properties. YouTube ads revenues increased $4.2 billion from 2024 to 2025. YouTube ads revenues were $36,147 million in 2024 and $40,367 million in 2025."
+    },
+    {
+      "id": "qf-12",
+      "category": "factual",
+      "outcome": "answered",
+      "latency_s": 5.145,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.25,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 1.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "1e39eb30-1020-44f2-a93d-3bfe818343fc",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "foundational CUDA programming model that runs on all NVIDIA GPUs, as well as hundreds of domain-specific software libraries, software development kits, or SDKs, and Application Programming Interfaces, or APIs. This deep and broad software s"
+        }
+      ],
+      "retrieved": [
+        "830904a7-5941-49d3-9b5e-d688e91c8021",
+        "70368dae-3f7b-4c1c-b8e3-ec694f4aa92e",
+        "be54ce93-8e86-4fa4-80bc-ae971a0056ea",
+        "1e39eb30-1020-44f2-a93d-3bfe818343fc",
+        "08ed93b8-104e-4310-9cca-e381cc866b32",
+        "5e00156d-50db-4208-b4b5-44c7cf84e101",
+        "702975ba-d211-45bd-af72-c583f7fd12a1",
+        "53816ea5-26bb-4228-af6f-b7e01664d54d"
+      ],
+      "cited": [
+        "1e39eb30-1020-44f2-a93d-3bfe818343fc"
+      ],
+      "answer": "The CUDA programming model runs on all NVIDIA GPUs."
+    },
+    {
+      "id": "qf-13",
+      "category": "factual",
+      "outcome": "answered",
+      "latency_s": 12.58,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 1.0,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 1.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "702975ba-d211-45bd-af72-c583f7fd12a1",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "36,000 employees in 38 countries; 27,100 were engaged in research and development and 8,900 were engaged in sales, marketing, operations, and administrative positions. The Compensation Committee of our Board of Directors assists in the over"
+        }
+      ],
+      "retrieved": [
+        "702975ba-d211-45bd-af72-c583f7fd12a1",
+        "830904a7-5941-49d3-9b5e-d688e91c8021",
+        "473deea8-1002-4d17-93e4-531b5db768de",
+        "8e2ba015-d2bf-4fed-a2fc-b5dde1bc1632",
+        "5e00156d-50db-4208-b4b5-44c7cf84e101",
+        "be54ce93-8e86-4fa4-80bc-ae971a0056ea",
+        "dfaccb58-fb7c-4dd5-ad6c-80bf0a892e35",
+        "bd9262ed-7cbd-4415-bb21-461406af1186"
+      ],
+      "cited": [
+        "702975ba-d211-45bd-af72-c583f7fd12a1"
+      ],
+      "answer": "As of the end of fiscal year 2025, NVIDIA had approximately 36,000 employees in 38 countries."
+    },
+    {
+      "id": "qf-14",
+      "category": "factual",
+      "outcome": "answered",
+      "latency_s": 5.459,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "8209b628-9e86-49a0-b508-cd98c97d4ebd",
+          "ticker": "AMZN",
+          "company_name": "Amazon.com, Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "sponsored ads, display, and video advertising."
+        }
+      ],
+      "retrieved": [
+        "eaa2afde-5b6c-42fc-a831-3018f6b84662",
+        "413f46cc-0b29-4489-96b7-1be3d7a026f4",
+        "823a27ac-ad7b-48b8-8f57-1b8672a0eeba",
+        "20b7fa40-6abf-4519-8ae5-b2f55b558073",
+        "85a852b2-6aea-474e-b099-58444cc8ba2d",
+        "fab16ad4-4d07-4e18-ae1a-cd08bda04832",
+        "4384618f-aaeb-4ace-bf90-428affe7c346",
+        "39c84ca8-f503-4c6f-9aca-e28a5f76de23"
+      ],
+      "cited": [
+        "20b7fa40-6abf-4519-8ae5-b2f55b558073"
+      ],
+      "answer": "Amazon names advertising programs for advertisers in its fiscal 2025 Form 10-K."
+    },
+    {
+      "id": "qf-15",
+      "category": "factual",
+      "outcome": "answered",
+      "latency_s": 9.261,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.3333,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "62a44576-ddc9-4d13-8ed7-70a9c868eed2",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "$8.0 billion of commercial paper outstanding, which was payable within 12 months."
+        }
+      ],
+      "retrieved": [
+        "81664624-9e3d-4d2b-8ed9-7533ebe15690",
+        "addca94e-068c-47c8-a107-bdef5363b340",
+        "62a44576-ddc9-4d13-8ed7-70a9c868eed2",
+        "27f00a1c-b07f-484d-83fa-ef4c413ba3a0",
+        "5a02e9d9-8d80-4718-9eff-623aebe02532",
+        "acedffa5-93a5-4a7c-9659-95b354e7283a",
+        "1b640620-c52c-4415-bc87-d77a0b17303c",
+        "e268ae36-55bf-41c1-972e-cacc167fc928"
+      ],
+      "cited": [
+        "addca94e-068c-47c8-a107-bdef5363b340"
+      ],
+      "answer": "As of September 27, 2025, Apple had $8.0 billion of commercial paper outstanding."
+    },
+    {
+      "id": "qf-16",
+      "category": "factual",
+      "outcome": "hallucination",
+      "latency_s": 9.482,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 1.0,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "b9d53a47-e2e2-4def-a8a6-0d0be095ecac",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "$57.3 billion remained of this $60.0 billion share repurchase program."
+        }
+      ],
+      "retrieved": [
+        "b9d53a47-e2e2-4def-a8a6-0d0be095ecac",
+        "9d57c253-13a3-4883-a7b2-779d1cb991c4",
+        "ff6139dd-97f4-4865-9727-c73360c5d4f2",
+        "d182990d-e737-4aa0-aa8d-3515e0c38229",
+        "d5049acb-ae9f-4ef9-92df-09da3212f6af",
+        "6f2d3609-c799-484f-bbe3-04e5250bf69b",
+        "3b4d1112-3092-46cc-82b5-3c92a260fc63",
+        "27cd58cd-7455-4f6b-b06a-278bda08ba7d"
+      ],
+      "cited": [],
+      "answer": "Claim \"As of June 30, 2025, $57.3 billion remained of Microsoft's $60.0 billion share repurchase program. On September 16, 2024, Microsoft's Board of Directors approved a share repurchase program authorizing up to $60.0 billion in share repurchases. The share repurchase program commenced in April 2025, following completion of the program approved on September 14, 2021. During fiscal years 2025 and 2024, Microsoft repurchased 31 million and 32 million shares of common stock for $13.0 billion and $12.0 billion, respectively, through its share repurchase program. As of June 30, 2025, 62 million shares of common stock were reserved for future issuance through the ESPP.\" failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qf-17",
+      "category": "factual",
+      "outcome": "answered",
+      "latency_s": 4.993,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.3333,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 1.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "037b9cc6-d585-415b-aec2-d0187bd715d9",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "cash dividends to our shareholders of $834 million. The payment of future cash dividends is subject to our Board of Directors' continuing determination that the declaration of dividends is in the best interests of our shareholders."
+        }
+      ],
+      "retrieved": [
+        "8e2ba015-d2bf-4fed-a2fc-b5dde1bc1632",
+        "473deea8-1002-4d17-93e4-531b5db768de",
+        "037b9cc6-d585-415b-aec2-d0187bd715d9",
+        "830904a7-5941-49d3-9b5e-d688e91c8021",
+        "702975ba-d211-45bd-af72-c583f7fd12a1",
+        "3d134d6c-a4ca-4efc-b43c-55a95a86fd20",
+        "5e00156d-50db-4208-b4b5-44c7cf84e101",
+        "cbbb5df8-f5c8-4ac8-a423-5488544617c7"
+      ],
+      "cited": [
+        "037b9cc6-d585-415b-aec2-d0187bd715d9"
+      ],
+      "answer": "In fiscal year 2025, NVIDIA paid cash dividends to its shareholders of $834 million."
+    },
+    {
+      "id": "qf-18",
+      "category": "factual",
+      "outcome": "answered",
+      "latency_s": 9.331,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.5,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 1.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "cbbb5df8-f5c8-4ac8-a423-5488544617c7",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "repurchased 310 million shares of our common stock for $34.0 billion. As of January 26, 2025, we were authorized, subject to certain specifications, to repurchase up to $38.7 billion of our common stock."
+        }
+      ],
+      "retrieved": [
+        "473deea8-1002-4d17-93e4-531b5db768de",
+        "cbbb5df8-f5c8-4ac8-a423-5488544617c7",
+        "8e2ba015-d2bf-4fed-a2fc-b5dde1bc1632",
+        "702975ba-d211-45bd-af72-c583f7fd12a1",
+        "830904a7-5941-49d3-9b5e-d688e91c8021",
+        "3d134d6c-a4ca-4efc-b43c-55a95a86fd20",
+        "b8cb2ea1-8bd1-426a-ad0a-7fd471437696",
+        "57f5631d-05cb-4e2c-8b90-c2115ccb93ae"
+      ],
+      "cited": [
+        "cbbb5df8-f5c8-4ac8-a423-5488544617c7"
+      ],
+      "answer": "In fiscal year 2025, NVIDIA repurchased 310 million shares of common stock for $34.0 billion. As of January 26, 2025, NVIDIA was authorized to repurchase up to $38.7 billion of its common stock."
+    },
+    {
+      "id": "qf-19",
+      "category": "factual",
+      "outcome": "answered",
+      "latency_s": 6.948,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "c98358e5-ac05-467f-b7a5-e3f2ef344f50",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "For the fiscal year ended September 27, 2025"
+        }
+      ],
+      "retrieved": [
+        "7a8060b8-9a06-4fe7-ac93-b799f2486289",
+        "40c56b0c-79a7-4d1f-80cc-18f6698b22a7",
+        "46b0f699-64b6-4c46-beb7-8d8f6a53f776",
+        "e772b42f-b7c7-47c5-9b04-b1733a202c71",
+        "b8515385-9778-4cd5-9e3a-9401430af2b7",
+        "1155c9dc-a40e-432d-9925-e99bc24c23ba",
+        "4826993e-1916-4711-952c-14b17870c0d5",
+        "3d0490c1-51ec-48a6-8a31-aa307ecdb025"
+      ],
+      "cited": [
+        "7a8060b8-9a06-4fe7-ac93-b799f2486289",
+        "49e101e9-d794-4aad-8317-e86f5b6e8739"
+      ],
+      "answer": "Apple's fiscal year is the 52- or 53-week period that ends on the last Saturday of September. The Company's fiscal years 2025 and 2024 spanned 52 weeks each. The 10-K cover page states the filing date as October 31, 2025."
+    },
+    {
+      "id": "qf-20",
+      "category": "factual",
+      "outcome": "hallucination",
+      "latency_s": 12.018,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.25,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "48b53ba6-7246-49d9-920e-a94a6a21d533",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "For the Fiscal Year Ended June 30, 2025"
+        }
+      ],
+      "retrieved": [
+        "ff6139dd-97f4-4865-9727-c73360c5d4f2",
+        "d207fde3-dd4d-4f39-b195-d4150e03f684",
+        "89944d86-f24b-4f6c-b32f-4a49e733ee67",
+        "48b53ba6-7246-49d9-920e-a94a6a21d533",
+        "d5049acb-ae9f-4ef9-92df-09da3212f6af",
+        "d494106c-f22e-4954-ab26-a4d975892d8a",
+        "608a3e4d-b07f-45a4-9431-461240e02df2",
+        "bc46c8ac-1922-464d-8d2e-79f0038ac08b"
+      ],
+      "cited": [],
+      "answer": "Claim \"Microsoft's fiscal 2025 year ended June 30, 2025. Form 10-K FY2025 was filed on 2025-07-30.\" failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qn-01",
+      "category": "numerical",
+      "outcome": "grounding_rejected",
+      "latency_s": 18.252,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.25,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "51a5899e-9fc3-4462-a637-0ef3c7de8b1c",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "September 27, 2025, the Company had approximately 166,000 full-time equivalent employees."
+        }
+      ],
+      "retrieved": [
+        "5a02e9d9-8d80-4718-9eff-623aebe02532",
+        "27f00a1c-b07f-484d-83fa-ef4c413ba3a0",
+        "acedffa5-93a5-4a7c-9659-95b354e7283a",
+        "51a5899e-9fc3-4462-a637-0ef3c7de8b1c",
+        "f2e29162-308d-4046-8801-6976ea39d2e1",
+        "e268ae36-55bf-41c1-972e-cacc167fc928",
+        "1b640620-c52c-4415-bc87-d77a0b17303c",
+        "9f6333e1-0924-4d55-aa8c-69a7eeb02a09"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of September 27, 2025, the Company had approximately 166,000 full-time equivalent employees.' failed: The cited passage does not support the answer"
+    },
+    {
+      "id": "qn-02",
+      "category": "numerical",
+      "outcome": "hallucination",
+      "latency_s": 8.164,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "be1c2998-733a-4a19-9c07-0c1abec348a2",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "approximately 161,000 full-time equivalent employees."
+        }
+      ],
+      "retrieved": [
+        "2633a20e-b963-4f28-a2f0-f324405edb30",
+        "8e5d0263-fbfc-4a93-a426-0cf421a5ef98",
+        "f3b04085-e1a4-4ab4-a385-2ab18dba442b",
+        "42940a70-e82c-4742-812d-88dd56aeea49",
+        "5928851c-ba63-4ece-bce8-019302241d68",
+        "ae8b2731-8a31-4b20-b382-445bdf3cbc87",
+        "8f9e883e-841c-41ce-90e1-7bc22f1d7af6",
+        "699bf761-e04f-4147-87a4-8063b4093be9"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of September 30, 2023, the Company had approximately 161,000 full-time equivalent employees.' failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qn-03",
+      "category": "numerical",
+      "outcome": "grounding_rejected",
+      "latency_s": 7.326,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "2060c53c-e9fd-4530-bf4a-dc1b720ba3b8",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2022,
+          "filing_type": "10-K",
+          "excerpt": "approximately 164,000 full-time equivalent employees."
+        }
+      ],
+      "retrieved": [
+        "9b8f30e7-e555-4797-a6eb-6395892f051b",
+        "79c6cf0e-81db-4d08-a51d-0cd4a2a63e2e",
+        "66f8e5c9-3bf0-4fe6-9673-f4f0767f2dbd",
+        "86cc5ad6-f567-4c97-939c-81415bb7918c",
+        "a9cf1eff-f02c-40b2-bea9-0c5710af34f6",
+        "25582d7a-88b4-4a32-ab4e-ee4bc282edb0",
+        "8f70c27b-99ea-4ea0-a62d-6639d062f2ba",
+        "acc98e1d-5b67-4953-9aa2-03fd5950689f"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of September 24, 2022, the Company had approximately 164,000 full-time equivalent employees.' failed: The cited passage does not support the answer"
+    },
+    {
+      "id": "qn-04",
+      "category": "numerical",
+      "outcome": "answered",
+      "latency_s": 7.776,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.1667,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 1.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "670b87e0-6c0c-4558-83e2-5c7e60157aad",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 190,820 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to our emplo"
+        }
+      ],
+      "retrieved": [
+        "196a94f4-4dae-4721-bbbc-88061a9a15ae",
+        "5fa86c8a-f989-487e-b310-5968141a0e6f",
+        "6e883a8d-b3e5-403d-beec-adbfe38a9e26",
+        "4d5f2ce9-d903-4006-bad2-b9e1fbdc9788",
+        "a75e63ce-671e-427b-9f1f-efb65511bb4b",
+        "670b87e0-6c0c-4558-83e2-5c7e60157aad",
+        "da9a1929-1706-4fa5-84ef-deeb1e3f6fbd",
+        "1b15af55-d7a0-4ddf-9bd3-033a0a62f7c8"
+      ],
+      "cited": [
+        "670b87e0-6c0c-4558-83e2-5c7e60157aad"
+      ],
+      "answer": "As of December 31, 2025, Alphabet had 190,820 employees."
+    },
+    {
+      "id": "qn-05",
+      "category": "numerical",
+      "outcome": "answered",
+      "latency_s": 6.779,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.2,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "1e39e228-a8de-4925-8155-b6ace01c882b",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 183,323 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to all emplo"
+        }
+      ],
+      "retrieved": [
+        "71afc67b-7fba-4672-9052-0df5d5c31f14",
+        "1b0d1947-5a6c-4eb1-be74-e4abe63799db",
+        "5bfa38a9-11f8-422a-a244-d7dce10c34c0",
+        "d187968b-1725-4d90-9e2c-95327c565d70",
+        "1e39e228-a8de-4925-8155-b6ace01c882b",
+        "fd5ab400-fb97-4d61-8a02-431713bcffc7",
+        "1de53cd1-8d27-4b24-a629-9bcabd03bc64",
+        "2714eb93-50c7-4922-80d5-377486c0e19d"
+      ],
+      "cited": [
+        "71afc67b-7fba-4672-9052-0df5d5c31f14"
+      ],
+      "answer": "As of December 31, 2024, we had 183,323 employees."
+    },
+    {
+      "id": "qn-06",
+      "category": "numerical",
+      "outcome": "answered",
+      "latency_s": 4.656,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.25,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 1.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "d50493f2-7434-4ffc-8a72-6293044ce3c8",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 182,502 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to all emplo"
+        }
+      ],
+      "retrieved": [
+        "da4788f0-36ef-4070-9810-a97e707aecd5",
+        "1493be87-36c5-4749-a4de-31b48744ddeb",
+        "1fdcf8f1-e24e-4504-bfc3-60af612abaf6",
+        "d50493f2-7434-4ffc-8a72-6293044ce3c8",
+        "84aad8bb-a8fb-4389-a110-5f0f1cbc624e",
+        "be7e4695-fad5-4466-8119-3250fe4820f9",
+        "e56391a9-be93-46e9-adb5-2f6966dda24d",
+        "dff888a2-df42-4570-83e9-ccb6428e40f6"
+      ],
+      "cited": [
+        "d50493f2-7434-4ffc-8a72-6293044ce3c8"
+      ],
+      "answer": "As of December 31, 2023, Alphabet had 182,502 employees."
+    },
+    {
+      "id": "qn-07",
+      "category": "numerical",
+      "outcome": "answered",
+      "latency_s": 6.762,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 1.0,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 1.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "b469586c-687f-4837-9b40-7af2b62d72ad",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2022,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 190,234 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to all emplo"
+        }
+      ],
+      "retrieved": [
+        "b469586c-687f-4837-9b40-7af2b62d72ad",
+        "f995fe44-cdc3-499d-811e-abcc12cf0863",
+        "cc6ea77d-741a-4d7c-a56f-984bf34736b7",
+        "7ea478b5-8f64-4eec-be2e-46cdb4643b6a",
+        "e88bcc68-49d5-4513-ba32-f73e9883bb3e",
+        "29132384-7ad6-46e4-b2fb-2f6cdeae4111",
+        "572009b0-9a24-4a89-92cb-e5d83cd981e5",
+        "d06a3150-5ac3-406c-9b2f-45fbccab7145"
+      ],
+      "cited": [
+        "b469586c-687f-4837-9b40-7af2b62d72ad"
+      ],
+      "answer": "As of December 31, 2022, Alphabet had 190,234 employees."
+    },
+    {
+      "id": "qn-08",
+      "category": "numerical",
+      "outcome": "answered",
+      "latency_s": 9.947,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "532ae124-ad68-423d-9336-504e9cb1cca5",
+          "ticker": "AMZN",
+          "company_name": "Amazon.com, Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "employed approximately 1,576,000 full-time and part-time employees. Additionally, we use independent contractors and temporary personnel to supplement our workforce. Competition for qualified personnel is intense, particularly for software"
+        }
+      ],
+      "retrieved": [
+        "f3046658-d0c9-4557-8834-775e844c9c32",
+        "c878d609-6464-42f4-946f-c45dbeed16f2",
+        "d9963de1-9cf9-4448-ae52-dc6588c9bd0b",
+        "d3049908-77e2-40e8-9fb6-5762a80382d3",
+        "199d12d4-3671-4829-9fc4-8bd42356c29f",
+        "109c483d-2fc1-4c43-be2e-48690a7e7f5a",
+        "6077f6c6-e704-4466-be56-e2e2f110cf90",
+        "a90d485c-8522-4124-b042-914c8a777358"
+      ],
+      "cited": [
+        "d9963de1-9cf9-4448-ae52-dc6588c9bd0b",
+        "c878d609-6464-42f4-946f-c45dbeed16f2"
+      ],
+      "answer": "Amazon had 15,503 full-time employees as of December 31, 2025. Amazon had 30,632 full-time employees as of December 31, 2025."
+    },
+    {
+      "id": "qn-09",
+      "category": "numerical",
+      "outcome": "hallucination",
+      "latency_s": 6.644,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.5,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "619c0b09-6a5c-4981-9228-887cd621c424",
+          "ticker": "AMZN",
+          "company_name": "Amazon.com, Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "employed approximately 1,556,000 full-time and part-time employees. Additionally, we use independent contractors and temporary personnel to supplement our workforce. Competition for qualified personnel is intense, particularly for software"
+        }
+      ],
+      "retrieved": [
+        "f946f6d1-5408-47c4-ad6e-e03f30da6902",
+        "619c0b09-6a5c-4981-9228-887cd621c424",
+        "b042dbf8-dc82-42b0-9920-99493c66c82f",
+        "9b7e1b72-f657-4a96-8ee8-6477bcced99f",
+        "84514895-7c15-4c30-8b0f-25a769709b8d",
+        "29485410-fd8d-4911-93b9-8f3efd7b4093",
+        "d9a1668f-ec73-433b-893d-973f5c7200c3",
+        "34e209d7-6ced-4afd-ab4e-be6a6b2d6109"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of December 31, 2024, Amazon employed approximately 1,556,000 full-time and part-time employees.' failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qn-10",
+      "category": "numerical",
+      "outcome": "hallucination",
+      "latency_s": 6.904,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 1.0,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "9ff6e477-486e-4003-9dbb-49acb8449d1f",
+          "ticker": "AMZN",
+          "company_name": "Amazon.com, Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "employed approximately 1,525,000 full-time and part-time employees. Additionally, we use independent contractors and temporary personnel to supplement our workforce. Competition for qualified personnel is intense, particularly for software"
+        }
+      ],
+      "retrieved": [
+        "9ff6e477-486e-4003-9dbb-49acb8449d1f",
+        "4efb1cf8-f28b-468b-93fe-f0c9ffdbeb6e",
+        "58004640-71c8-4770-9711-68246ac72003",
+        "f3acb342-cf7e-486a-a1e5-3200273dd9d0",
+        "79681100-e1cd-4dfe-841f-8b8bfc6cb050",
+        "a0b5beb1-1480-468b-bf80-255a3b296b32",
+        "dbc50170-aa3e-4048-8777-9be844b7bba9",
+        "fcb2941f-0ef2-4678-a85d-dc028a7e6753"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of December 31, 2023, Amazon employed approximately 1,525,000 full-time and part-time employees. Over 175,000 Amazon employees around the world have participated in Career Choice.' failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qn-11",
+      "category": "numerical",
+      "outcome": "answered",
+      "latency_s": 4.865,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.25,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 0.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "987c91e4-879b-482d-a29a-53601f67849c",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "As of June 30, 2025, we employed approximately 228,000 people on a full-time basis, 125,000 in the U.S. and 103,000 internationally. Of the total employees, 89,000 were in operations, including product support and consulting services, datac"
+        }
+      ],
+      "retrieved": [
+        "d5049acb-ae9f-4ef9-92df-09da3212f6af",
+        "ff6139dd-97f4-4865-9727-c73360c5d4f2",
+        "42401c68-c789-43a4-af87-9b0035b56ae9",
+        "987c91e4-879b-482d-a29a-53601f67849c",
+        "2a8a710d-6d2e-427c-a186-96e391806dda",
+        "a414d1dd-ebb0-43d8-a157-3de374265b6d",
+        "d207fde3-dd4d-4f39-b195-d4150e03f684",
+        "3b4d1112-3092-46cc-82b5-3c92a260fc63"
+      ],
+      "cited": [],
+      "answer": "The corpus does not contain enough evidence."
+    },
+    {
+      "id": "qn-12",
+      "category": "numerical",
+      "outcome": "grounding_rejected",
+      "latency_s": 10.923,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "987c91e4-879b-482d-a29a-53601f67849c",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "228,000 people on a full-time basis, 125,000 in the U.S. and 103,000 internationally. Of the total employees, 89,000 were in operations, including product support and consulting services, datacenter operations, and manufacturing and distrib"
+        }
+      ],
+      "retrieved": [
+        "d5049acb-ae9f-4ef9-92df-09da3212f6af",
+        "42401c68-c789-43a4-af87-9b0035b56ae9",
+        "ff6139dd-97f4-4865-9727-c73360c5d4f2",
+        "27cd58cd-7455-4f6b-b06a-278bda08ba7d",
+        "3b4d1112-3092-46cc-82b5-3c92a260fc63",
+        "e43b2d3c-ce8b-47aa-9fa6-3ca60dc4bf2f",
+        "4a4de040-cf4c-4c2a-ac34-5d0990768893",
+        "c45dbe51-bd5a-441f-9203-b1e61cf5d29a"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of June 30, 2025, total unrecognized compensation costs related to stock awards were $21.6 billion. As of June 30, 2025, United States long-lived assets were $230,069 million.' failed: 21.6 is not in the 2025 column"
+    },
+    {
+      "id": "qn-13",
+      "category": "numerical",
+      "outcome": "answered",
+      "latency_s": 4.853,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "987c91e4-879b-482d-a29a-53601f67849c",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "125,000 in the U.S. and 103,000 internationally. Of the total employees, 89,000 were in operations, including product support and consulting services, datacenter operations, and manufacturing and distribution; 80,000 were in product researc"
+        }
+      ],
+      "retrieved": [
+        "d5049acb-ae9f-4ef9-92df-09da3212f6af",
+        "42401c68-c789-43a4-af87-9b0035b56ae9",
+        "ff6139dd-97f4-4865-9727-c73360c5d4f2",
+        "27cd58cd-7455-4f6b-b06a-278bda08ba7d",
+        "4a4de040-cf4c-4c2a-ac34-5d0990768893",
+        "3b4d1112-3092-46cc-82b5-3c92a260fc63",
+        "e43b2d3c-ce8b-47aa-9fa6-3ca60dc4bf2f",
+        "c45dbe51-bd5a-441f-9203-b1e61cf5d29a"
+      ],
+      "cited": [
+        "e43b2d3c-ce8b-47aa-9fa6-3ca60dc4bf2f"
+      ],
+      "answer": "As of June 30, 2025, Microsoft had 141,833 employees outside the United States."
+    },
+    {
+      "id": "qn-14",
+      "category": "numerical",
+      "outcome": "answered",
+      "latency_s": 8.689,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 1.0,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 1.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "1f2deb15-7002-4a74-9270-a1db6b2f08a6",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "As of June 30, 2024, we employed approximately 228,000 people on a full-time basis, 126,000 in the U.S. and 102,000 internationally. Of the total employed people, 86,000 were in operations, including product support and consulting services,"
+        }
+      ],
+      "retrieved": [
+        "1f2deb15-7002-4a74-9270-a1db6b2f08a6",
+        "85023b7e-f3fa-4537-8b35-df4dc4661661",
+        "49742138-1887-4cc2-be71-4940096e7ec2",
+        "5b2373dc-159f-4e5e-8e27-a63692b451bb",
+        "46bcd938-2a0d-435a-9dcc-a6690ee3c021",
+        "7305a460-b801-4866-bd0d-534f5935eb81",
+        "0aaea312-3044-442c-b3f6-27b2b819a9f0",
+        "c6d4f382-f07b-464d-8730-7d592979053d"
+      ],
+      "cited": [
+        "1f2deb15-7002-4a74-9270-a1db6b2f08a6"
+      ],
+      "answer": "As of June 30, 2024, Microsoft employed approximately 228,000 people on a full-time basis."
+    },
+    {
+      "id": "qn-15",
+      "category": "numerical",
+      "outcome": "hallucination",
+      "latency_s": 11.311,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.5,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "1f2deb15-7002-4a74-9270-a1db6b2f08a6",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "228,000 people on a full-time basis, 126,000 in the U.S. and 102,000 internationally. Of the total employed people, 86,000 were in operations, including product support and consulting services, datacenter operations, and manufacturing and d"
+        }
+      ],
+      "retrieved": [
+        "85023b7e-f3fa-4537-8b35-df4dc4661661",
+        "1f2deb15-7002-4a74-9270-a1db6b2f08a6",
+        "49742138-1887-4cc2-be71-4940096e7ec2",
+        "5b2373dc-159f-4e5e-8e27-a63692b451bb",
+        "7305a460-b801-4866-bd0d-534f5935eb81",
+        "9f12c961-d168-420d-9784-190b7c730673",
+        "363f96b0-43dc-47cc-b421-33f82a165e6b",
+        "e1d3cef6-fe40-4544-b854-c28e44730e01"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of June 30, 2024, we employed approximately 228,000 people on a full-time basis, 126,000 in the U.S. and 102,000 internationally. As of June 30, 2024, Microsoft had 126,000 employees in the United States.' failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qn-16",
+      "category": "numerical",
+      "outcome": "hallucination",
+      "latency_s": 11.08,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.5,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "1f2deb15-7002-4a74-9270-a1db6b2f08a6",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "126,000 in the U.S. and 102,000 internationally. Of the total employed people, 86,000 were in operations, including product support and consulting services, datacenter operations, and manufacturing and distribution; 81,000 were in product r"
+        }
+      ],
+      "retrieved": [
+        "85023b7e-f3fa-4537-8b35-df4dc4661661",
+        "1f2deb15-7002-4a74-9270-a1db6b2f08a6",
+        "5b2373dc-159f-4e5e-8e27-a63692b451bb",
+        "49742138-1887-4cc2-be71-4940096e7ec2",
+        "7305a460-b801-4866-bd0d-534f5935eb81",
+        "363f96b0-43dc-47cc-b421-33f82a165e6b",
+        "9f12c961-d168-420d-9784-190b7c730673",
+        "e1d3cef6-fe40-4544-b854-c28e44730e01"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of June 30, 2024, Microsoft employed approximately 228,000 people on a full-time basis, 126,000 in the U.S. and 102,000 internationally. As of June 30, 2024, 86,000 employees were in operations, including product support and consulting services, datacenter operations, and manufacturing and distribution. As of June 30, 2024, 81,000 employees were in product research and development. As of June 30, 2024, 45,000 employees were in sales and marketing. As of June 30, 2024, 16,000 employees were in general and administration.' failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qn-17",
+      "category": "numerical",
+      "outcome": "answered",
+      "latency_s": 7.421,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 1.0,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 1.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "702975ba-d211-45bd-af72-c583f7fd12a1",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "approximately 36,000 employees in 38 countries; 27,100 were engaged in research and development and 8,900 were engaged in sales, marketing, operations, and administrative positions. The Compensation Committee of our Board of Directors assis"
+        }
+      ],
+      "retrieved": [
+        "702975ba-d211-45bd-af72-c583f7fd12a1",
+        "830904a7-5941-49d3-9b5e-d688e91c8021",
+        "473deea8-1002-4d17-93e4-531b5db768de",
+        "5e00156d-50db-4208-b4b5-44c7cf84e101",
+        "8e2ba015-d2bf-4fed-a2fc-b5dde1bc1632",
+        "dfaccb58-fb7c-4dd5-ad6c-80bf0a892e35",
+        "be54ce93-8e86-4fa4-80bc-ae971a0056ea",
+        "bd9262ed-7cbd-4415-bb21-461406af1186"
+      ],
+      "cited": [
+        "702975ba-d211-45bd-af72-c583f7fd12a1"
+      ],
+      "answer": "As of the end of fiscal year 2025, NVIDIA had approximately 36,000 employees."
+    },
+    {
+      "id": "qn-18",
+      "category": "numerical",
+      "outcome": "answered",
+      "latency_s": 8.173,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 1.0,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 1.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "702975ba-d211-45bd-af72-c583f7fd12a1",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "27,100 were engaged in research and development and 8,900 were engaged in sales, marketing, operations, and administrative positions. The Compensation Committee of our Board of Directors assists in the oversight of policies and strategies r"
+        }
+      ],
+      "retrieved": [
+        "702975ba-d211-45bd-af72-c583f7fd12a1",
+        "53816ea5-26bb-4228-af6f-b7e01664d54d",
+        "5e00156d-50db-4208-b4b5-44c7cf84e101",
+        "830904a7-5941-49d3-9b5e-d688e91c8021",
+        "bd0170c8-ec1f-41b1-81bf-280ab75fb0cd",
+        "bd9262ed-7cbd-4415-bb21-461406af1186",
+        "be54ce93-8e86-4fa4-80bc-ae971a0056ea",
+        "8e2ba015-d2bf-4fed-a2fc-b5dde1bc1632"
+      ],
+      "cited": [
+        "702975ba-d211-45bd-af72-c583f7fd12a1"
+      ],
+      "answer": "As of the end of fiscal year 2025, NVIDIA had approximately 36,000 employees; 27,100 were engaged in research and development. The Compensation Committee of NVIDIA's Board of Directors assists in the oversight of policies and strategies relating to human capital management."
+    },
+    {
+      "id": "qn-19",
+      "category": "numerical",
+      "outcome": "answered",
+      "latency_s": 5.605,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 1.0,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 0.5,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "702975ba-d211-45bd-af72-c583f7fd12a1",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "8,900 were engaged in sales, marketing, operations, and administrative positions. The Compensation Committee of our Board of Directors assists in the oversight of policies and strategies relating to human capital management."
+        }
+      ],
+      "retrieved": [
+        "702975ba-d211-45bd-af72-c583f7fd12a1",
+        "8e2ba015-d2bf-4fed-a2fc-b5dde1bc1632",
+        "5e00156d-50db-4208-b4b5-44c7cf84e101",
+        "830904a7-5941-49d3-9b5e-d688e91c8021",
+        "bd0170c8-ec1f-41b1-81bf-280ab75fb0cd",
+        "08ed93b8-104e-4310-9cca-e381cc866b32",
+        "be54ce93-8e86-4fa4-80bc-ae971a0056ea",
+        "dfaccb58-fb7c-4dd5-ad6c-80bf0a892e35"
+      ],
+      "cited": [
+        "702975ba-d211-45bd-af72-c583f7fd12a1",
+        "53816ea5-26bb-4228-af6f-b7e01664d54d"
+      ],
+      "answer": "As of the end of fiscal year 2025, NVIDIA had approximately 36,000 employees in 38 countries; 27,100 were engaged in research and development and 8,900 were engaged in sales, marketing, operations, and administrative positions. Our workforce is 82% technical and 51% hold advanced degrees."
+    },
+    {
+      "id": "qn-20",
+      "category": "numerical",
+      "outcome": "answered",
+      "latency_s": 5.61,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.3333,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 1.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "78b72026-11be-4bde-81f5-faae5768c014",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "approximately 29,600 employees in 36 countries, 22,200 were engaged in research and development and 7,400 were engaged in sales, marketing, operations, and administrative positions. The Compensation Committee of our Board of Directors assis"
+        }
+      ],
+      "retrieved": [
+        "3e2274f5-d5ca-4bd2-b430-72129d768b41",
+        "c95dbad8-c554-4d71-ace0-8a7f23be353c",
+        "78b72026-11be-4bde-81f5-faae5768c014",
+        "8834c3ad-fad6-4748-8180-109e9c9e8999",
+        "e6271092-097d-44a7-b5bb-90fc010a6cee",
+        "a99abb2d-2484-4edd-bdc7-0df1728b1051",
+        "bd53b41d-6e24-4b03-aa7f-b60385547dff",
+        "f5513eca-f4e4-41ff-883b-fbb6aff65764"
+      ],
+      "cited": [
+        "78b72026-11be-4bde-81f5-faae5768c014"
+      ],
+      "answer": "As of the end of fiscal year 2024, NVIDIA had approximately 29,600 employees."
+    },
+    {
+      "id": "qn-21",
+      "category": "numerical",
+      "outcome": "hallucination",
+      "latency_s": 6.586,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.3333,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "987c91e4-879b-482d-a29a-53601f67849c",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "89,000 were in operations, including product support and consulting services, datacenter operations, and manufacturing and distribution; 80,000 were in product research and development; 44,000 were in sales and marketing; and 15,000 were in"
+        }
+      ],
+      "retrieved": [
+        "d5049acb-ae9f-4ef9-92df-09da3212f6af",
+        "ff6139dd-97f4-4865-9727-c73360c5d4f2",
+        "987c91e4-879b-482d-a29a-53601f67849c",
+        "42401c68-c789-43a4-af87-9b0035b56ae9",
+        "0180504d-4828-4641-94e9-6670f05df290",
+        "27cd58cd-7455-4f6b-b06a-278bda08ba7d",
+        "c45dbe51-bd5a-441f-9203-b1e61cf5d29a",
+        "3b4d1112-3092-46cc-82b5-3c92a260fc63"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of June 30, 2025, total full-time employees were approximately 228,000. As of June 30, 2025, 89,000 employees were in operations.' failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qn-22",
+      "category": "numerical",
+      "outcome": "hallucination",
+      "latency_s": 10.1,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.5,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "1f2deb15-7002-4a74-9270-a1db6b2f08a6",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "86,000 were in operations, including product support and consulting services, datacenter operations, and manufacturing and distribution; 81,000 were in product research and development; 45,000 were in sales and marketing; and 16,000 were in"
+        }
+      ],
+      "retrieved": [
+        "49742138-1887-4cc2-be71-4940096e7ec2",
+        "1f2deb15-7002-4a74-9270-a1db6b2f08a6",
+        "85023b7e-f3fa-4537-8b35-df4dc4661661",
+        "5b2373dc-159f-4e5e-8e27-a63692b451bb",
+        "363f96b0-43dc-47cc-b421-33f82a165e6b",
+        "7305a460-b801-4866-bd0d-534f5935eb81",
+        "c6d4f382-f07b-464d-8730-7d592979053d",
+        "b2a0be5d-81b3-4bea-8ec2-0f014ae36f18"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of June 30, 2024, approximately 228,000 people were employed on a full-time basis. As of June 30, 2024, 86,000 were in operations, including product support and consulting services, datacenter operations, and manufacturing and distribution.' failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qn-23",
+      "category": "numerical",
+      "outcome": "hallucination",
+      "latency_s": 7.533,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "dea04076-2d4f-4afd-b957-7f95bed8490a",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "13.64   |    |    | $    | 11.80   |    |    | $    |    9.68 |    |"
+        }
+      ],
+      "retrieved": [
+        "7c1f0c57-9c60-4184-a38e-4824620e29f6",
+        "a0dd1517-1f16-4ee2-882a-b50a43e47a54",
+        "0f54cf87-fcf4-42a2-85b7-26843b298ff0",
+        "153a2f60-8129-4481-9bc0-7b95a8577b30",
+        "40826060-4328-4ab8-87f9-a602de1d63c2",
+        "9f12c961-d168-420d-9784-190b7c730673",
+        "6c15c54a-89cd-4748-b3a5-21484bf08895",
+        "4a4de040-cf4c-4c2a-ac34-5d0990768893"
+      ],
+      "cited": [],
+      "answer": "Claim 'Microsoft reported diluted earnings per share of 9.68 for fiscal year 2023. Microsoft reported diluted earnings per share of 9.65 for fiscal year 2022.' failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qn-24",
+      "category": "numerical",
+      "outcome": "answered",
+      "latency_s": 4.635,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 1.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "c764a0ad-4e1e-4b28-8c86-50f962596bbb",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "130,497         |                 |                 |                 |                 | $               | 60,922          |                 |                 |                 |                 | $               | 69,575          |"
+        }
+      ],
+      "retrieved": [
+        "830904a7-5941-49d3-9b5e-d688e91c8021",
+        "70368dae-3f7b-4c1c-b8e3-ec694f4aa92e",
+        "5e00156d-50db-4208-b4b5-44c7cf84e101",
+        "348c4491-ee32-4c90-8e15-aba882eb2000",
+        "286c0c37-7308-42ab-9346-e9420daf79fe",
+        "dfaccb58-fb7c-4dd5-ad6c-80bf0a892e35",
+        "08ed93b8-104e-4310-9cca-e381cc866b32",
+        "702975ba-d211-45bd-af72-c583f7fd12a1"
+      ],
+      "cited": [
+        "348c4491-ee32-4c90-8e15-aba882eb2000"
+      ],
+      "answer": "Total revenue was $130,497 million."
+    },
+    {
+      "id": "qh-01",
+      "category": "multi_hop",
+      "outcome": "AssistantError: The assistant could not complete this answer (UnexpectedModelBehavior: Exceeded maximum output retries (2))",
+      "latency_s": 12.197,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "51a5899e-9fc3-4462-a637-0ef3c7de8b1c",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "September 27, 2025, the Company had approximately 166,000 full-time equivalent employees."
+        },
+        {
+          "chunk_id": "ade1ff5b-0100-45fc-83bc-bcec825c190f",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "One Apple Park Way                                              | One Apple Park Way                                              | One Apple Park Way                                              |    |    |    |"
+        }
+      ],
+      "retrieved": [
+        "5a02e9d9-8d80-4718-9eff-623aebe02532",
+        "27f00a1c-b07f-484d-83fa-ef4c413ba3a0",
+        "acedffa5-93a5-4a7c-9659-95b354e7283a",
+        "e268ae36-55bf-41c1-972e-cacc167fc928",
+        "f492adf1-e48e-4940-b196-c8033c132148",
+        "62a44576-ddc9-4d13-8ed7-70a9c868eed2",
+        "824a9fe9-6fee-45a1-90a1-2c4f3c16a0b3",
+        "968ba8a6-6767-470e-998a-de0c1fca4289"
+      ],
+      "cited": [],
+      "answer": ""
+    },
+    {
+      "id": "qh-02",
+      "category": "multi_hop",
+      "outcome": "answered",
+      "latency_s": 9.109,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "987c91e4-879b-482d-a29a-53601f67849c",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "As of June 30, 2025, we employed approximately 228,000 people on a full-time basis, 125,000 in the U.S. and 103,000 internationally. Of the total employees, 89,000 were in operations, including product support and consulting services, datac"
+        },
+        {
+          "chunk_id": "4a4de040-cf4c-4c2a-ac34-5d0990768893",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "ONE MICROSOFT WAY, REDMOND, Washington 98052-6399"
+        }
+      ],
+      "retrieved": [
+        "d5049acb-ae9f-4ef9-92df-09da3212f6af",
+        "ff6139dd-97f4-4865-9727-c73360c5d4f2",
+        "aea42a37-1c12-4659-8af9-06566afeb702",
+        "c148b539-c789-4f5e-9179-9b92e7986362",
+        "42401c68-c789-43a4-af87-9b0035b56ae9",
+        "0180504d-4828-4641-94e9-6670f05df290",
+        "c45dbe51-bd5a-441f-9203-b1e61cf5d29a",
+        "64406bf8-8aec-4998-bfef-0bf9bdaef9f7"
+      ],
+      "cited": [
+        "0180504d-4828-4641-94e9-6670f05df290"
+      ],
+      "answer": "Microsoft's principal executive offices are located in Redmond, Washington."
+    },
+    {
+      "id": "qh-03",
+      "category": "multi_hop",
+      "outcome": "answered",
+      "latency_s": 8.987,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 0.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "532ae124-ad68-423d-9336-504e9cb1cca5",
+          "ticker": "AMZN",
+          "company_name": "Amazon.com, Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "employed approximately 1,576,000 full-time and part-time employees. Additionally, we use independent contractors and temporary personnel to supplement our workforce. Competition for qualified personnel is intense, particularly for software"
+        },
+        {
+          "chunk_id": "74909f4a-9ba9-4795-a1a0-d37ef2a6240f",
+          "ticker": "AMZN",
+          "company_name": "Amazon.com, Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "410 Terry Avenue North"
+        }
+      ],
+      "retrieved": [
+        "f3046658-d0c9-4557-8834-775e844c9c32",
+        "d9963de1-9cf9-4448-ae52-dc6588c9bd0b",
+        "c878d609-6464-42f4-946f-c45dbeed16f2",
+        "84e4c20f-4a5a-4100-851c-c07e11de4422",
+        "d3049908-77e2-40e8-9fb6-5762a80382d3",
+        "109c483d-2fc1-4c43-be2e-48690a7e7f5a",
+        "8b8c5753-a668-41f2-8351-a2f6acbc58dc",
+        "c9d17dfd-7420-4397-af3e-01d93b160645"
+      ],
+      "cited": [],
+      "answer": "The corpus does not contain enough evidence."
+    },
+    {
+      "id": "qh-04",
+      "category": "multi_hop",
+      "outcome": "hallucination",
+      "latency_s": 9.363,
+      "recall_at_8": 0.5,
+      "reciprocal_rank_at_8": 0.125,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "670b87e0-6c0c-4558-83e2-5c7e60157aad",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 190,820 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to our emplo"
+        },
+        {
+          "chunk_id": "a1be0d94-f357-4d4f-8187-1b828c2d5e34",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "1600 Amphitheatre Parkway"
+        }
+      ],
+      "retrieved": [
+        "196a94f4-4dae-4721-bbbc-88061a9a15ae",
+        "5fa86c8a-f989-487e-b310-5968141a0e6f",
+        "191c10b8-834b-4265-8b05-58ed68aa2e0b",
+        "4d5f2ce9-d903-4006-bad2-b9e1fbdc9788",
+        "5a84c112-2daa-4dbf-98ed-67f1c5f7e147",
+        "1b15af55-d7a0-4ddf-9bd3-033a0a62f7c8",
+        "a75e63ce-671e-427b-9f1f-efb65511bb4b",
+        "670b87e0-6c0c-4558-83e2-5c7e60157aad"
+      ],
+      "cited": [],
+      "answer": "Claim \"As of December 31, 2025, Alphabet had 190,820 employees. Alphabet's principal executive offices are located at 1600 Amphitheatre Parkway, Mountain View, CA 94043.\" failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qh-05",
+      "category": "multi_hop",
+      "outcome": "answered",
+      "latency_s": 10.053,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 1.0,
+      "precision_at_8": 0.25,
+      "answer_accuracy": 1.0,
+      "citation_precision": 1.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "702975ba-d211-45bd-af72-c583f7fd12a1",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "approximately 36,000 employees in 38 countries; 27,100 were engaged in research and development and 8,900 were engaged in sales, marketing, operations, and administrative positions. The Compensation Committee of our Board of Directors assis"
+        },
+        {
+          "chunk_id": "46c24b2e-3dce-4d11-9104-1f4b48248cad",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "2788 San Tomas Expressway, Santa Clara, CA 95051"
+        }
+      ],
+      "retrieved": [
+        "702975ba-d211-45bd-af72-c583f7fd12a1",
+        "df3058cf-a13f-495c-bd6a-07d76f488be4",
+        "4aea7dd3-ce82-490e-bbda-75f69deb2d1e",
+        "830904a7-5941-49d3-9b5e-d688e91c8021",
+        "8e2ba015-d2bf-4fed-a2fc-b5dde1bc1632",
+        "5e00156d-50db-4208-b4b5-44c7cf84e101",
+        "46c24b2e-3dce-4d11-9104-1f4b48248cad",
+        "dd4c0a77-3df2-4862-9084-a8ac851481dd"
+      ],
+      "cited": [
+        "702975ba-d211-45bd-af72-c583f7fd12a1",
+        "46c24b2e-3dce-4d11-9104-1f4b48248cad"
+      ],
+      "answer": "As of the end of fiscal year 2025, NVIDIA had approximately 36,000 employees. NVIDIA's principal executive offices are located at 2788 San Tomas Expressway, Santa Clara, CA 95051."
+    },
+    {
+      "id": "qh-06",
+      "category": "multi_hop",
+      "outcome": "citation_mistake",
+      "latency_s": 7.81,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.25,
+      "precision_at_8": 0.25,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "acedffa5-93a5-4a7c-9659-95b354e7283a",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "auditor since 2009."
+        },
+        {
+          "chunk_id": "62a44576-ddc9-4d13-8ed7-70a9c868eed2",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "$8.0 billion of commercial paper outstanding, which was payable within 12 months."
+        }
+      ],
+      "retrieved": [
+        "5a02e9d9-8d80-4718-9eff-623aebe02532",
+        "81664624-9e3d-4d2b-8ed9-7533ebe15690",
+        "addca94e-068c-47c8-a107-bdef5363b340",
+        "acedffa5-93a5-4a7c-9659-95b354e7283a",
+        "62a44576-ddc9-4d13-8ed7-70a9c868eed2",
+        "27f00a1c-b07f-484d-83fa-ef4c413ba3a0",
+        "e506684a-f6d8-4112-b5f4-e4bbbec7344e",
+        "d4fe48e0-68ce-4a9c-ba08-6f34b26883ea"
+      ],
+      "cited": [],
+      "answer": "Claim \"Ernst & Young LLP has been Apple's auditor since 2009. As of September 27, 2025, $8.0 billion of commercial paper was outstanding.\" failed: Citation mistake: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qh-07",
+      "category": "multi_hop",
+      "outcome": "citation_mistake",
+      "latency_s": 9.762,
+      "recall_at_8": 0.5,
+      "reciprocal_rank_at_8": 0.25,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "75634ad7-f5df-4b47-b9e1-d6e6b624b046",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "DELOITTE & TOUCHE LLP"
+        },
+        {
+          "chunk_id": "608a3e4d-b07f-45a4-9431-461240e02df2",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "Productivity and Business Processes, Intelligent Cloud, and More Personal Computing. The segment amounts included in MD&A are presented on a basis consistent with our internal management reporting."
+        }
+      ],
+      "retrieved": [
+        "d5049acb-ae9f-4ef9-92df-09da3212f6af",
+        "7df7ddad-d5ca-45c9-8816-855a97e3f6d2",
+        "42401c68-c789-43a4-af87-9b0035b56ae9",
+        "608a3e4d-b07f-45a4-9431-461240e02df2",
+        "873db7da-ea1f-4a27-816b-6a66fdbf07de",
+        "ca3b3a0c-7c10-43d6-aca3-df02fd36a1a9",
+        "c148b539-c789-4f5e-9179-9b92e7986362",
+        "bc46c8ac-1922-464d-8d2e-79f0038ac08b"
+      ],
+      "cited": [],
+      "answer": "Claim \"Microsoft's 10-K FY2025 states that Deloitte & Touche LLP audited the consolidated financial statements as of June 30, 2025. The auditor's report dated July 30, 2025 expressed an unqualified opinion on Microsoft's financial statements. Microsoft reports financial performance using three segments: Productivity and Business Processes, Intelligent Cloud, and More Personal Computing.\" failed: Citation mistake: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qh-08",
+      "category": "multi_hop",
+      "outcome": "citation_mistake",
+      "latency_s": 10.644,
+      "recall_at_8": 0.5,
+      "reciprocal_rank_at_8": 0.1429,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "9bfb912f-7698-4fe3-add4-bf1acd88bd40",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "audited by PricewaterhouseCoopers LLP, an independent registered public accounting firm, as stated in its report which is included herein."
+        },
+        {
+          "chunk_id": "037b9cc6-d585-415b-aec2-d0187bd715d9",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "cash dividends to our shareholders of $834 million. The payment of future cash dividends is subject to our Board of Directors' continuing determination that the declaration of dividends is in the best interests of our shareholders."
+        }
+      ],
+      "retrieved": [
+        "dea94a5d-ab0c-4930-a055-ecc016c31c30",
+        "8e2ba015-d2bf-4fed-a2fc-b5dde1bc1632",
+        "473deea8-1002-4d17-93e4-531b5db768de",
+        "f74bfe99-e672-436a-a8bc-5b813a40ea7e",
+        "de82ae96-437c-4829-9062-fea058daae21",
+        "3d134d6c-a4ca-4efc-b43c-55a95a86fd20",
+        "037b9cc6-d585-415b-aec2-d0187bd715d9",
+        "4246efbf-824b-46a1-b89d-2bc8f5c26446"
+      ],
+      "cited": [],
+      "answer": "Claim \"The Company's consolidated financial statements were audited as of January 26, 2025. In fiscal year 2025, NVIDIA paid cash dividends to shareholders of $834 million.\" failed: Citation mistake: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qh-09",
+      "category": "multi_hop",
+      "outcome": "AssistantError: The assistant could not complete this answer (UnexpectedModelBehavior: Exceeded maximum output retries (2))",
+      "latency_s": 9.142,
+      "recall_at_8": 0.5,
+      "reciprocal_rank_at_8": 0.1429,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "51a5899e-9fc3-4462-a637-0ef3c7de8b1c",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "approximately 166,000 full-time equivalent employees."
+        },
+        {
+          "chunk_id": "987c91e4-879b-482d-a29a-53601f67849c",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "we employed approximately 228,000 people on a full-time basis, 125,000 in the U.S. and 103,000 internationally. Of the total employees, 89,000 were in operations, including product support and consulting services, datacenter operations, and"
+        }
+      ],
+      "retrieved": [
+        "7a8060b8-9a06-4fe7-ac93-b799f2486289",
+        "ff6139dd-97f4-4865-9727-c73360c5d4f2",
+        "40c56b0c-79a7-4d1f-80cc-18f6698b22a7",
+        "d207fde3-dd4d-4f39-b195-d4150e03f684",
+        "e772b42f-b7c7-47c5-9b04-b1733a202c71",
+        "d494106c-f22e-4954-ab26-a4d975892d8a",
+        "51a5899e-9fc3-4462-a637-0ef3c7de8b1c",
+        "bc46c8ac-1922-464d-8d2e-79f0038ac08b"
+      ],
+      "cited": [],
+      "answer": ""
+    },
+    {
+      "id": "qh-10",
+      "category": "multi_hop",
+      "outcome": "hallucination",
+      "latency_s": 6.623,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "670b87e0-6c0c-4558-83e2-5c7e60157aad",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 190,820 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to our emplo"
+        },
+        {
+          "chunk_id": "532ae124-ad68-423d-9336-504e9cb1cca5",
+          "ticker": "AMZN",
+          "company_name": "Amazon.com, Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "employed approximately 1,576,000 full-time and part-time employees. Additionally, we use independent contractors and temporary personnel to supplement our workforce. Competition for qualified personnel is intense, particularly for software"
+        }
+      ],
+      "retrieved": [
+        "196a94f4-4dae-4721-bbbc-88061a9a15ae",
+        "c878d609-6464-42f4-946f-c45dbeed16f2",
+        "8d3e1fb8-4dec-4510-add5-d8188d026721",
+        "84e4c20f-4a5a-4100-851c-c07e11de4422",
+        "5fa86c8a-f989-487e-b310-5968141a0e6f",
+        "f3046658-d0c9-4557-8834-775e844c9c32",
+        "6e883a8d-b3e5-403d-beec-adbfe38a9e26",
+        "d9963de1-9cf9-4448-ae52-dc6588c9bd0b"
+      ],
+      "cited": [],
+      "answer": "Claim 'Alphabet headcount as of December 31, 2025 was 158,492. Amazon headcount as of December 31, 2025 was 1,527,305. Amazon headcount as of December 31, 2025 was 1,527,305.' failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qh-11",
+      "category": "multi_hop",
+      "outcome": "answered",
+      "latency_s": 4.831,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.5,
+      "precision_at_8": 0.25,
+      "answer_accuracy": 1.0,
+      "citation_precision": 1.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "78b72026-11be-4bde-81f5-faae5768c014",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "approximately 29,600 employees in 36 countries, 22,200 were engaged in research and development and 7,400 were engaged in sales, marketing, operations, and administrative positions. The Compensation Committee of our Board of Directors assis"
+        },
+        {
+          "chunk_id": "702975ba-d211-45bd-af72-c583f7fd12a1",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "approximately 36,000 employees in 38 countries; 27,100 were engaged in research and development and 8,900 were engaged in sales, marketing, operations, and administrative positions. The Compensation Committee of our Board of Directors assis"
+        }
+      ],
+      "retrieved": [
+        "3e2274f5-d5ca-4bd2-b430-72129d768b41",
+        "702975ba-d211-45bd-af72-c583f7fd12a1",
+        "c95dbad8-c554-4d71-ace0-8a7f23be353c",
+        "8e2ba015-d2bf-4fed-a2fc-b5dde1bc1632",
+        "78b72026-11be-4bde-81f5-faae5768c014",
+        "473deea8-1002-4d17-93e4-531b5db768de",
+        "bd53b41d-6e24-4b03-aa7f-b60385547dff",
+        "9cc0a0cf-b787-42af-9831-c27f264a7c4a"
+      ],
+      "cited": [
+        "78b72026-11be-4bde-81f5-faae5768c014",
+        "702975ba-d211-45bd-af72-c583f7fd12a1"
+      ],
+      "answer": "As of the end of fiscal year 2024, NVIDIA had approximately 29,600 employees. As of the end of fiscal year 2025, NVIDIA had approximately 36,000 employees."
+    },
+    {
+      "id": "qh-12",
+      "category": "multi_hop",
+      "outcome": "answered",
+      "latency_s": 11.602,
+      "recall_at_8": 0.5,
+      "reciprocal_rank_at_8": 0.1667,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 0.5,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "07b229f6-10f8-428f-a0b8-ddd7a0da6221",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "Greater China, Japan and Rest of Asia Pacific. Americas includes both North and South America. Europe includes European countries, as well as India, the Middle East and Africa. Greater China includes China mainland, Hong Kong and Taiwan. Re"
+        },
+        {
+          "chunk_id": "51a5899e-9fc3-4462-a637-0ef3c7de8b1c",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "approximately 166,000 full-time equivalent employees."
+        }
+      ],
+      "retrieved": [
+        "5a02e9d9-8d80-4718-9eff-623aebe02532",
+        "31c9bc80-fccf-47bf-a526-9e1c72035071",
+        "27f00a1c-b07f-484d-83fa-ef4c413ba3a0",
+        "e772b42f-b7c7-47c5-9b04-b1733a202c71",
+        "acedffa5-93a5-4a7c-9659-95b354e7283a",
+        "51a5899e-9fc3-4462-a637-0ef3c7de8b1c",
+        "968ba8a6-6767-470e-998a-de0c1fca4289",
+        "6de30d5e-e7df-4dcf-b49b-cc4a3234b9e7"
+      ],
+      "cited": [
+        "31c9bc80-fccf-47bf-a526-9e1c72035071",
+        "51a5899e-9fc3-4462-a637-0ef3c7de8b1c"
+      ],
+      "answer": "Apple reports reportable segments consisting of the Americas, Europe, Greater China, Japan and Rest of Asia Pacific. As of September 27, 2025, Apple had approximately 166,000 full-time equivalent employees."
+    },
+    {
+      "id": "qh-13",
+      "category": "multi_hop",
+      "outcome": "answered",
+      "latency_s": 5.366,
+      "recall_at_8": 0.5,
+      "reciprocal_rank_at_8": 0.125,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.5,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "bae5385b-e279-49f4-b5f5-b218d6563066",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "revenues generated on YouTube properties; and"
+        },
+        {
+          "chunk_id": "670b87e0-6c0c-4558-83e2-5c7e60157aad",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 190,820 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to our emplo"
+        }
+      ],
+      "retrieved": [
+        "61bd2c04-82fb-4e26-b81b-d9992eab8cc7",
+        "28ad91c1-5906-470b-929c-9d1bef4b8247",
+        "eccde84a-12f5-46f3-afca-060bf5a80270",
+        "4e92fea5-444b-47fe-9bcd-f570efcce685",
+        "f8840d56-fc7d-4c30-8e1c-9cbaf7e798dc",
+        "5fa86c8a-f989-487e-b310-5968141a0e6f",
+        "5a84c112-2daa-4dbf-98ed-67f1c5f7e147",
+        "670b87e0-6c0c-4558-83e2-5c7e60157aad"
+      ],
+      "cited": [
+        "61bd2c04-82fb-4e26-b81b-d9992eab8cc7",
+        "670b87e0-6c0c-4558-83e2-5c7e60157aad"
+      ],
+      "answer": "Alphabet defines YouTube ads as a revenue category that generated $40,367 million in 2025. As of December 31, 2025, Alphabet had 190,820 employees."
+    },
+    {
+      "id": "qh-14",
+      "category": "multi_hop",
+      "outcome": "hallucination",
+      "latency_s": 10.715,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "8209b628-9e86-49a0-b508-cd98c97d4ebd",
+          "ticker": "AMZN",
+          "company_name": "Amazon.com, Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "sponsored ads, display, and video advertising."
+        },
+        {
+          "chunk_id": "532ae124-ad68-423d-9336-504e9cb1cca5",
+          "ticker": "AMZN",
+          "company_name": "Amazon.com, Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "employed approximately 1,576,000 full-time and part-time employees. Additionally, we use independent contractors and temporary personnel to supplement our workforce. Competition for qualified personnel is intense, particularly for software"
+        }
+      ],
+      "retrieved": [
+        "f3046658-d0c9-4557-8834-775e844c9c32",
+        "d3049908-77e2-40e8-9fb6-5762a80382d3",
+        "c878d609-6464-42f4-946f-c45dbeed16f2",
+        "84e4c20f-4a5a-4100-851c-c07e11de4422",
+        "109c483d-2fc1-4c43-be2e-48690a7e7f5a",
+        "d9963de1-9cf9-4448-ae52-dc6588c9bd0b",
+        "199d12d4-3671-4829-9fc4-8bd42356c29f",
+        "20b7fa40-6abf-4519-8ae5-b2f55b558073"
+      ],
+      "cited": [],
+      "answer": "Claim 'Amazon names advertising formats including Prime Video services, Prime Video features, and Amazon devices carrying the Prime Video app. Amazon had 11.0 billion common shares outstanding plus shares underlying outstanding stock awards as of December 31, 2025. North America segment net sales were $235,652 million for the year ended December 31, 2025. International segment net sales were $81,984 million for the year ended December 31, 2025. AWS segment net sales were $252,588 million for the year ended December 31, 2025.' failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qh-15",
+      "category": "multi_hop",
+      "outcome": "hallucination",
+      "latency_s": 5.699,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "b9d53a47-e2e2-4def-a8a6-0d0be095ecac",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "$57.3 billion remained of this $60.0 billion share repurchase program."
+        },
+        {
+          "chunk_id": "987c91e4-879b-482d-a29a-53601f67849c",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "we employed approximately 228,000 people on a full-time basis, 125,000 in the U.S. and 103,000 internationally. Of the total employees, 89,000 were in operations, including product support and consulting services, datacenter operations, and"
+        }
+      ],
+      "retrieved": [
+        "d5049acb-ae9f-4ef9-92df-09da3212f6af",
+        "ff6139dd-97f4-4865-9727-c73360c5d4f2",
+        "42401c68-c789-43a4-af87-9b0035b56ae9",
+        "27cd58cd-7455-4f6b-b06a-278bda08ba7d",
+        "3705f03d-8669-48e5-87ff-93647b8d3a38",
+        "be6bbbe4-6e28-482a-bb3f-4548843a03ba",
+        "44648fb3-2c8c-4fa1-99c3-e62bd1955dec",
+        "3b4d1112-3092-46cc-82b5-3c92a260fc63"
+      ],
+      "cited": [],
+      "answer": "Claim \"As of June 30, 2025, $57.3 billion remained of Microsoft's $60.0 billion share repurchase program. As of June 30, 2025, Microsoft employed 7,434 million shares outstanding.\" failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qh-16",
+      "category": "multi_hop",
+      "outcome": "answered",
+      "latency_s": 7.857,
+      "recall_at_8": 0.5,
+      "reciprocal_rank_at_8": 0.5,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 0.3333,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "cbbb5df8-f5c8-4ac8-a423-5488544617c7",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "repurchased 310 million shares of our common stock for $34.0 billion. As of January 26, 2025, we were authorized, subject to certain specifications, to repurchase up to $38.7 billion of our common stock."
+        },
+        {
+          "chunk_id": "702975ba-d211-45bd-af72-c583f7fd12a1",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "approximately 36,000 employees in 38 countries; 27,100 were engaged in research and development and 8,900 were engaged in sales, marketing, operations, and administrative positions. The Compensation Committee of our Board of Directors assis"
+        }
+      ],
+      "retrieved": [
+        "8e2ba015-d2bf-4fed-a2fc-b5dde1bc1632",
+        "702975ba-d211-45bd-af72-c583f7fd12a1",
+        "95a6d84d-d904-47dd-8cf3-602cce26a2c6",
+        "473deea8-1002-4d17-93e4-531b5db768de",
+        "037b9cc6-d585-415b-aec2-d0187bd715d9",
+        "f5dbfab0-f6f3-4d29-8993-d5ecff23a162",
+        "830904a7-5941-49d3-9b5e-d688e91c8021",
+        "3d134d6c-a4ca-4efc-b43c-55a95a86fd20"
+      ],
+      "cited": [
+        "8e2ba015-d2bf-4fed-a2fc-b5dde1bc1632",
+        "3d134d6c-a4ca-4efc-b43c-55a95a86fd20",
+        "702975ba-d211-45bd-af72-c583f7fd12a1"
+      ],
+      "answer": "In fiscal years 2025 and 2024, NVIDIA repurchased 310 million and 210 million shares of its common stock, respectively. In fiscal year 2025, NVIDIA repurchased 310 million shares of common stock for $34.0 billion. As of the end of fiscal year 2025, NVIDIA had approximately 36,000 employees."
+    },
+    {
+      "id": "qh-17",
+      "category": "multi_hop",
+      "outcome": "answered",
+      "latency_s": 6.554,
+      "recall_at_8": 0.5,
+      "reciprocal_rank_at_8": 0.25,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 0.5,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "c98358e5-ac05-467f-b7a5-e3f2ef344f50",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "For the fiscal year ended September 27, 2025"
+        },
+        {
+          "chunk_id": "51a5899e-9fc3-4462-a637-0ef3c7de8b1c",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "September 27, 2025, the Company had approximately 166,000 full-time equivalent employees."
+        }
+      ],
+      "retrieved": [
+        "7a8060b8-9a06-4fe7-ac93-b799f2486289",
+        "e772b42f-b7c7-47c5-9b04-b1733a202c71",
+        "40c56b0c-79a7-4d1f-80cc-18f6698b22a7",
+        "51a5899e-9fc3-4462-a637-0ef3c7de8b1c",
+        "27f00a1c-b07f-484d-83fa-ef4c413ba3a0",
+        "f2e29162-308d-4046-8801-6976ea39d2e1",
+        "3d0490c1-51ec-48a6-8a31-aa307ecdb025",
+        "4826993e-1916-4711-952c-14b17870c0d5"
+      ],
+      "cited": [
+        "e772b42f-b7c7-47c5-9b04-b1733a202c71",
+        "51a5899e-9fc3-4462-a637-0ef3c7de8b1c"
+      ],
+      "answer": "Apple's fiscal 2025 year ended on September 27, 2025. As of September 27, 2025, Apple had approximately 166,000 full-time equivalent employees."
+    },
+    {
+      "id": "qh-18",
+      "category": "multi_hop",
+      "outcome": "hallucination",
+      "latency_s": 8.463,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "48b53ba6-7246-49d9-920e-a94a6a21d533",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "For the Fiscal Year Ended June 30, 2025"
+        },
+        {
+          "chunk_id": "987c91e4-879b-482d-a29a-53601f67849c",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "As of June 30, 2025, we employed approximately 228,000 people on a full-time basis, 125,000 in the U.S. and 103,000 internationally. Of the total employees, 89,000 were in operations, including product support and consulting services, datac"
+        }
+      ],
+      "retrieved": [
+        "ff6139dd-97f4-4865-9727-c73360c5d4f2",
+        "d207fde3-dd4d-4f39-b195-d4150e03f684",
+        "bc46c8ac-1922-464d-8d2e-79f0038ac08b",
+        "d494106c-f22e-4954-ab26-a4d975892d8a",
+        "d5049acb-ae9f-4ef9-92df-09da3212f6af",
+        "7df7ddad-d5ca-45c9-8816-855a97e3f6d2",
+        "42401c68-c789-43a4-af87-9b0035b56ae9",
+        "a92365bb-366e-4ab8-ab76-6e4d86374661"
+      ],
+      "cited": [],
+      "answer": "Claim \"Microsoft's fiscal 2025 year ended on June 30, 2025. Microsoft employed 228,000 people as of June 30, 2025.\" failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qh-19",
+      "category": "multi_hop",
+      "outcome": "hallucination",
+      "latency_s": 7.697,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 1.0,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "702975ba-d211-45bd-af72-c583f7fd12a1",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "27,100 were engaged in research and development and 8,900 were engaged in sales, marketing, operations, and administrative positions. The Compensation Committee of our Board of Directors assists in the oversight of policies and strategies r"
+        }
+      ],
+      "retrieved": [
+        "702975ba-d211-45bd-af72-c583f7fd12a1",
+        "088e3d8d-a540-4a4c-bf19-c116005a6fe1",
+        "aa12af0c-b732-4ee5-901a-de0df9def88e",
+        "5e00156d-50db-4208-b4b5-44c7cf84e101",
+        "bd0170c8-ec1f-41b1-81bf-280ab75fb0cd",
+        "8e2ba015-d2bf-4fed-a2fc-b5dde1bc1632",
+        "bd9262ed-7cbd-4415-bb21-461406af1186",
+        "1e39eb30-1020-44f2-a93d-3bfe818343fc"
+      ],
+      "cited": [],
+      "answer": "Claim \"As of the end of fiscal year 2025, NVIDIA had approximately 36,000 employees; 27,100 were engaged in research and development and 8,900 were engaged in sales, marketing, operations, and administrative positions. NVIDIA's total fiscal year 2025 research and development expense was $3,423 million. NVIDIA's fiscal year 2025 sales, general and administrative expense was $1,136 million.\" failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qh-20",
+      "category": "multi_hop",
+      "outcome": "citation_mistake",
+      "latency_s": 6.109,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.1429,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "987c91e4-879b-482d-a29a-53601f67849c",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "125,000 in the U.S. and 103,000 internationally. Of the total employees, 89,000 were in operations, including product support and consulting services, datacenter operations, and manufacturing and distribution; 80,000 were in product researc"
+        }
+      ],
+      "retrieved": [
+        "42401c68-c789-43a4-af87-9b0035b56ae9",
+        "d5049acb-ae9f-4ef9-92df-09da3212f6af",
+        "ff6139dd-97f4-4865-9727-c73360c5d4f2",
+        "0180504d-4828-4641-94e9-6670f05df290",
+        "3b4d1112-3092-46cc-82b5-3c92a260fc63",
+        "27cd58cd-7455-4f6b-b06a-278bda08ba7d",
+        "987c91e4-879b-482d-a29a-53601f67849c",
+        "2a8a710d-6d2e-427c-a186-96e391806dda"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of June 30, 2025, Microsoft employed approximately 228,000 people on a full-time basis, 125,000 in the U.S. and 103,000 internationally.' failed: Citation mistake: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qt-01",
+      "category": "temporal",
+      "outcome": "hallucination",
+      "latency_s": 9.461,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "2060c53c-e9fd-4530-bf4a-dc1b720ba3b8",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2022,
+          "filing_type": "10-K",
+          "excerpt": "approximately 164,000 full-time equivalent employees."
+        },
+        {
+          "chunk_id": "be1c2998-733a-4a19-9c07-0c1abec348a2",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "approximately 161,000 full-time equivalent employees."
+        },
+        {
+          "chunk_id": "51a5899e-9fc3-4462-a637-0ef3c7de8b1c",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "approximately 166,000 full-time equivalent employees."
+        }
+      ],
+      "retrieved": [
+        "79c6cf0e-81db-4d08-a51d-0cd4a2a63e2e",
+        "8e5d0263-fbfc-4a93-a426-0cf421a5ef98",
+        "e772b42f-b7c7-47c5-9b04-b1733a202c71",
+        "9b8f30e7-e555-4797-a6eb-6395892f051b",
+        "2633a20e-b963-4f28-a2f0-f324405edb30",
+        "7a8060b8-9a06-4fe7-ac93-b799f2486289",
+        "86cc5ad6-f567-4c97-939c-81415bb7918c",
+        "42940a70-e82c-4742-812d-88dd56aeea49"
+      ],
+      "cited": [],
+      "answer": "Claim \"As of September 24, 2022, Apple had approximately 164,000 full-time equivalent employees. Apple's fiscal year 2025 spans 52 weeks, whereas fiscal year 2023 spanned 53 weeks. Apple's fiscal years 2025 and 2024 spanned 52 weeks each, whereas fiscal year 2023 spanned 53 weeks.\" failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qt-02",
+      "category": "temporal",
+      "outcome": "hallucination",
+      "latency_s": 10.108,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "b469586c-687f-4837-9b40-7af2b62d72ad",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2022,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 190,234 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to all emplo"
+        },
+        {
+          "chunk_id": "d50493f2-7434-4ffc-8a72-6293044ce3c8",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 182,502 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to all emplo"
+        },
+        {
+          "chunk_id": "1e39e228-a8de-4925-8155-b6ace01c882b",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 183,323 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to all emplo"
+        },
+        {
+          "chunk_id": "670b87e0-6c0c-4558-83e2-5c7e60157aad",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 190,820 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to our emplo"
+        }
+      ],
+      "retrieved": [
+        "960513e3-4d78-459f-9805-c89c9eb8b7d0",
+        "84aad8bb-a8fb-4389-a110-5f0f1cbc624e",
+        "1b0d1947-5a6c-4eb1-be74-e4abe63799db",
+        "dfec772b-63ea-48ee-9e4f-efe1887af231",
+        "16147f95-b89a-4b11-aff7-dc690a962eec",
+        "1493be87-36c5-4749-a4de-31b48744ddeb",
+        "5bfa38a9-11f8-422a-a244-d7dce10c34c0",
+        "00a9493a-284e-453f-8f21-7df67a305233"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of December 31, 2022, Alphabet reported 120,517 employees. As of December 31, 2023, Alphabet reported 138,498 employees. As of December 31, 2024, Alphabet reported 140,801 employees. As of December 31, 2025, Alphabet reported 148,198 employees.' failed: Hallucination: 120,517 is not in the cited passage"
+    },
+    {
+      "id": "qt-03",
+      "category": "temporal",
+      "outcome": "answered",
+      "latency_s": 10.754,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "9ff6e477-486e-4003-9dbb-49acb8449d1f",
+          "ticker": "AMZN",
+          "company_name": "Amazon.com, Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "employed approximately 1,525,000 full-time and part-time employees. Additionally, we use independent contractors and temporary personnel to supplement our workforce. Competition for qualified personnel is intense, particularly for software"
+        },
+        {
+          "chunk_id": "619c0b09-6a5c-4981-9228-887cd621c424",
+          "ticker": "AMZN",
+          "company_name": "Amazon.com, Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "employed approximately 1,556,000 full-time and part-time employees. Additionally, we use independent contractors and temporary personnel to supplement our workforce. Competition for qualified personnel is intense, particularly for software"
+        },
+        {
+          "chunk_id": "532ae124-ad68-423d-9336-504e9cb1cca5",
+          "ticker": "AMZN",
+          "company_name": "Amazon.com, Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "employed approximately 1,576,000 full-time and part-time employees. Additionally, we use independent contractors and temporary personnel to supplement our workforce. Competition for qualified personnel is intense, particularly for software"
+        }
+      ],
+      "retrieved": [
+        "58004640-71c8-4770-9711-68246ac72003",
+        "f946f6d1-5408-47c4-ad6e-e03f30da6902",
+        "84e4c20f-4a5a-4100-851c-c07e11de4422",
+        "fcb2941f-0ef2-4678-a85d-dc028a7e6753",
+        "29485410-fd8d-4911-93b9-8f3efd7b4093",
+        "f3046658-d0c9-4557-8834-775e844c9c32",
+        "4efb1cf8-f28b-468b-93fe-f0c9ffdbeb6e",
+        "84514895-7c15-4c30-8b0f-25a769709b8d"
+      ],
+      "cited": [
+        "fcb2941f-0ef2-4678-a85d-dc028a7e6753"
+      ],
+      "answer": "Amazon reported 196,029 employees at December 31, 2023. Amazon reported 69,718 employees at December 31, 2023. Amazon reported 108,533 employees at December 31, 2023."
+    },
+    {
+      "id": "qt-04",
+      "category": "temporal",
+      "outcome": "answered",
+      "latency_s": 8.987,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.5,
+      "precision_at_8": 0.25,
+      "answer_accuracy": 1.0,
+      "citation_precision": 1.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "78b72026-11be-4bde-81f5-faae5768c014",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "approximately 29,600 employees in 36 countries, 22,200 were engaged in research and development and 7,400 were engaged in sales, marketing, operations, and administrative positions. The Compensation Committee of our Board of Directors assis"
+        },
+        {
+          "chunk_id": "702975ba-d211-45bd-af72-c583f7fd12a1",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "approximately 36,000 employees in 38 countries; 27,100 were engaged in research and development and 8,900 were engaged in sales, marketing, operations, and administrative positions. The Compensation Committee of our Board of Directors assis"
+        }
+      ],
+      "retrieved": [
+        "3e2274f5-d5ca-4bd2-b430-72129d768b41",
+        "702975ba-d211-45bd-af72-c583f7fd12a1",
+        "8834c3ad-fad6-4748-8180-109e9c9e8999",
+        "abfa32fc-4b23-460d-8c52-5412c2cf2ee7",
+        "78b72026-11be-4bde-81f5-faae5768c014",
+        "dea94a5d-ab0c-4930-a055-ecc016c31c30",
+        "c95dbad8-c554-4d71-ace0-8a7f23be353c",
+        "8e2ba015-d2bf-4fed-a2fc-b5dde1bc1632"
+      ],
+      "cited": [
+        "78b72026-11be-4bde-81f5-faae5768c014",
+        "702975ba-d211-45bd-af72-c583f7fd12a1"
+      ],
+      "answer": "As of the end of fiscal year 2024, NVIDIA had approximately 29,600 employees. As of the end of fiscal year 2025, NVIDIA had approximately 36,000 employees."
+    },
+    {
+      "id": "qt-05",
+      "category": "temporal",
+      "outcome": "citation_mistake",
+      "latency_s": 10.09,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.3333,
+      "precision_at_8": 0.25,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "1f2deb15-7002-4a74-9270-a1db6b2f08a6",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "As of June 30, 2024, we employed approximately 228,000 people on a full-time basis, 126,000 in the U.S. and 102,000 internationally. Of the total employed people, 86,000 were in operations, including product support and consulting services,"
+        },
+        {
+          "chunk_id": "987c91e4-879b-482d-a29a-53601f67849c",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "As of June 30, 2025, we employed approximately 228,000 people on a full-time basis, 125,000 in the U.S. and 103,000 internationally. Of the total employees, 89,000 were in operations, including product support and consulting services, datac"
+        }
+      ],
+      "retrieved": [
+        "85023b7e-f3fa-4537-8b35-df4dc4661661",
+        "d5049acb-ae9f-4ef9-92df-09da3212f6af",
+        "1f2deb15-7002-4a74-9270-a1db6b2f08a6",
+        "ff6139dd-97f4-4865-9727-c73360c5d4f2",
+        "49742138-1887-4cc2-be71-4940096e7ec2",
+        "42401c68-c789-43a4-af87-9b0035b56ae9",
+        "5b2373dc-159f-4e5e-8e27-a63692b451bb",
+        "987c91e4-879b-482d-a29a-53601f67849c"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of June 30, 2024, Microsoft employed approximately 228,000 people on a full-time basis. As of June 30, 2024, Microsoft employed 126,000 people in the U.S. on a full-time basis. As of June 30, 2024, Microsoft employed 102,000 people internationally on a full-time basis. As of June 30, 2025, Microsoft employed approximately 228,000 people on a full-time basis. As of June 30, 2025, Microsoft employed 125,000 people in the U.S. on a full-time basis. As of June 30, 2025, Microsoft employed 103,000 people internationally on a full-time basis.' failed: Citation mistake: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qt-06",
+      "category": "temporal",
+      "outcome": "hallucination",
+      "latency_s": 8.216,
+      "recall_at_8": 0.5,
+      "reciprocal_rank_at_8": 0.3333,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "1f2deb15-7002-4a74-9270-a1db6b2f08a6",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "126,000 in the U.S. and 102,000 internationally. Of the total employed people, 86,000 were in operations, including product support and consulting services, datacenter operations, and manufacturing and distribution; 81,000 were in product r"
+        },
+        {
+          "chunk_id": "987c91e4-879b-482d-a29a-53601f67849c",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "125,000 in the U.S. and 103,000 internationally. Of the total employees, 89,000 were in operations, including product support and consulting services, datacenter operations, and manufacturing and distribution; 80,000 were in product researc"
+        }
+      ],
+      "retrieved": [
+        "85023b7e-f3fa-4537-8b35-df4dc4661661",
+        "d5049acb-ae9f-4ef9-92df-09da3212f6af",
+        "1f2deb15-7002-4a74-9270-a1db6b2f08a6",
+        "ff6139dd-97f4-4865-9727-c73360c5d4f2",
+        "49742138-1887-4cc2-be71-4940096e7ec2",
+        "42401c68-c789-43a4-af87-9b0035b56ae9",
+        "c45cb98e-399e-4f56-b74a-bf123e994efb",
+        "3b4d1112-3092-46cc-82b5-3c92a260fc63"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of June 30, 2024, Microsoft employed approximately 126,000 people in the U.S. As of June 30, 2025, Microsoft employed approximately 131,000 people in the U.S.' failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qt-07",
+      "category": "temporal",
+      "outcome": "hallucination",
+      "latency_s": 10.467,
+      "recall_at_8": 0.5,
+      "reciprocal_rank_at_8": 0.3333,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "1f2deb15-7002-4a74-9270-a1db6b2f08a6",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "102,000 internationally. Of the total employed people, 86,000 were in operations, including product support and consulting services, datacenter operations, and manufacturing and distribution; 81,000 were in product research and development;"
+        },
+        {
+          "chunk_id": "987c91e4-879b-482d-a29a-53601f67849c",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "103,000 internationally. Of the total employees, 89,000 were in operations, including product support and consulting services, datacenter operations, and manufacturing and distribution; 80,000 were in product research and development; 44,00"
+        }
+      ],
+      "retrieved": [
+        "85023b7e-f3fa-4537-8b35-df4dc4661661",
+        "d5049acb-ae9f-4ef9-92df-09da3212f6af",
+        "1f2deb15-7002-4a74-9270-a1db6b2f08a6",
+        "ff6139dd-97f4-4865-9727-c73360c5d4f2",
+        "49742138-1887-4cc2-be71-4940096e7ec2",
+        "42401c68-c789-43a4-af87-9b0035b56ae9",
+        "7305a460-b801-4866-bd0d-534f5935eb81",
+        "3b4d1112-3092-46cc-82b5-3c92a260fc63"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of June 30, 2024, we employed approximately 228,000 people on a full-time basis, 126,000 in the U.S. and 102,000 internationally. As of June 30, 2025, total unrecognized compensation costs related to stock awards were $21.6 billion. As of June 30, 2025, Microsoft employed approximately 230,000 people on a full-time basis, 130,000 in the U.S. and 100,000 internationally.' failed: Hallucination: 230,000 is not in the cited passage"
+    },
+    {
+      "id": "qt-08",
+      "category": "temporal",
+      "outcome": "hallucination",
+      "latency_s": 7.862,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.3333,
+      "precision_at_8": 0.25,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "1f2deb15-7002-4a74-9270-a1db6b2f08a6",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "86,000 were in operations, including product support and consulting services, datacenter operations, and manufacturing and distribution; 81,000 were in product research and development; 45,000 were in sales and marketing; and 16,000 were in"
+        },
+        {
+          "chunk_id": "987c91e4-879b-482d-a29a-53601f67849c",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "89,000 were in operations, including product support and consulting services, datacenter operations, and manufacturing and distribution; 80,000 were in product research and development; 44,000 were in sales and marketing; and 15,000 were in"
+        }
+      ],
+      "retrieved": [
+        "49742138-1887-4cc2-be71-4940096e7ec2",
+        "d5049acb-ae9f-4ef9-92df-09da3212f6af",
+        "1f2deb15-7002-4a74-9270-a1db6b2f08a6",
+        "ff6139dd-97f4-4865-9727-c73360c5d4f2",
+        "85023b7e-f3fa-4537-8b35-df4dc4661661",
+        "987c91e4-879b-482d-a29a-53601f67849c",
+        "5b2373dc-159f-4e5e-8e27-a63692b451bb",
+        "42401c68-c789-43a4-af87-9b0035b56ae9"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of June 30, 2024, Microsoft employed approximately 86,000 people in operations, including product support and consulting services, datacenter operations, and manufacturing and distribution. As of June 30, 2025, Microsoft employed approximately 89,000 people in operations, including product support and consulting services, datacenter operations, and manufacturing and distribution.' failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qt-09",
+      "category": "temporal",
+      "outcome": "hallucination",
+      "latency_s": 7.059,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "1e39e228-a8de-4925-8155-b6ace01c882b",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 183,323 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to all emplo"
+        },
+        {
+          "chunk_id": "670b87e0-6c0c-4558-83e2-5c7e60157aad",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 190,820 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to our emplo"
+        }
+      ],
+      "retrieved": [
+        "71afc67b-7fba-4672-9052-0df5d5c31f14",
+        "5fa86c8a-f989-487e-b310-5968141a0e6f",
+        "1b0d1947-5a6c-4eb1-be74-e4abe63799db",
+        "4e92fea5-444b-47fe-9bcd-f570efcce685",
+        "5bfa38a9-11f8-422a-a244-d7dce10c34c0",
+        "5b3521ef-5c37-4b90-b502-ae381b1854c7",
+        "d187968b-1725-4d90-9e2c-95327c565d70",
+        "191c10b8-834b-4265-8b05-58ed68aa2e0b"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of December 31, 2024, Alphabet had 183,323 employees. As of December 31, 2025, Alphabet had 185,595 employees.' failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qt-10",
+      "category": "temporal",
+      "outcome": "hallucination",
+      "latency_s": 7.549,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "9ff6e477-486e-4003-9dbb-49acb8449d1f",
+          "ticker": "AMZN",
+          "company_name": "Amazon.com, Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "employed approximately 1,525,000 full-time and part-time employees. Additionally, we use independent contractors and temporary personnel to supplement our workforce. Competition for qualified personnel is intense, particularly for software"
+        },
+        {
+          "chunk_id": "532ae124-ad68-423d-9336-504e9cb1cca5",
+          "ticker": "AMZN",
+          "company_name": "Amazon.com, Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "employed approximately 1,576,000 full-time and part-time employees. Additionally, we use independent contractors and temporary personnel to supplement our workforce. Competition for qualified personnel is intense, particularly for software"
+        }
+      ],
+      "retrieved": [
+        "f3acb342-cf7e-486a-a1e5-3200273dd9d0",
+        "d9963de1-9cf9-4448-ae52-dc6588c9bd0b",
+        "a2537fac-acaa-449c-a87b-f74dded56072",
+        "109c483d-2fc1-4c43-be2e-48690a7e7f5a",
+        "58004640-71c8-4770-9711-68246ac72003",
+        "84e4c20f-4a5a-4100-851c-c07e11de4422",
+        "4efb1cf8-f28b-468b-93fe-f0c9ffdbeb6e",
+        "c878d609-6464-42f4-946f-c45dbeed16f2"
+      ],
+      "cited": [],
+      "answer": "Claim \"Amazon's consolidated employee count was 30,225 as of December 31, 2023. Amazon's consolidated employee count was 41,860 as of December 31, 2025.\" failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qt-11",
+      "category": "temporal",
+      "outcome": "answered",
+      "latency_s": 5.486,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.5,
+      "precision_at_8": 0.25,
+      "answer_accuracy": 0.0,
+      "citation_precision": 1.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "78b72026-11be-4bde-81f5-faae5768c014",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "approximately 29,600 employees in 36 countries, 22,200 were engaged in research and development and 7,400 were engaged in sales, marketing, operations, and administrative positions. The Compensation Committee of our Board of Directors assis"
+        },
+        {
+          "chunk_id": "702975ba-d211-45bd-af72-c583f7fd12a1",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "approximately 36,000 employees in 38 countries; 27,100 were engaged in research and development and 8,900 were engaged in sales, marketing, operations, and administrative positions. The Compensation Committee of our Board of Directors assis"
+        }
+      ],
+      "retrieved": [
+        "3e2274f5-d5ca-4bd2-b430-72129d768b41",
+        "702975ba-d211-45bd-af72-c583f7fd12a1",
+        "78b72026-11be-4bde-81f5-faae5768c014",
+        "9cc0a0cf-b787-42af-9831-c27f264a7c4a",
+        "c95dbad8-c554-4d71-ace0-8a7f23be353c",
+        "8e2ba015-d2bf-4fed-a2fc-b5dde1bc1632",
+        "bd53b41d-6e24-4b03-aa7f-b60385547dff",
+        "aa507eab-f7af-4a32-a520-b89a4efec287"
+      ],
+      "cited": [
+        "702975ba-d211-45bd-af72-c583f7fd12a1",
+        "78b72026-11be-4bde-81f5-faae5768c014"
+      ],
+      "answer": "As of the end of fiscal year 2025, NVIDIA had approximately 36,000 employees. As of the end of fiscal year 2024, NVIDIA had approximately 29,600 employees."
+    },
+    {
+      "id": "qt-12",
+      "category": "temporal",
+      "outcome": "hallucination",
+      "latency_s": 7.409,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "be1c2998-733a-4a19-9c07-0c1abec348a2",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "approximately 161,000 full-time equivalent employees."
+        },
+        {
+          "chunk_id": "51a5899e-9fc3-4462-a637-0ef3c7de8b1c",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "approximately 166,000 full-time equivalent employees."
+        }
+      ],
+      "retrieved": [
+        "8e5d0263-fbfc-4a93-a426-0cf421a5ef98",
+        "e772b42f-b7c7-47c5-9b04-b1733a202c71",
+        "2633a20e-b963-4f28-a2f0-f324405edb30",
+        "7a8060b8-9a06-4fe7-ac93-b799f2486289",
+        "9b40aea1-aa7a-4bf3-947b-b4e624a5c767",
+        "f2e29162-308d-4046-8801-6976ea39d2e1",
+        "42940a70-e82c-4742-812d-88dd56aeea49",
+        "40c56b0c-79a7-4d1f-80cc-18f6698b22a7"
+      ],
+      "cited": [],
+      "answer": "Claim 'Apple Inc. 10-K FY2023 reported full-time equivalent employee count of 161,863 as of September 23, 2023. Apple Inc. 10-K FY2025 reported full-time equivalent employee count of 164,643 as of September 27, 2025.' failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qt-13",
+      "category": "temporal",
+      "outcome": "answered",
+      "latency_s": 4.689,
+      "recall_at_8": 0.5,
+      "reciprocal_rank_at_8": 1.0,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 1.0,
+      "citation_precision": 0.5,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "b469586c-687f-4837-9b40-7af2b62d72ad",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2022,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 190,234 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to all emplo"
+        },
+        {
+          "chunk_id": "d50493f2-7434-4ffc-8a72-6293044ce3c8",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 182,502 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to all emplo"
+        }
+      ],
+      "retrieved": [
+        "b469586c-687f-4837-9b40-7af2b62d72ad",
+        "84aad8bb-a8fb-4389-a110-5f0f1cbc624e",
+        "f995fe44-cdc3-499d-811e-abcc12cf0863",
+        "1493be87-36c5-4749-a4de-31b48744ddeb",
+        "cc6ea77d-741a-4d7c-a56f-984bf34736b7",
+        "da4788f0-36ef-4070-9810-a97e707aecd5",
+        "7ea478b5-8f64-4eec-be2e-46cdb4643b6a",
+        "1fdcf8f1-e24e-4504-bfc3-60af612abaf6"
+      ],
+      "cited": [
+        "b469586c-687f-4837-9b40-7af2b62d72ad",
+        "da4788f0-36ef-4070-9810-a97e707aecd5"
+      ],
+      "answer": "As of December 31, 2022, Alphabet had 190,234 employees. As of December 31, 2023, Alphabet had 182,502 employees."
+    },
+    {
+      "id": "qt-14",
+      "category": "temporal",
+      "outcome": "hallucination",
+      "latency_s": 6.106,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "b469586c-687f-4837-9b40-7af2b62d72ad",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2022,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 190,234 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to all emplo"
+        },
+        {
+          "chunk_id": "670b87e0-6c0c-4558-83e2-5c7e60157aad",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 190,820 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to our emplo"
+        }
+      ],
+      "retrieved": [
+        "f995fe44-cdc3-499d-811e-abcc12cf0863",
+        "dfec772b-63ea-48ee-9e4f-efe1887af231",
+        "cc6ea77d-741a-4d7c-a56f-984bf34736b7",
+        "5fa86c8a-f989-487e-b310-5968141a0e6f",
+        "7ea478b5-8f64-4eec-be2e-46cdb4643b6a",
+        "196a94f4-4dae-4721-bbbc-88061a9a15ae",
+        "8e522654-e217-43f7-ae0b-c113b246a36a",
+        "61bd2c04-82fb-4e26-b81b-d9992eab8cc7"
+      ],
+      "cited": [],
+      "answer": "Claim 'Alphabet headcount as of December 31, 2022 was 190,000 employees.' failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qt-15",
+      "category": "temporal",
+      "outcome": "hallucination",
+      "latency_s": 7.398,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "2060c53c-e9fd-4530-bf4a-dc1b720ba3b8",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2022,
+          "filing_type": "10-K",
+          "excerpt": "approximately 164,000 full-time equivalent employees."
+        },
+        {
+          "chunk_id": "be1c2998-733a-4a19-9c07-0c1abec348a2",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "approximately 161,000 full-time equivalent employees."
+        }
+      ],
+      "retrieved": [
+        "9b8f30e7-e555-4797-a6eb-6395892f051b",
+        "8e5d0263-fbfc-4a93-a426-0cf421a5ef98",
+        "79c6cf0e-81db-4d08-a51d-0cd4a2a63e2e",
+        "2633a20e-b963-4f28-a2f0-f324405edb30",
+        "20c97d17-822d-4d54-83d0-7b51606c731f",
+        "878c2fa7-c20f-46bd-a5af-4c65084f33ea",
+        "25582d7a-88b4-4a32-ab4e-ee4bc282edb0",
+        "42940a70-e82c-4742-812d-88dd56aeea49"
+      ],
+      "cited": [],
+      "answer": "Claim 'Apple Inc. had 163,000 full-time employees in fiscal 2022. Apple Inc. had 164,000 full-time employees in fiscal 2023.' failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qt-16",
+      "category": "temporal",
+      "outcome": "answered",
+      "latency_s": 5.977,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.5,
+      "precision_at_8": 0.25,
+      "answer_accuracy": 1.0,
+      "citation_precision": 1.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "78b72026-11be-4bde-81f5-faae5768c014",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "29,600 employees in 36 countries, 22,200 were engaged in research and development and 7,400 were engaged in sales, marketing, operations, and administrative positions. The Compensation Committee of our Board of Directors assists in the over"
+        },
+        {
+          "chunk_id": "702975ba-d211-45bd-af72-c583f7fd12a1",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "36,000 employees in 38 countries; 27,100 were engaged in research and development and 8,900 were engaged in sales, marketing, operations, and administrative positions. The Compensation Committee of our Board of Directors assists in the over"
+        }
+      ],
+      "retrieved": [
+        "3e2274f5-d5ca-4bd2-b430-72129d768b41",
+        "702975ba-d211-45bd-af72-c583f7fd12a1",
+        "78b72026-11be-4bde-81f5-faae5768c014",
+        "abfa32fc-4b23-460d-8c52-5412c2cf2ee7",
+        "8834c3ad-fad6-4748-8180-109e9c9e8999",
+        "8e2ba015-d2bf-4fed-a2fc-b5dde1bc1632",
+        "c95dbad8-c554-4d71-ace0-8a7f23be353c",
+        "dea94a5d-ab0c-4930-a055-ecc016c31c30"
+      ],
+      "cited": [
+        "78b72026-11be-4bde-81f5-faae5768c014",
+        "702975ba-d211-45bd-af72-c583f7fd12a1"
+      ],
+      "answer": "As of the end of fiscal year 2024, NVIDIA had approximately 29,600 employees in 36 countries. As of the end of fiscal year 2025, NVIDIA had approximately 36,000 employees in 38 countries."
+    },
+    {
+      "id": "qt-17",
+      "category": "temporal",
+      "outcome": "citation_mistake",
+      "latency_s": 10.899,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "619c0b09-6a5c-4981-9228-887cd621c424",
+          "ticker": "AMZN",
+          "company_name": "Amazon.com, Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "employed approximately 1,556,000 full-time and part-time employees. Additionally, we use independent contractors and temporary personnel to supplement our workforce. Competition for qualified personnel is intense, particularly for software"
+        },
+        {
+          "chunk_id": "532ae124-ad68-423d-9336-504e9cb1cca5",
+          "ticker": "AMZN",
+          "company_name": "Amazon.com, Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "employed approximately 1,576,000 full-time and part-time employees. Additionally, we use independent contractors and temporary personnel to supplement our workforce. Competition for qualified personnel is intense, particularly for software"
+        }
+      ],
+      "retrieved": [
+        "f946f6d1-5408-47c4-ad6e-e03f30da6902",
+        "84e4c20f-4a5a-4100-851c-c07e11de4422",
+        "b042dbf8-dc82-42b0-9920-99493c66c82f",
+        "f3046658-d0c9-4557-8834-775e844c9c32",
+        "9bd8e139-eeba-45e1-9d24-a3fa8c91639e",
+        "109c483d-2fc1-4c43-be2e-48690a7e7f5a",
+        "84514895-7c15-4c30-8b0f-25a769709b8d",
+        "d3049908-77e2-40e8-9fb6-5762a80382d3"
+      ],
+      "cited": [],
+      "answer": "Claim \"Amazon's employee count at December 31, 2024 was 103,041. Amazon's employee count at December 31, 2025 was 103,041.\" failed: Citation mistake: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qt-18",
+      "category": "temporal",
+      "outcome": "hallucination",
+      "latency_s": 9.341,
+      "recall_at_8": 1.0,
+      "reciprocal_rank_at_8": 0.1429,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "987c91e4-879b-482d-a29a-53601f67849c",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "125,000 in the U.S. and 103,000 internationally. Of the total employees, 89,000 were in operations, including product support and consulting services, datacenter operations, and manufacturing and distribution; 80,000 were in product researc"
+        }
+      ],
+      "retrieved": [
+        "d5049acb-ae9f-4ef9-92df-09da3212f6af",
+        "42401c68-c789-43a4-af87-9b0035b56ae9",
+        "ff6139dd-97f4-4865-9727-c73360c5d4f2",
+        "3b4d1112-3092-46cc-82b5-3c92a260fc63",
+        "0180504d-4828-4641-94e9-6670f05df290",
+        "27cd58cd-7455-4f6b-b06a-278bda08ba7d",
+        "987c91e4-879b-482d-a29a-53601f67849c",
+        "c45dbe51-bd5a-441f-9203-b1e61cf5d29a"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of June 30, 2025, Microsoft employed approximately 228,000 people on a full-time basis, 125,000 in the U.S. and 103,000 internationally. As of June 30, 2025, Microsoft employed approximately 125,000 people in the U.S. As of June 30, 2025, Microsoft employed approximately 103,000 people internationally.' failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qt-19",
+      "category": "temporal",
+      "outcome": "citation_mistake",
+      "latency_s": 10.426,
+      "recall_at_8": 0.5,
+      "reciprocal_rank_at_8": 0.1429,
+      "precision_at_8": 0.125,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "d50493f2-7434-4ffc-8a72-6293044ce3c8",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 182,502 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to all emplo"
+        },
+        {
+          "chunk_id": "1e39e228-a8de-4925-8155-b6ace01c882b",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "Alphabet had 183,323 employees. We have work councils and statutory employee representation obligations in certain countries, and we are committed to supporting protected labor rights, maintaining an open culture, and listening to all emplo"
+        }
+      ],
+      "retrieved": [
+        "da4788f0-36ef-4070-9810-a97e707aecd5",
+        "d187968b-1725-4d90-9e2c-95327c565d70",
+        "1493be87-36c5-4749-a4de-31b48744ddeb",
+        "71afc67b-7fba-4672-9052-0df5d5c31f14",
+        "1fdcf8f1-e24e-4504-bfc3-60af612abaf6",
+        "1b0d1947-5a6c-4eb1-be74-e4abe63799db",
+        "d50493f2-7434-4ffc-8a72-6293044ce3c8",
+        "5bfa38a9-11f8-422a-a244-d7dce10c34c0"
+      ],
+      "cited": [],
+      "answer": "Claim 'As of December 31, 2023, Alphabet had 182,502 employees. As of December 31, 2024, Alphabet had 183,323 employees.' failed: Citation mistake: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qt-20",
+      "category": "temporal",
+      "outcome": "hallucination",
+      "latency_s": 7.735,
+      "recall_at_8": 0.0,
+      "reciprocal_rank_at_8": 0.0,
+      "precision_at_8": 0.0,
+      "answer_accuracy": 0.0,
+      "citation_precision": 0.0,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [
+        {
+          "chunk_id": "be1c2998-733a-4a19-9c07-0c1abec348a2",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "approximately 161,000 full-time equivalent employees."
+        },
+        {
+          "chunk_id": "2060c53c-e9fd-4530-bf4a-dc1b720ba3b8",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2022,
+          "filing_type": "10-K",
+          "excerpt": "approximately 164,000 full-time equivalent employees."
+        }
+      ],
+      "retrieved": [
+        "8e5d0263-fbfc-4a93-a426-0cf421a5ef98",
+        "79c6cf0e-81db-4d08-a51d-0cd4a2a63e2e",
+        "2633a20e-b963-4f28-a2f0-f324405edb30",
+        "9b8f30e7-e555-4797-a6eb-6395892f051b",
+        "878c2fa7-c20f-46bd-a5af-4c65084f33ea",
+        "20c97d17-822d-4d54-83d0-7b51606c731f",
+        "42940a70-e82c-4742-812d-88dd56aeea49",
+        "25582d7a-88b4-4a32-ab4e-ee4bc282edb0"
+      ],
+      "cited": [],
+      "answer": "Claim 'Apple Inc. had 163,700 full-time equivalent employees during fiscal year 2023. Apple Inc. had 156,000 full-time equivalent employees during fiscal year 2022.' failed: Hallucination: Locator is not in the retrieved passage"
+    },
+    {
+      "id": "qu-01",
+      "category": "unanswerable",
+      "outcome": "answered",
+      "latency_s": 3.761,
+      "recall_at_8": null,
+      "reciprocal_rank_at_8": null,
+      "precision_at_8": null,
+      "answer_accuracy": 1.0,
+      "citation_precision": null,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [],
+      "retrieved": [
+        "3e2274f5-d5ca-4bd2-b430-72129d768b41",
+        "8834c3ad-fad6-4748-8180-109e9c9e8999",
+        "f9622e6c-ae1d-4e3d-8d46-d1255492376d",
+        "1293ecaa-e492-4dc5-b4c6-72b5457fe270",
+        "ed6a8267-1156-4a50-8df8-3977d83ac6a9",
+        "78479297-160e-4371-811a-959f1731c91a",
+        "86561c7d-e52a-45a6-8367-68b612ca9f16",
+        "7791f015-eead-4f20-971d-1a5d488a205b"
+      ],
+      "cited": [],
+      "answer": "The corpus does not contain enough evidence."
+    },
+    {
+      "id": "qu-02",
+      "category": "unanswerable",
+      "outcome": "grounding_rejected",
+      "latency_s": 12.498,
+      "recall_at_8": null,
+      "reciprocal_rank_at_8": null,
+      "precision_at_8": null,
+      "answer_accuracy": 0.0,
+      "citation_precision": null,
+      "abstention_accuracy": 0.0,
+      "gold_chunks": [],
+      "retrieved": [
+        "edd209a1-2fde-48bb-8a00-f6541aaa3a24",
+        "f84dce78-6b1f-4c92-9341-6c3c8bbe7e80",
+        "c95dbad8-c554-4d71-ace0-8a7f23be353c",
+        "300827bf-c8a1-4bf9-bc50-f8a3c2218b9a",
+        "2eaf7f45-318a-4189-ab7b-f42edb7bed14",
+        "8c4080ee-7d40-4f86-bab6-bbc605e613eb",
+        "cb6dd601-1a28-43b9-8c7e-2028e7b9a72e",
+        "6e2997e5-1290-4a95-a777-08623f9b4da9"
+      ],
+      "cited": [],
+      "answer": "Claim 'Netflix reported 278.5 million paid memberships at the end of 2024.' cites passage 115, which was not retrieved"
+    },
+    {
+      "id": "qu-03",
+      "category": "unanswerable",
+      "outcome": "answered",
+      "latency_s": 4.919,
+      "recall_at_8": null,
+      "reciprocal_rank_at_8": null,
+      "precision_at_8": null,
+      "answer_accuracy": 1.0,
+      "citation_precision": null,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [],
+      "retrieved": [
+        "3e2274f5-d5ca-4bd2-b430-72129d768b41",
+        "1293ecaa-e492-4dc5-b4c6-72b5457fe270",
+        "ed6a8267-1156-4a50-8df8-3977d83ac6a9",
+        "78479297-160e-4371-811a-959f1731c91a",
+        "8834c3ad-fad6-4748-8180-109e9c9e8999",
+        "7791f015-eead-4f20-971d-1a5d488a205b",
+        "86561c7d-e52a-45a6-8367-68b612ca9f16",
+        "f9622e6c-ae1d-4e3d-8d46-d1255492376d"
+      ],
+      "cited": [],
+      "answer": "The corpus does not contain enough evidence."
+    },
+    {
+      "id": "qu-04",
+      "category": "unanswerable",
+      "outcome": "answered",
+      "latency_s": 6.076,
+      "recall_at_8": null,
+      "reciprocal_rank_at_8": null,
+      "precision_at_8": null,
+      "answer_accuracy": 1.0,
+      "citation_precision": null,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [],
+      "retrieved": [
+        "3e2274f5-d5ca-4bd2-b430-72129d768b41",
+        "3d3a911d-bebc-4ad1-b3fe-da3a528d9234",
+        "1293ecaa-e492-4dc5-b4c6-72b5457fe270",
+        "490ef8f1-515a-489b-bb0d-3cc139279c02",
+        "c5334ee1-c872-4856-acb8-f955b5ef40a4",
+        "24e4a772-b4cd-4bf1-a1b6-7f6d4bbe5042",
+        "ed6a8267-1156-4a50-8df8-3977d83ac6a9",
+        "8abac229-d02c-47f2-b66d-bed8918e59ef"
+      ],
+      "cited": [],
+      "answer": "The corpus does not contain enough evidence."
+    },
+    {
+      "id": "qu-05",
+      "category": "unanswerable",
+      "outcome": "answered",
+      "latency_s": 3.123,
+      "recall_at_8": null,
+      "reciprocal_rank_at_8": null,
+      "precision_at_8": null,
+      "answer_accuracy": 1.0,
+      "citation_precision": null,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [],
+      "retrieved": [
+        "3e2274f5-d5ca-4bd2-b430-72129d768b41",
+        "49742138-1887-4cc2-be71-4940096e7ec2",
+        "1293ecaa-e492-4dc5-b4c6-72b5457fe270",
+        "d5dd87bc-7891-40ad-8df3-54eb662cd21f",
+        "8834c3ad-fad6-4748-8180-109e9c9e8999",
+        "85504742-9f1f-4741-b045-d5625348dfef",
+        "f9622e6c-ae1d-4e3d-8d46-d1255492376d",
+        "7791f015-eead-4f20-971d-1a5d488a205b"
+      ],
+      "cited": [],
+      "answer": "The corpus does not contain enough evidence."
+    },
+    {
+      "id": "qu-06",
+      "category": "unanswerable",
+      "outcome": "answered",
+      "latency_s": 4.754,
+      "recall_at_8": null,
+      "reciprocal_rank_at_8": null,
+      "precision_at_8": null,
+      "answer_accuracy": 1.0,
+      "citation_precision": null,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [],
+      "retrieved": [
+        "5e00156d-50db-4208-b4b5-44c7cf84e101",
+        "d207fde3-dd4d-4f39-b195-d4150e03f684",
+        "3be6c625-e9c1-4b61-a477-cff1ec9f495c",
+        "bc46c8ac-1922-464d-8d2e-79f0038ac08b",
+        "a7689f59-e0cd-4522-8bb9-38bf3c798fc8",
+        "2f089668-7a71-432d-9f48-7913d2c6054c",
+        "2a8a710d-6d2e-427c-a186-96e391806dda",
+        "e33e4d9c-8376-40d5-8244-c41e09960199"
+      ],
+      "cited": [],
+      "answer": "The corpus does not contain enough evidence."
+    },
+    {
+      "id": "qu-07",
+      "category": "unanswerable",
+      "outcome": "answered",
+      "latency_s": 2.98,
+      "recall_at_8": null,
+      "reciprocal_rank_at_8": null,
+      "precision_at_8": null,
+      "answer_accuracy": 1.0,
+      "citation_precision": null,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [],
+      "retrieved": [
+        "849bbd84-5de8-459f-8913-fd56c6ec70b5",
+        "0222d242-c4bd-48a0-8318-6c416197e1f6",
+        "b4b732fb-1114-4a41-8f83-af174582b9ad",
+        "4a11e33f-9334-40e4-a03e-b14d44e77ef5",
+        "b9690a98-aa4b-4071-9f2a-2032e220c052",
+        "cb52fc3f-49b8-4d33-9a05-a05c6ac05fc9",
+        "3e2274f5-d5ca-4bd2-b430-72129d768b41",
+        "8708088b-2957-4ee8-bf1c-e592f77d08d5"
+      ],
+      "cited": [],
+      "answer": "The corpus does not contain enough evidence."
+    },
+    {
+      "id": "qu-08",
+      "category": "unanswerable",
+      "outcome": "answered",
+      "latency_s": 3.888,
+      "recall_at_8": null,
+      "reciprocal_rank_at_8": null,
+      "precision_at_8": null,
+      "answer_accuracy": 1.0,
+      "citation_precision": null,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [],
+      "retrieved": [
+        "c5390bdc-aeaa-44ef-bf51-deaeff838922",
+        "3e2274f5-d5ca-4bd2-b430-72129d768b41",
+        "ff19d3eb-ef66-49d1-a019-497e5f9977a4",
+        "39dc4a32-fed4-4624-a983-02f754459caf",
+        "7a74bc5a-1120-47b4-b19b-ebb5aaabe048",
+        "7021fc37-c1ed-45ed-b0ed-b854b8227be5",
+        "93048fee-c644-42fa-9b42-107af4981418",
+        "31346f64-f471-4aea-bb74-4e157e288e25"
+      ],
+      "cited": [],
+      "answer": "The corpus does not contain enough evidence."
+    },
+    {
+      "id": "qu-09",
+      "category": "unanswerable",
+      "outcome": "answered",
+      "latency_s": 6.542,
+      "recall_at_8": null,
+      "reciprocal_rank_at_8": null,
+      "precision_at_8": null,
+      "answer_accuracy": 1.0,
+      "citation_precision": null,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [],
+      "retrieved": [
+        "c5390bdc-aeaa-44ef-bf51-deaeff838922",
+        "b7f7c207-8eb7-4080-825a-be47860b8953",
+        "dbd4eb17-fa2b-4ffb-bdd8-4b4b07a58e1c",
+        "f84dce78-6b1f-4c92-9341-6c3c8bbe7e80",
+        "1160883c-a894-4126-9894-3d9dde8e896b",
+        "e96dc530-649c-42d2-b286-9ca29cbfd403",
+        "c95dbad8-c554-4d71-ace0-8a7f23be353c",
+        "39dc4a32-fed4-4624-a983-02f754459caf"
+      ],
+      "cited": [],
+      "answer": "The corpus does not contain enough evidence."
+    },
+    {
+      "id": "qu-10",
+      "category": "unanswerable",
+      "outcome": "answered",
+      "latency_s": 6.942,
+      "recall_at_8": null,
+      "reciprocal_rank_at_8": null,
+      "precision_at_8": null,
+      "answer_accuracy": 0.0,
+      "citation_precision": null,
+      "abstention_accuracy": 0.0,
+      "gold_chunks": [],
+      "retrieved": [
+        "4a11e33f-9334-40e4-a03e-b14d44e77ef5",
+        "5241731f-8148-4631-b4cf-5ff3bf3d1f0c",
+        "f84dce78-6b1f-4c92-9341-6c3c8bbe7e80",
+        "53b99f22-7047-4154-bc94-ef97b615ac31",
+        "4593b3ad-a35f-4a34-95e4-69f01ad28574",
+        "275026a1-4b03-44eb-80d9-b16db9152e59",
+        "3e2274f5-d5ca-4bd2-b430-72129d768b41",
+        "0f2387e1-124a-4009-bc19-4a74e0c1795e"
+      ],
+      "cited": [
+        "0f2387e1-124a-4009-bc19-4a74e0c1795e",
+        "13bbc6fd-dc3d-42d6-b622-d1dbe6cbce17"
+      ],
+      "answer": "United States 2024: $170,447 EMEA(1) 2024: 102,127 APAC(1) 2024: 56,815"
+    },
+    {
+      "id": "qu-11",
+      "category": "unanswerable",
+      "outcome": "answered",
+      "latency_s": 4.51,
+      "recall_at_8": null,
+      "reciprocal_rank_at_8": null,
+      "precision_at_8": null,
+      "answer_accuracy": 1.0,
+      "citation_precision": null,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [],
+      "retrieved": [
+        "3e2274f5-d5ca-4bd2-b430-72129d768b41",
+        "ed6a8267-1156-4a50-8df8-3977d83ac6a9",
+        "4a11e33f-9334-40e4-a03e-b14d44e77ef5",
+        "167fd1d7-3cee-4130-9c70-cc4f7ab89a28",
+        "1293ecaa-e492-4dc5-b4c6-72b5457fe270",
+        "f9622e6c-ae1d-4e3d-8d46-d1255492376d",
+        "86561c7d-e52a-45a6-8367-68b612ca9f16",
+        "78479297-160e-4371-811a-959f1731c91a"
+      ],
+      "cited": [],
+      "answer": "The corpus does not contain enough evidence."
+    },
+    {
+      "id": "qu-12",
+      "category": "unanswerable",
+      "outcome": "answered",
+      "latency_s": 10.152,
+      "recall_at_8": null,
+      "reciprocal_rank_at_8": null,
+      "precision_at_8": null,
+      "answer_accuracy": 0.0,
+      "citation_precision": null,
+      "abstention_accuracy": 0.0,
+      "gold_chunks": [],
+      "retrieved": [
+        "4a11e33f-9334-40e4-a03e-b14d44e77ef5",
+        "d5dd87bc-7891-40ad-8df3-54eb662cd21f",
+        "1171ef60-1a3c-438c-860b-12dc6ab63b96",
+        "24e76df9-4c09-44fc-a002-8fb19c9841d2",
+        "7134a2bd-232f-4272-b419-eb73f01629b0",
+        "f84dce78-6b1f-4c92-9341-6c3c8bbe7e80",
+        "ca21c65c-f227-4649-86d7-17b4b4a258ea",
+        "3e2274f5-d5ca-4bd2-b430-72129d768b41"
+      ],
+      "cited": [
+        "4a11e33f-9334-40e4-a03e-b14d44e77ef5"
+      ],
+      "answer": "Boeing delivered 118 commercial airplanes in 2024 Boeing delivered 525 commercial airplanes in 2024"
+    },
+    {
+      "id": "qu-13",
+      "category": "unanswerable",
+      "outcome": "answered",
+      "latency_s": 4.91,
+      "recall_at_8": null,
+      "reciprocal_rank_at_8": null,
+      "precision_at_8": null,
+      "answer_accuracy": 1.0,
+      "citation_precision": null,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [],
+      "retrieved": [
+        "4a11e33f-9334-40e4-a03e-b14d44e77ef5",
+        "3e2274f5-d5ca-4bd2-b430-72129d768b41",
+        "8b7fbf92-80e8-4611-86d2-f1cdb173ddd1",
+        "275026a1-4b03-44eb-80d9-b16db9152e59",
+        "0222d242-c4bd-48a0-8318-6c416197e1f6",
+        "ed6a8267-1156-4a50-8df8-3977d83ac6a9",
+        "8834c3ad-fad6-4748-8180-109e9c9e8999",
+        "7134a2bd-232f-4272-b419-eb73f01629b0"
+      ],
+      "cited": [],
+      "answer": "The corpus does not contain enough evidence."
+    },
+    {
+      "id": "qu-14",
+      "category": "unanswerable",
+      "outcome": "answered",
+      "latency_s": 4.035,
+      "recall_at_8": null,
+      "reciprocal_rank_at_8": null,
+      "precision_at_8": null,
+      "answer_accuracy": 1.0,
+      "citation_precision": null,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [],
+      "retrieved": [
+        "3e2274f5-d5ca-4bd2-b430-72129d768b41",
+        "1293ecaa-e492-4dc5-b4c6-72b5457fe270",
+        "167fd1d7-3cee-4130-9c70-cc4f7ab89a28",
+        "ed6a8267-1156-4a50-8df8-3977d83ac6a9",
+        "9b33efc6-1546-4321-9705-661b14bfdaef",
+        "f9622e6c-ae1d-4e3d-8d46-d1255492376d",
+        "7791f015-eead-4f20-971d-1a5d488a205b",
+        "86561c7d-e52a-45a6-8367-68b612ca9f16"
+      ],
+      "cited": [],
+      "answer": "The corpus does not contain enough evidence."
+    },
+    {
+      "id": "qu-15",
+      "category": "unanswerable",
+      "outcome": "answered",
+      "latency_s": 3.001,
+      "recall_at_8": null,
+      "reciprocal_rank_at_8": null,
+      "precision_at_8": null,
+      "answer_accuracy": 1.0,
+      "citation_precision": null,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [],
+      "retrieved": [
+        "3e2274f5-d5ca-4bd2-b430-72129d768b41",
+        "8834c3ad-fad6-4748-8180-109e9c9e8999",
+        "1293ecaa-e492-4dc5-b4c6-72b5457fe270",
+        "49742138-1887-4cc2-be71-4940096e7ec2",
+        "85504742-9f1f-4741-b045-d5625348dfef",
+        "ed6a8267-1156-4a50-8df8-3977d83ac6a9",
+        "78479297-160e-4371-811a-959f1731c91a",
+        "f9622e6c-ae1d-4e3d-8d46-d1255492376d"
+      ],
+      "cited": [],
+      "answer": "The corpus does not contain enough evidence."
+    },
+    {
+      "id": "qu-16",
+      "category": "unanswerable",
+      "outcome": "answered",
+      "latency_s": 4.31,
+      "recall_at_8": null,
+      "reciprocal_rank_at_8": null,
+      "precision_at_8": null,
+      "answer_accuracy": 1.0,
+      "citation_precision": null,
+      "abstention_accuracy": 1.0,
+      "gold_chunks": [],
+      "retrieved": [
+        "4a11e33f-9334-40e4-a03e-b14d44e77ef5",
+        "f84dce78-6b1f-4c92-9341-6c3c8bbe7e80",
+        "8b7fbf92-80e8-4611-86d2-f1cdb173ddd1",
+        "ed6a8267-1156-4a50-8df8-3977d83ac6a9",
+        "86561c7d-e52a-45a6-8367-68b612ca9f16",
+        "3e2274f5-d5ca-4bd2-b430-72129d768b41",
+        "7f28deb0-2eba-444e-9aff-2cf2cbcc5c51",
+        "ca21c65c-f227-4649-86d7-17b4b4a258ea"
+      ],
+      "cited": [],
+      "answer": "The corpus does not contain enough evidence."
+    }
+  ]
+}

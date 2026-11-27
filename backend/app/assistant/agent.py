@@ -11,16 +11,17 @@ from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.openai_compatible import OpenAICompatibleProvider
 
 from app.assistant.deps import DocumentAgentDeps
-from app.assistant.outputs import GroundedAnswer
+from app.assistant.outputs import ModelAnswer
 from app.chat.status import threadsafe_report
 from app.config import NVIDIA_BASE_URL, settings
 from app.retrieval.retriever import RetrievedPassage
+from app.retrieval.scope import filing_header
 
 _EXCERPT_CHARS = 500
-_agent: Agent[DocumentAgentDeps, GroundedAnswer] | None = None
+_agent: Agent[DocumentAgentDeps, ModelAnswer] | None = None
 
 
-def get_agent() -> Agent[DocumentAgentDeps, GroundedAnswer]:
+def get_agent() -> Agent[DocumentAgentDeps, ModelAnswer]:
     global _agent
     if _agent is None:
         model = OpenAIChatModel(
@@ -34,10 +35,10 @@ def get_agent() -> Agent[DocumentAgentDeps, GroundedAnswer]:
         instructions = (Path(__file__).parent / "instructions.md").read_text(
             encoding="utf-8"
         )
-        agent: Agent[DocumentAgentDeps, GroundedAnswer] = Agent(
+        agent: Agent[DocumentAgentDeps, ModelAnswer] = Agent(
             model,
             deps_type=DocumentAgentDeps,
-            output_type=PromptedOutput(GroundedAnswer),
+            output_type=PromptedOutput(ModelAnswer),
             instructions=instructions,
             name="document_copilot",
             # Lightning reasons unless told not to. This assistant should answer
@@ -69,41 +70,41 @@ async def search_filings(
     passages = await _search(ctx, cleaned)
     noun = "passage" if len(passages) == 1 else "passages"
     await _note(ctx, "tool", f"search_filings returned {len(passages)} {noun}")
-    return [_summary(passage) for passage in passages]
+    return [_summary(ctx, passage) for passage in passages]
 
 
 async def read_chunk(
-    ctx: RunContext[DocumentAgentDeps], chunk_id: str
+    ctx: RunContext[DocumentAgentDeps], chunk: int
 ) -> dict[str, object]:
     """Read one retrieved chunk in full.
 
     Args:
-        chunk_id: Chunk id from search_filings or the prompt.
+        chunk: Passage number from this request.
     """
-    parsed = _parse_chunk_id(chunk_id)
+    parsed = ctx.deps.numbers.get(chunk)
     if parsed is None:
-        return {"error": "Unknown chunk id"}
-    await _note(ctx, "tool", f"read_chunk {chunk_id}")
+        return {"error": "Unknown passage number"}
+    await _note(ctx, "tool", f"read_chunk {chunk}")
     passage = await _read(ctx, parsed)
     if passage is None:
         return {"error": "Chunk was not found"}
-    return _summary(passage, full=True)
+    return _summary(ctx, passage, full=True)
 
 
 async def read_surrounding_chunks(
-    ctx: RunContext[DocumentAgentDeps], chunk_id: str
+    ctx: RunContext[DocumentAgentDeps], chunk: int
 ) -> list[dict[str, object]] | dict[str, str]:
     """Read the chunks immediately before and after a chunk.
 
     Args:
-        chunk_id: Chunk id whose neighbors should be read.
+        chunk: Passage number whose neighbors should be read.
     """
-    parsed = _parse_chunk_id(chunk_id)
+    parsed = ctx.deps.numbers.get(chunk)
     if parsed is None:
-        return {"error": "Unknown chunk id"}
-    await _note(ctx, "tool", f"read_surrounding_chunks {chunk_id}")
+        return {"error": "Unknown passage number"}
+    await _note(ctx, "tool", f"read_surrounding_chunks {chunk}")
     passages = await _surrounding(ctx, parsed)
-    return [_summary(passage, full=True) for passage in passages]
+    return [_summary(ctx, passage, full=True) for passage in passages]
 
 
 def _remember(ctx: RunContext[DocumentAgentDeps], passage: RetrievedPassage) -> None:
@@ -145,10 +146,18 @@ async def _surrounding(
     return passages
 
 
-def _summary(passage: RetrievedPassage, *, full: bool = False) -> dict[str, object]:
+def _summary(
+    ctx: RunContext[DocumentAgentDeps],
+    passage: RetrievedPassage,
+    *,
+    full: bool = False,
+) -> dict[str, object]:
     content = passage.content if full else passage.content[:_EXCERPT_CHARS]
+    header = filing_header(
+        passage.company_name, passage.filing_type, passage.fiscal_year
+    )
     return {
-        "chunk_id": str(passage.chunk_id),
+        "chunk": ctx.deps.assign(passage.chunk_id),
         "ticker": passage.ticker,
         "company_name": passage.company_name,
         "filing_type": passage.filing_type,
@@ -157,15 +166,8 @@ def _summary(passage: RetrievedPassage, *, full: bool = False) -> dict[str, obje
         "accession_number": passage.accession_number,
         "page": _text(passage.metadata.get("page")),
         "section": _text(passage.metadata.get("section")),
-        "content": content,
+        "content": f"{header}\n{content}",
     }
-
-
-def _parse_chunk_id(value: str) -> UUID | None:
-    try:
-        return UUID(value)
-    except ValueError:
-        return None
 
 
 def _text(value: object) -> str | None:

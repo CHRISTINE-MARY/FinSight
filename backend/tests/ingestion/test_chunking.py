@@ -2,7 +2,9 @@ from app.ingestion.chunking import (
     document_from_html_string,
     hierarchical_chunks,
     hybrid_chunks,
+    tag_cover_chunks,
 )
+from app.ingestion.types import PreparedChunk
 
 FIXTURE = (
     """
@@ -39,3 +41,19 @@ def test_hybrid_chunker_limits_tokens_and_repeats_headings() -> None:
     discussion = next(chunk for chunk in chunks if "Discussion" in chunk.text)
     assert discussion.text.startswith("Net sales\nDiscussion")
     assert discussion.headings == ["Net sales", "Discussion"]
+
+
+def test_chunks_before_item_1_are_tagged_as_the_cover() -> None:
+    cover = PreparedChunk(0, "One Apple Park Way", 4, [], [], [])
+    body = PreparedChunk(1, "Item 1. Business", 4, ["Item 1"], [], [])
+
+    tagged = tag_cover_chunks([cover, body])
+
+    assert tagged[0].headings == ["Cover"]
+    assert tagged[1].headings == ["Item 1"]
+
+
+def test_a_document_without_an_item_heading_keeps_its_sections() -> None:
+    sales = PreparedChunk(0, "Net sales", 2, ["Net sales"], [], [])
+
+    assert tag_cover_chunks([sales])[0].headings == ["Net sales"]

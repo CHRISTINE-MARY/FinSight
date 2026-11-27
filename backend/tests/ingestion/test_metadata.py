@@ -8,6 +8,7 @@ from app.ingestion.metadata import (
     best_revenue_chunk,
     chunk_metadata,
     ingestion_action,
+    section_name,
 )
 from app.ingestion.types import PreparedChunk
 
@@ -50,6 +51,19 @@ def test_metadata_copies_filing_fields_and_docling_location() -> None:
     assert metadata["section"] == ["Net sales"]
     assert metadata["page"] == [42]
     assert metadata["doc_items"] == ["#/tables/3"]
+
+
+def test_a_cover_address_is_labeled_cover_even_without_a_stored_heading() -> None:
+    apple = "One Apple Park Way\n(Address of principal executive offices)"
+    amazon = (
+        "410 Terry Avenue North\n"
+        "(Address and telephone number, including area code, "
+        "of registrant's principal executive offices)"
+    )
+
+    assert section_name(apple, []) == "Cover"
+    assert section_name(amazon, []) == "Cover"
+    assert section_name("Item 2. Properties", ["Item 2"]) == "Item 2"
 
 
 def test_ingestion_skips_only_a_complete_existing_set() -> None:

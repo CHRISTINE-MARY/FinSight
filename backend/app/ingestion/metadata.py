@@ -20,6 +20,23 @@ class FilingContext:
     accession_number: str
 
 
+# Apple prints "Address of principal executive offices". Amazon and older
+# NVIDIA covers say "of principal executive offices" without that exact phrase.
+_COVER = "principal executive offices"
+
+
+def section_name(content: str, stored: object) -> str:
+    """Cover pages stay labeled Cover even when an older chunk has no heading."""
+    if _COVER in content.casefold():
+        return "Cover"
+    if isinstance(stored, list):
+        names = [str(item).strip() for item in stored if str(item).strip()]
+        return " / ".join(names)
+    if stored:
+        return str(stored).strip()
+    return ""
+
+
 def chunk_metadata(filing: FilingContext, chunk: PreparedChunk) -> dict[str, object]:
     return {
         "ticker": filing.ticker,

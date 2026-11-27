@@ -21,7 +21,8 @@ def test_search_filings_records_passages_for_grounding() -> None:
 
     assert deps.retrieved[CHUNK_ID] is passage
     assert rows[0]["ticker"] == "AAPL"
-    assert rows[0]["chunk_id"] == str(CHUNK_ID)
+    assert rows[0]["chunk"] == 1
+    assert "chunk_id" not in rows[0]
 
 
 def test_read_chunk_rejects_an_unknown_id() -> None:
@@ -31,9 +32,9 @@ def test_read_chunk_rejects_an_unknown_id() -> None:
         retriever=_Retriever(_passage()),
     )
 
-    result = asyncio.run(read_chunk(_Context(deps), "not-a-uuid"))
+    result = asyncio.run(read_chunk(_Context(deps), 9))
 
-    assert result == {"error": "Unknown chunk id"}
+    assert result == {"error": "Unknown passage number"}
     assert deps.retrieved == {}
 
 

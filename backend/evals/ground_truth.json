@@ -1,0 +1,1330 @@
+{
+  "description": "Ground truth read from document_chunks before any assistant experiment. Every evidence excerpt is an exact substring of that chunk.",
+  "refusal": "The corpus does not contain enough evidence.",
+  "counts": {
+    "factual": 10,
+    "numerical": 12,
+    "multi_hop": 10,
+    "temporal": 10,
+    "unanswerable": 8
+  },
+  "questions": [
+    {
+      "id": "fact-01",
+      "category": "factual",
+      "question": "When does Apple's fiscal year end?",
+      "expected_answer": "The Company's fiscal year is the 52- or 53-week period that ends on the last Saturday of September.",
+      "chunk_ids": [
+        "895d2ddf-a1af-4f9f-bf3d-13d35fc288f5"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "895d2ddf-a1af-4f9f-bf3d-13d35fc288f5",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "The Company's fiscal year is the 52- or 53-week period that ends on the last Saturday of September."
+        }
+      ]
+    },
+    {
+      "id": "fact-02",
+      "category": "factual",
+      "question": "How does Alphabet organize its reported segments in its fiscal 2024 Form 10-K?",
+      "expected_answer": "Alphabet reports Google in two segments, Google Services and Google Cloud, and all non-Google businesses collectively as Other Bets.",
+      "chunk_ids": [
+        "bf5d10b1-3a34-4c48-a4a9-fed675b558e3"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "bf5d10b1-3a34-4c48-a4a9-fed675b558e3",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "We report Google in two segments, Google Services and Google Cloud, and all non-Google businesses collectively as Other Bets."
+        }
+      ]
+    },
+    {
+      "id": "fact-03",
+      "category": "factual",
+      "question": "Which operating segments does Amazon report in its fiscal 2024 Form 10-K?",
+      "expected_answer": "North America, International, and Amazon Web Services (AWS).",
+      "chunk_ids": [
+        "512650b8-8739-431d-883d-b20c8207225a"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "512650b8-8739-431d-883d-b20c8207225a",
+          "ticker": "AMZN",
+          "company_name": "Amazon.com, Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "three segments: North America, International, and Amazon Web Services"
+        }
+      ]
+    },
+    {
+      "id": "fact-04",
+      "category": "factual",
+      "question": "In which year does NVIDIA say it invented the GPU, in its fiscal 2025 Form 10-K?",
+      "expected_answer": "1999.",
+      "chunk_ids": [
+        "1e422cc5-e952-420d-8d3a-9b666f0e40e2"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "1e422cc5-e952-420d-8d3a-9b666f0e40e2",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "Our invention of the GPU in 1999 sparked the growth of the PC gaming market"
+        }
+      ]
+    },
+    {
+      "id": "fact-05",
+      "category": "factual",
+      "question": "How much does NVIDIA say it has invested in research and development since its inception, in its fiscal 2025 Form 10-K?",
+      "expected_answer": "Over $58.2 billion.",
+      "chunk_ids": [
+        "1e422cc5-e952-420d-8d3a-9b666f0e40e2"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "1e422cc5-e952-420d-8d3a-9b666f0e40e2",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "We have invested over $58.2 billion in research and development since our inception"
+        }
+      ]
+    },
+    {
+      "id": "fact-06",
+      "category": "factual",
+      "question": "How did Apple describe the change in iPhone net sales from fiscal 2023 to fiscal 2024?",
+      "expected_answer": "iPhone net sales were relatively flat during 2024 compared to 2023.",
+      "chunk_ids": [
+        "8d86e5ec-67f3-42b1-acaf-b768e77cd098"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "8d86e5ec-67f3-42b1-acaf-b768e77cd098",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "iPhone net sales were relatively flat during 2024 compared to 2023."
+        }
+      ]
+    },
+    {
+      "id": "fact-07",
+      "category": "factual",
+      "question": "Did Apple's Mac net sales increase or decrease in fiscal 2024 compared with fiscal 2023?",
+      "expected_answer": "Mac net sales increased during 2024 compared to 2023.",
+      "chunk_ids": [
+        "8d86e5ec-67f3-42b1-acaf-b768e77cd098"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "8d86e5ec-67f3-42b1-acaf-b768e77cd098",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "Mac net sales increased during 2024 compared to 2023"
+        }
+      ]
+    },
+    {
+      "id": "fact-08",
+      "category": "factual",
+      "question": "What share of NVIDIA's fiscal 2025 total revenue came from its largest direct customers?",
+      "expected_answer": "Direct Customers A, B and C represented 12%, 11% and 11% of total revenue, respectively, all primarily attributable to the Compute & Networking segment.",
+      "chunk_ids": [
+        "6c7caab9-a981-49c4-a4e5-eb6e9bed6b2b"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "6c7caab9-a981-49c4-a4e5-eb6e9bed6b2b",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "Sales to direct Customers A, B and C represented 12%, 11% and 11% of total revenue, respectively, for fiscal year 2025, all of which were primarily attributable to the Compute & Networking segment."
+        }
+      ]
+    },
+    {
+      "id": "fact-09",
+      "category": "factual",
+      "question": "What share of NVIDIA revenue came from customers outside the United States in fiscal 2025 and fiscal 2024?",
+      "expected_answer": "53% for fiscal 2025 and 56% for fiscal 2024.",
+      "chunk_ids": [
+        "3be6c625-e9c1-4b61-a477-cff1ec9f495c"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "3be6c625-e9c1-4b61-a477-cff1ec9f495c",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "Revenue from sales to customers outside of the United States accounted for 53% and 56% of total revenue for fiscal years 2025 and 2024, respectively."
+        }
+      ]
+    },
+    {
+      "id": "fact-10",
+      "category": "factual",
+      "question": "What were Apple's total net sales and net income for fiscal 2023?",
+      "expected_answer": "Total net sales were $383.3 billion and net income was $97.0 billion.",
+      "chunk_ids": [
+        "8e5d0263-fbfc-4a93-a426-0cf421a5ef98"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "8e5d0263-fbfc-4a93-a426-0cf421a5ef98",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "The Company's total net sales were $383.3 billion and net income was $97.0 billion during 2023."
+        }
+      ]
+    },
+    {
+      "id": "num-01",
+      "category": "numerical",
+      "question": "How many full-time equivalent employees did Apple have as of September 28, 2024?",
+      "expected_answer": "Approximately 164,000.",
+      "chunk_ids": [
+        "efdcb657-8f4e-498f-90a4-fbee5ef881ec"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "efdcb657-8f4e-498f-90a4-fbee5ef881ec",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "As of September 28, 2024, the Company had approximately 164,000 full-time equivalent employees."
+        }
+      ]
+    },
+    {
+      "id": "num-02",
+      "category": "numerical",
+      "question": "What were Apple's iPhone net sales for fiscal 2024?",
+      "expected_answer": "The fiscal 2024 category table prints iPhone net sales of 201,183, in dollars in millions.",
+      "chunk_ids": [
+        "d4417312-73b6-4791-825f-88d34ff19b63",
+        "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "d4417312-73b6-4791-825f-88d34ff19b63",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "| iPhone                          | iPhone                          | iPhone                          | $      | 201,183"
+        },
+        {
+          "chunk_id": "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2024, 2023 and 2022 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "num-03",
+      "category": "numerical",
+      "question": "What were Apple's Mac net sales for fiscal 2024?",
+      "expected_answer": "The fiscal 2024 category table prints Mac net sales of 29,984, in dollars in millions.",
+      "chunk_ids": [
+        "d4417312-73b6-4791-825f-88d34ff19b63",
+        "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "d4417312-73b6-4791-825f-88d34ff19b63",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "| Mac                             | Mac                             | Mac                             | 29,984"
+        },
+        {
+          "chunk_id": "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2024, 2023 and 2022 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "num-04",
+      "category": "numerical",
+      "question": "What were Apple's iPad net sales for fiscal 2024?",
+      "expected_answer": "The fiscal 2024 category table prints iPad net sales of 26,694, in dollars in millions.",
+      "chunk_ids": [
+        "d4417312-73b6-4791-825f-88d34ff19b63",
+        "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "d4417312-73b6-4791-825f-88d34ff19b63",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "| iPad                            | iPad                            | iPad                            | 26,694"
+        },
+        {
+          "chunk_id": "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2024, 2023 and 2022 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "num-05",
+      "category": "numerical",
+      "question": "What were Apple's Services net sales for fiscal 2024?",
+      "expected_answer": "The fiscal 2024 category table prints Services net sales of 96,169, in dollars in millions.",
+      "chunk_ids": [
+        "8d86e5ec-67f3-42b1-acaf-b768e77cd098",
+        "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "8d86e5ec-67f3-42b1-acaf-b768e77cd098",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "| Services (1)                    | Services (1)                    | Services (1)                    | 96,169"
+        },
+        {
+          "chunk_id": "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2024, 2023 and 2022 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "num-06",
+      "category": "numerical",
+      "question": "What were Apple's Wearables, Home and Accessories net sales for fiscal 2024?",
+      "expected_answer": "The fiscal 2024 category table prints Wearables, Home and Accessories net sales of 37,005, in dollars in millions.",
+      "chunk_ids": [
+        "8d86e5ec-67f3-42b1-acaf-b768e77cd098",
+        "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "8d86e5ec-67f3-42b1-acaf-b768e77cd098",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "| Wearables, Home and Accessories | Wearables, Home and Accessories | Wearables, Home and Accessories | 37,005"
+        },
+        {
+          "chunk_id": "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2024, 2023 and 2022 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "num-07",
+      "category": "numerical",
+      "question": "What were Apple's total net sales for fiscal 2024?",
+      "expected_answer": "The fiscal 2024 reportable-segment table prints total net sales of 391,035, in dollars in millions.",
+      "chunk_ids": [
+        "6c86071f-b043-4fa6-a748-87d12bc64251",
+        "895d2ddf-a1af-4f9f-bf3d-13d35fc288f5"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "6c86071f-b043-4fa6-a748-87d12bc64251",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "| Total net sales      | Total net sales      | Total net sales      | $       | 391,035"
+        },
+        {
+          "chunk_id": "895d2ddf-a1af-4f9f-bf3d-13d35fc288f5",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "net sales by reportable segment for 2024, 2023 and 2022 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "num-08",
+      "category": "numerical",
+      "question": "What were Apple's total net sales for fiscal 2025?",
+      "expected_answer": "The fiscal 2025 reportable-segment table prints total net sales of 416,161, in dollars in millions.",
+      "chunk_ids": [
+        "8970deaf-425c-4c61-b298-2fb619f4765b",
+        "e1e4886d-dd0f-4ad9-b4b3-5e08d496b404"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "8970deaf-425c-4c61-b298-2fb619f4765b",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "| Total net sales      | Total net sales      | Total net sales      | $       | 416,161"
+        },
+        {
+          "chunk_id": "e1e4886d-dd0f-4ad9-b4b3-5e08d496b404",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "net sales by reportable segment for 2025, 2024 and 2023 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "num-09",
+      "category": "numerical",
+      "question": "What were Apple's iPhone net sales for fiscal 2023?",
+      "expected_answer": "The fiscal 2023 category table prints iPhone net sales of 200,583, in dollars in millions.",
+      "chunk_ids": [
+        "98cee2bc-8324-48b6-bc4d-f51e32ea1ff3",
+        "7cccddba-e0b7-4a5d-9364-f7837a8c5e90"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "98cee2bc-8324-48b6-bc4d-f51e32ea1ff3",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "iPhone (1)                          | iPhone (1)                          | iPhone (1)                          | $      | 200,583"
+        },
+        {
+          "chunk_id": "7cccddba-e0b7-4a5d-9364-f7837a8c5e90",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2023, 2022 and 2021 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "num-10",
+      "category": "numerical",
+      "question": "What were Apple's iPhone net sales for fiscal 2022?",
+      "expected_answer": "The fiscal 2022 category table prints iPhone net sales of 205,489, in dollars in millions.",
+      "chunk_ids": [
+        "dee0073d-3597-44dc-ad1d-3204892f729e",
+        "33407953-3503-4516-b3b5-94a9de5ac63f"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "dee0073d-3597-44dc-ad1d-3204892f729e",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2022,
+          "filing_type": "10-K",
+          "excerpt": "iPhone (1)                             | iPhone (1)                             | iPhone (1)                             | $      | 205,489"
+        },
+        {
+          "chunk_id": "33407953-3503-4516-b3b5-94a9de5ac63f",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2022,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2022, 2021 and 2020 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "num-11",
+      "category": "numerical",
+      "question": "What were Apple's iPhone net sales for fiscal 2021?",
+      "expected_answer": "The fiscal 2021 category table prints iPhone net sales of 191,973, in dollars in millions.",
+      "chunk_ids": [
+        "4bd915a4-f32a-460f-bdee-f512ac76f276",
+        "f121a068-dbbe-4fca-8f72-2fca77a00ad6"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "4bd915a4-f32a-460f-bdee-f512ac76f276",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2021,
+          "filing_type": "10-K",
+          "excerpt": "iPhone (1)                             | iPhone (1)                             | iPhone (1)                             | $      | 191,973"
+        },
+        {
+          "chunk_id": "f121a068-dbbe-4fca-8f72-2fca77a00ad6",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2021,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2021, 2020 and 2019 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "num-12",
+      "category": "numerical",
+      "question": "What did Microsoft report as Product revenue for the year ended June 30, 2024?",
+      "expected_answer": "The income statement prints Product revenue of 64,773. Amounts are in millions, except per share amounts.",
+      "chunk_ids": [
+        "d8a88a49-fe25-424b-8138-5abbdb380ade"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "d8a88a49-fe25-424b-8138-5abbdb380ade",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "Product                                 |    | $    | 64,773"
+        },
+        {
+          "chunk_id": "d8a88a49-fe25-424b-8138-5abbdb380ade",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "(In millions, except per share amounts)"
+        },
+        {
+          "chunk_id": "d8a88a49-fe25-424b-8138-5abbdb380ade",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "Year Ended June 30,                     |    | 2024"
+        }
+      ]
+    },
+    {
+      "id": "hop-01",
+      "category": "multi_hop",
+      "question": "In Apple's fiscal 2024 category table, which was larger, iPhone or Services net sales, and what were the two amounts?",
+      "expected_answer": "iPhone net sales were 201,183 and Services net sales were 96,169, in dollars in millions. iPhone was larger.",
+      "chunk_ids": [
+        "d4417312-73b6-4791-825f-88d34ff19b63",
+        "8d86e5ec-67f3-42b1-acaf-b768e77cd098",
+        "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "d4417312-73b6-4791-825f-88d34ff19b63",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "| iPhone                          | iPhone                          | iPhone                          | $      | 201,183"
+        },
+        {
+          "chunk_id": "8d86e5ec-67f3-42b1-acaf-b768e77cd098",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "| Services (1)                    | Services (1)                    | Services (1)                    | 96,169"
+        },
+        {
+          "chunk_id": "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2024, 2023 and 2022 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "hop-02",
+      "category": "multi_hop",
+      "question": "In Apple's fiscal 2024 category table, what were Mac net sales and Wearables, Home and Accessories net sales?",
+      "expected_answer": "Mac net sales were 29,984 and Wearables, Home and Accessories net sales were 37,005, in dollars in millions.",
+      "chunk_ids": [
+        "d4417312-73b6-4791-825f-88d34ff19b63",
+        "8d86e5ec-67f3-42b1-acaf-b768e77cd098",
+        "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "d4417312-73b6-4791-825f-88d34ff19b63",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "| Mac                             | Mac                             | Mac                             | 29,984"
+        },
+        {
+          "chunk_id": "8d86e5ec-67f3-42b1-acaf-b768e77cd098",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "| Wearables, Home and Accessories | Wearables, Home and Accessories | Wearables, Home and Accessories | 37,005"
+        },
+        {
+          "chunk_id": "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2024, 2023 and 2022 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "hop-03",
+      "category": "multi_hop",
+      "question": "What were Apple's fiscal 2024 total net sales and Services net sales?",
+      "expected_answer": "Reportable-segment total net sales were 391,035 and category Services net sales were 96,169, both in dollars in millions.",
+      "chunk_ids": [
+        "6c86071f-b043-4fa6-a748-87d12bc64251",
+        "895d2ddf-a1af-4f9f-bf3d-13d35fc288f5",
+        "8d86e5ec-67f3-42b1-acaf-b768e77cd098",
+        "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "6c86071f-b043-4fa6-a748-87d12bc64251",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "| Total net sales      | Total net sales      | Total net sales      | $       | 391,035"
+        },
+        {
+          "chunk_id": "895d2ddf-a1af-4f9f-bf3d-13d35fc288f5",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "net sales by reportable segment for 2024, 2023 and 2022 (dollars in millions):"
+        },
+        {
+          "chunk_id": "8d86e5ec-67f3-42b1-acaf-b768e77cd098",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "| Services (1)                    | Services (1)                    | Services (1)                    | 96,169"
+        },
+        {
+          "chunk_id": "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2024, 2023 and 2022 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "hop-04",
+      "category": "multi_hop",
+      "question": "How many full-time equivalent employees did Apple have as of September 28, 2024, and when does its fiscal year end?",
+      "expected_answer": "Approximately 164,000. The fiscal year is the 52- or 53-week period that ends on the last Saturday of September.",
+      "chunk_ids": [
+        "efdcb657-8f4e-498f-90a4-fbee5ef881ec",
+        "895d2ddf-a1af-4f9f-bf3d-13d35fc288f5"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "efdcb657-8f4e-498f-90a4-fbee5ef881ec",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "As of September 28, 2024, the Company had approximately 164,000 full-time equivalent employees."
+        },
+        {
+          "chunk_id": "895d2ddf-a1af-4f9f-bf3d-13d35fc288f5",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "The Company's fiscal year is the 52- or 53-week period that ends on the last Saturday of September."
+        }
+      ]
+    },
+    {
+      "id": "hop-05",
+      "category": "multi_hop",
+      "question": "For NVIDIA's fiscal 2025, what share of revenue came from direct Customers A, B and C, and what share came from customers outside the United States in fiscal 2025 and fiscal 2024?",
+      "expected_answer": "Customers A, B and C represented 12%, 11% and 11% of fiscal 2025 total revenue. Customers outside the United States accounted for 53% of fiscal 2025 revenue and 56% of fiscal 2024 revenue.",
+      "chunk_ids": [
+        "6c7caab9-a981-49c4-a4e5-eb6e9bed6b2b",
+        "3be6c625-e9c1-4b61-a477-cff1ec9f495c"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "6c7caab9-a981-49c4-a4e5-eb6e9bed6b2b",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "Sales to direct Customers A, B and C represented 12%, 11% and 11% of total revenue, respectively, for fiscal year 2025, all of which were primarily attributable to the Compute & Networking segment."
+        },
+        {
+          "chunk_id": "3be6c625-e9c1-4b61-a477-cff1ec9f495c",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "Revenue from sales to customers outside of the United States accounted for 53% and 56% of total revenue for fiscal years 2025 and 2024, respectively."
+        }
+      ]
+    },
+    {
+      "id": "hop-06",
+      "category": "multi_hop",
+      "question": "How much has NVIDIA invested in research and development since its inception, and what was its fiscal 2023 revenue?",
+      "expected_answer": "Its fiscal 2025 Form 10-K says it has invested over $58.2 billion since its inception. Its fiscal 2023 Form 10-K says fiscal year 2023 revenue was $26.97 billion.",
+      "chunk_ids": [
+        "1e422cc5-e952-420d-8d3a-9b666f0e40e2",
+        "040389e5-f14c-45bf-8b66-36898b9a4535"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "1e422cc5-e952-420d-8d3a-9b666f0e40e2",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "We have invested over $58.2 billion in research and development since our inception"
+        },
+        {
+          "chunk_id": "040389e5-f14c-45bf-8b66-36898b9a4535",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "fiscal year 2023 revenue was $26.97 billion, flat compared with a year ago."
+        }
+      ]
+    },
+    {
+      "id": "hop-07",
+      "category": "multi_hop",
+      "question": "How does Alphabet's fiscal 2024 Form 10-K organize its segments, and how many employees did it have as of December 31, 2024?",
+      "expected_answer": "It reports Google Services, Google Cloud, and Other Bets. As of December 31, 2024, it had 183,323 employees.",
+      "chunk_ids": [
+        "bf5d10b1-3a34-4c48-a4a9-fed675b558e3",
+        "71afc67b-7fba-4672-9052-0df5d5c31f14"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "bf5d10b1-3a34-4c48-a4a9-fed675b558e3",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "We report Google in two segments, Google Services and Google Cloud, and all non-Google businesses collectively as Other Bets."
+        },
+        {
+          "chunk_id": "71afc67b-7fba-4672-9052-0df5d5c31f14",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "As of December 31, 2024, we had 183,323 employees."
+        }
+      ]
+    },
+    {
+      "id": "hop-08",
+      "category": "multi_hop",
+      "question": "By how much did Apple's total net sales change in fiscal 2021, and what did that year's category table print for iPhone net sales?",
+      "expected_answer": "Total net sales increased 33% or $91.3 billion during 2021 compared to 2020. The category table prints iPhone net sales of 191,973, in dollars in millions.",
+      "chunk_ids": [
+        "f121a068-dbbe-4fca-8f72-2fca77a00ad6",
+        "4bd915a4-f32a-460f-bdee-f512ac76f276"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "f121a068-dbbe-4fca-8f72-2fca77a00ad6",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2021,
+          "filing_type": "10-K",
+          "excerpt": "Total net sales increased 33% or $91.3 billion during 2021 compared to 2020"
+        },
+        {
+          "chunk_id": "f121a068-dbbe-4fca-8f72-2fca77a00ad6",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2021,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2021, 2020 and 2019 (dollars in millions):"
+        },
+        {
+          "chunk_id": "4bd915a4-f32a-460f-bdee-f512ac76f276",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2021,
+          "filing_type": "10-K",
+          "excerpt": "iPhone (1)                             | iPhone (1)                             | iPhone (1)                             | $      | 191,973"
+        }
+      ]
+    },
+    {
+      "id": "hop-09",
+      "category": "multi_hop",
+      "question": "How many employees did Alphabet report as of December 31, 2024, and how many full-time equivalent employees did Apple report as of September 28, 2024?",
+      "expected_answer": "Alphabet had 183,323 employees. Apple had approximately 164,000 full-time equivalent employees.",
+      "chunk_ids": [
+        "71afc67b-7fba-4672-9052-0df5d5c31f14",
+        "efdcb657-8f4e-498f-90a4-fbee5ef881ec"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "71afc67b-7fba-4672-9052-0df5d5c31f14",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "As of December 31, 2024, we had 183,323 employees."
+        },
+        {
+          "chunk_id": "efdcb657-8f4e-498f-90a4-fbee5ef881ec",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "As of September 28, 2024, the Company had approximately 164,000 full-time equivalent employees."
+        }
+      ]
+    },
+    {
+      "id": "hop-10",
+      "category": "multi_hop",
+      "question": "What were Apple's fiscal 2024 total net sales, and how many full-time equivalent employees did it have as of September 28, 2024?",
+      "expected_answer": "Reportable-segment total net sales were 391,035, in dollars in millions. Apple had approximately 164,000 full-time equivalent employees.",
+      "chunk_ids": [
+        "6c86071f-b043-4fa6-a748-87d12bc64251",
+        "895d2ddf-a1af-4f9f-bf3d-13d35fc288f5",
+        "efdcb657-8f4e-498f-90a4-fbee5ef881ec"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "6c86071f-b043-4fa6-a748-87d12bc64251",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "| Total net sales      | Total net sales      | Total net sales      | $       | 391,035"
+        },
+        {
+          "chunk_id": "895d2ddf-a1af-4f9f-bf3d-13d35fc288f5",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "net sales by reportable segment for 2024, 2023 and 2022 (dollars in millions):"
+        },
+        {
+          "chunk_id": "efdcb657-8f4e-498f-90a4-fbee5ef881ec",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "As of September 28, 2024, the Company had approximately 164,000 full-time equivalent employees."
+        }
+      ]
+    },
+    {
+      "id": "time-01",
+      "category": "temporal",
+      "question": "What iPhone net sales does Apple's fiscal 2024 category table print for 2024, 2023, and 2022?",
+      "expected_answer": "In dollars in millions, iPhone net sales are 201,183 for 2024, 200,583 for 2023, and 205,489 for 2022.",
+      "chunk_ids": [
+        "d4417312-73b6-4791-825f-88d34ff19b63",
+        "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "d4417312-73b6-4791-825f-88d34ff19b63",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "| iPhone                          | iPhone                          | iPhone                          | $      | 201,183 |      |    |    |    | -      | -      | %      |    |    |    | $      | 200,583 |      |    |    |    | (2)    | (2)    | %      |    |    |    | $      | 205,489"
+        },
+        {
+          "chunk_id": "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2024, 2023 and 2022 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "time-02",
+      "category": "temporal",
+      "question": "What Services net sales does Apple's fiscal 2024 category table print for 2024, 2023, and 2022?",
+      "expected_answer": "In dollars in millions, Services net sales are 96,169 for 2024, 85,200 for 2023, and 78,129 for 2022.",
+      "chunk_ids": [
+        "8d86e5ec-67f3-42b1-acaf-b768e77cd098",
+        "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "8d86e5ec-67f3-42b1-acaf-b768e77cd098",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "| Services (1)                    | Services (1)                    | Services (1)                    | 96,169 |  96,169 |      |    |    |    | 13     | 13     | %      |    |    |    | 85,200 |  85,200 |      |    |    |    | 9      | 9      | %      |    |    |    | 78,129"
+        },
+        {
+          "chunk_id": "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2024, 2023 and 2022 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "time-03",
+      "category": "temporal",
+      "question": "What Mac net sales does Apple's fiscal 2024 category table print for 2024, 2023, and 2022?",
+      "expected_answer": "In dollars in millions, Mac net sales are 29,984 for 2024, 29,357 for 2023, and 40,177 for 2022.",
+      "chunk_ids": [
+        "d4417312-73b6-4791-825f-88d34ff19b63",
+        "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "d4417312-73b6-4791-825f-88d34ff19b63",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "| Mac                             | Mac                             | Mac                             | 29,984 |  29,984 |      |    |    |    | 2      | 2      | %      |    |    |    | 29,357 |  29,357 |      |    |    |    | (27)   | (27)   | %      |    |    |    | 40,177"
+        },
+        {
+          "chunk_id": "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2024, 2023 and 2022 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "time-04",
+      "category": "temporal",
+      "question": "How did Apple describe the change in total net sales for fiscal 2021, fiscal 2022, and fiscal 2023?",
+      "expected_answer": "Fiscal 2021 increased 33% or $91.3 billion compared with 2020. Fiscal 2022 increased 8% or $28.5 billion compared with 2021. Fiscal 2023 decreased 3% or $11.0 billion compared with 2022.",
+      "chunk_ids": [
+        "f121a068-dbbe-4fca-8f72-2fca77a00ad6",
+        "9b8f30e7-e555-4797-a6eb-6395892f051b",
+        "8e5d0263-fbfc-4a93-a426-0cf421a5ef98"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "f121a068-dbbe-4fca-8f72-2fca77a00ad6",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2021,
+          "filing_type": "10-K",
+          "excerpt": "Total net sales increased 33% or $91.3 billion during 2021 compared to 2020"
+        },
+        {
+          "chunk_id": "9b8f30e7-e555-4797-a6eb-6395892f051b",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2022,
+          "filing_type": "10-K",
+          "excerpt": "Total net sales increased 8% or $28.5 billion during 2022 compared to 2021"
+        },
+        {
+          "chunk_id": "8e5d0263-fbfc-4a93-a426-0cf421a5ef98",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "The Company's total net sales decreased 3% or $11.0 billion during 2023 compared to 2022."
+        }
+      ]
+    },
+    {
+      "id": "time-05",
+      "category": "temporal",
+      "question": "How many employees did Alphabet report at each December 31 year-end from 2022 through 2025?",
+      "expected_answer": "190,234 as of December 31, 2022; 182,502 as of December 31, 2023; 183,323 as of December 31, 2024; and 190,820 as of December 31, 2025.",
+      "chunk_ids": [
+        "10193e4a-9ca0-4ade-bbe2-69c6301385b3",
+        "da4788f0-36ef-4070-9810-a97e707aecd5",
+        "71afc67b-7fba-4672-9052-0df5d5c31f14",
+        "86de0caa-2842-4711-b811-6fb61c97f626"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "10193e4a-9ca0-4ade-bbe2-69c6301385b3",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2022,
+          "filing_type": "10-K",
+          "excerpt": "As of December 31, 2022, we had 190,234 employees."
+        },
+        {
+          "chunk_id": "da4788f0-36ef-4070-9810-a97e707aecd5",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "As of December 31, 2023, we had 182,502 employees."
+        },
+        {
+          "chunk_id": "71afc67b-7fba-4672-9052-0df5d5c31f14",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "As of December 31, 2024, we had 183,323 employees."
+        },
+        {
+          "chunk_id": "86de0caa-2842-4711-b811-6fb61c97f626",
+          "ticker": "GOOGL",
+          "company_name": "Alphabet Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "As of December 31, 2025, we had 190,820 employees."
+        }
+      ]
+    },
+    {
+      "id": "time-06",
+      "category": "temporal",
+      "question": "What total revenue did Microsoft report for the years ended June 30, 2024, 2023, and 2022?",
+      "expected_answer": "In millions, total revenue was 245,122 for 2024, 211,915 for 2023, and 198,270 for 2022.",
+      "chunk_ids": [
+        "d8a88a49-fe25-424b-8138-5abbdb380ade"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "d8a88a49-fe25-424b-8138-5abbdb380ade",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "Total revenue                           |    |      | 245,122 |    |    |      | 211,915 |    |    |      | 198,270"
+        },
+        {
+          "chunk_id": "d8a88a49-fe25-424b-8138-5abbdb380ade",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "(In millions, except per share amounts)"
+        },
+        {
+          "chunk_id": "d8a88a49-fe25-424b-8138-5abbdb380ade",
+          "ticker": "MSFT",
+          "company_name": "Microsoft Corporation",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "Year Ended June 30,                     |    | 2024 | 2024    |    |    | 2023 |    2023 |    |    | 2022"
+        }
+      ]
+    },
+    {
+      "id": "time-07",
+      "category": "temporal",
+      "question": "What iPhone net sales does each of Apple's fiscal 2021, 2022, 2023, and 2024 category tables print for that fiscal year?",
+      "expected_answer": "In dollars in millions, the current-year column is 191,973 for fiscal 2021, 205,489 for fiscal 2022, 200,583 for fiscal 2023, and 201,183 for fiscal 2024.",
+      "chunk_ids": [
+        "4bd915a4-f32a-460f-bdee-f512ac76f276",
+        "f121a068-dbbe-4fca-8f72-2fca77a00ad6",
+        "dee0073d-3597-44dc-ad1d-3204892f729e",
+        "33407953-3503-4516-b3b5-94a9de5ac63f",
+        "98cee2bc-8324-48b6-bc4d-f51e32ea1ff3",
+        "7cccddba-e0b7-4a5d-9364-f7837a8c5e90",
+        "d4417312-73b6-4791-825f-88d34ff19b63",
+        "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "4bd915a4-f32a-460f-bdee-f512ac76f276",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2021,
+          "filing_type": "10-K",
+          "excerpt": "iPhone (1)                             | iPhone (1)                             | iPhone (1)                             | $      | 191,973"
+        },
+        {
+          "chunk_id": "f121a068-dbbe-4fca-8f72-2fca77a00ad6",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2021,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2021, 2020 and 2019 (dollars in millions):"
+        },
+        {
+          "chunk_id": "dee0073d-3597-44dc-ad1d-3204892f729e",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2022,
+          "filing_type": "10-K",
+          "excerpt": "iPhone (1)                             | iPhone (1)                             | iPhone (1)                             | $      | 205,489"
+        },
+        {
+          "chunk_id": "33407953-3503-4516-b3b5-94a9de5ac63f",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2022,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2022, 2021 and 2020 (dollars in millions):"
+        },
+        {
+          "chunk_id": "98cee2bc-8324-48b6-bc4d-f51e32ea1ff3",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "iPhone (1)                          | iPhone (1)                          | iPhone (1)                          | $      | 200,583"
+        },
+        {
+          "chunk_id": "7cccddba-e0b7-4a5d-9364-f7837a8c5e90",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2023,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2023, 2022 and 2021 (dollars in millions):"
+        },
+        {
+          "chunk_id": "d4417312-73b6-4791-825f-88d34ff19b63",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "| iPhone                          | iPhone                          | iPhone                          | $      | 201,183"
+        },
+        {
+          "chunk_id": "c472acdb-c6d1-4cdb-9d54-c1c9591f0cab",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2024, 2023 and 2022 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "time-08",
+      "category": "temporal",
+      "question": "How did the total net sales printed in Apple's fiscal 2025 segment table compare with the total printed in the fiscal 2024 segment table?",
+      "expected_answer": "Fiscal 2025 prints 416,161 and fiscal 2024 prints 391,035, both in dollars in millions. The fiscal 2025 amount is higher.",
+      "chunk_ids": [
+        "8970deaf-425c-4c61-b298-2fb619f4765b",
+        "e1e4886d-dd0f-4ad9-b4b3-5e08d496b404",
+        "6c86071f-b043-4fa6-a748-87d12bc64251",
+        "895d2ddf-a1af-4f9f-bf3d-13d35fc288f5"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "8970deaf-425c-4c61-b298-2fb619f4765b",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "| Total net sales      | Total net sales      | Total net sales      | $       | 416,161"
+        },
+        {
+          "chunk_id": "e1e4886d-dd0f-4ad9-b4b3-5e08d496b404",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "net sales by reportable segment for 2025, 2024 and 2023 (dollars in millions):"
+        },
+        {
+          "chunk_id": "6c86071f-b043-4fa6-a748-87d12bc64251",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "| Total net sales      | Total net sales      | Total net sales      | $       | 391,035"
+        },
+        {
+          "chunk_id": "895d2ddf-a1af-4f9f-bf3d-13d35fc288f5",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2024,
+          "filing_type": "10-K",
+          "excerpt": "net sales by reportable segment for 2024, 2023 and 2022 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "time-09",
+      "category": "temporal",
+      "question": "Did the share of NVIDIA revenue from customers outside the United States rise or fall from fiscal 2024 to fiscal 2025?",
+      "expected_answer": "It fell, from 56% for fiscal 2024 to 53% for fiscal 2025.",
+      "chunk_ids": [
+        "3be6c625-e9c1-4b61-a477-cff1ec9f495c"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "3be6c625-e9c1-4b61-a477-cff1ec9f495c",
+          "ticker": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "fiscal_year": 2025,
+          "filing_type": "10-K",
+          "excerpt": "Revenue from sales to customers outside of the United States accounted for 53% and 56% of total revenue for fiscal years 2025 and 2024, respectively."
+        }
+      ]
+    },
+    {
+      "id": "time-10",
+      "category": "temporal",
+      "question": "What Services net sales did Apple's fiscal 2021 and fiscal 2022 category tables print, and which year was higher?",
+      "expected_answer": "Fiscal 2021 prints 68,425 and fiscal 2022 prints 78,129, in dollars in millions. Fiscal 2022 was higher.",
+      "chunk_ids": [
+        "f4e95ac2-c252-4b39-a905-d6f0a87d49cf",
+        "f121a068-dbbe-4fca-8f72-2fca77a00ad6",
+        "f4fb624b-0bc3-4142-81c7-c718f8b63419",
+        "33407953-3503-4516-b3b5-94a9de5ac63f"
+      ],
+      "evidence": [
+        {
+          "chunk_id": "f4e95ac2-c252-4b39-a905-d6f0a87d49cf",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2021,
+          "filing_type": "10-K",
+          "excerpt": "Services (3)                           | Services (3)                           | Services (3)                           | 68,425"
+        },
+        {
+          "chunk_id": "f121a068-dbbe-4fca-8f72-2fca77a00ad6",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2021,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2021, 2020 and 2019 (dollars in millions):"
+        },
+        {
+          "chunk_id": "f4fb624b-0bc3-4142-81c7-c718f8b63419",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2022,
+          "filing_type": "10-K",
+          "excerpt": "Services (3)                           | Services (3)                           | Services (3)                           | 78,129"
+        },
+        {
+          "chunk_id": "33407953-3503-4516-b3b5-94a9de5ac63f",
+          "ticker": "AAPL",
+          "company_name": "Apple Inc.",
+          "fiscal_year": 2022,
+          "filing_type": "10-K",
+          "excerpt": "net sales by category for 2022, 2021 and 2020 (dollars in millions):"
+        }
+      ]
+    },
+    {
+      "id": "gap-01",
+      "category": "unanswerable",
+      "question": "What was Tesla, Inc.'s automotive revenue for fiscal 2024?",
+      "expected_answer": "The corpus does not contain enough evidence.",
+      "chunk_ids": [],
+      "evidence": [],
+      "note": "NVIDIA filings mention Tesla, Inc. as an example. They do not report Tesla's automotive revenue."
+    },
+    {
+      "id": "gap-02",
+      "category": "unanswerable",
+      "question": "What were Walmart's fiscal 2024 net sales?",
+      "expected_answer": "The corpus does not contain enough evidence.",
+      "chunk_ids": [],
+      "evidence": []
+    },
+    {
+      "id": "gap-03",
+      "category": "unanswerable",
+      "question": "What were Berkshire Hathaway's 2024 operating earnings?",
+      "expected_answer": "The corpus does not contain enough evidence.",
+      "chunk_ids": [],
+      "evidence": []
+    },
+    {
+      "id": "gap-04",
+      "category": "unanswerable",
+      "question": "How much bitcoin did any company in the corpus hold?",
+      "expected_answer": "The corpus does not contain enough evidence.",
+      "chunk_ids": [],
+      "evidence": []
+    },
+    {
+      "id": "gap-05",
+      "category": "unanswerable",
+      "question": "What was Shopify's fiscal 2024 revenue?",
+      "expected_answer": "The corpus does not contain enough evidence.",
+      "chunk_ids": [],
+      "evidence": []
+    },
+    {
+      "id": "gap-06",
+      "category": "unanswerable",
+      "question": "What were ExxonMobil's 2024 upstream earnings?",
+      "expected_answer": "The corpus does not contain enough evidence.",
+      "chunk_ids": [],
+      "evidence": []
+    },
+    {
+      "id": "gap-07",
+      "category": "unanswerable",
+      "question": "What were Costco's fiscal 2024 net sales?",
+      "expected_answer": "The corpus does not contain enough evidence.",
+      "chunk_ids": [],
+      "evidence": []
+    },
+    {
+      "id": "gap-08",
+      "category": "unanswerable",
+      "question": "What was Palantir's fiscal 2024 revenue?",
+      "expected_answer": "The corpus does not contain enough evidence.",
+      "chunk_ids": [],
+      "evidence": []
+    }
+  ]
+}

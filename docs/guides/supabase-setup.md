@@ -12,7 +12,7 @@ We use Supabase for **Postgres** (users, chats, source documents, chunks, embedd
 
 1. Open [New project](https://supabase.com/dashboard/new).
 2. Pick your organization (a personal org is created automatically on first signup).
-3. Set a **project name** (e.g. `Document Copilot`).
+3. Set a **project name** (e.g. `FinSight`).
 4. Choose a **database password** — save it somewhere safe; you need it for direct DB access and `supabase link`.
 5. Pick a **region** close to you.
 6. Click **Create new project** and wait until status is healthy (~1–2 minutes).
@@ -52,7 +52,7 @@ This app uses email auth only — no Google/SSO. The React app calls `signUp` / 
 
 ## 5. Database schema management
 
-Document Copilot uses Alembic from the Python backend to manage database schema. Do not create production tables manually in the Supabase dashboard.
+FinSight uses Alembic from the Python backend to manage database schema. Do not create production tables manually in the Supabase dashboard.
 
 Alembic migrations create and update:
 

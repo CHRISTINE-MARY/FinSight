@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from app.api.chat import router as chat_router
 from app.config import settings
 
-app = FastAPI(title="Document Copilot")
+app = FastAPI(title="FinSight")
 
 app.add_middleware(
     CORSMiddleware,

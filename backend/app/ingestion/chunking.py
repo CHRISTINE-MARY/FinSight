@@ -8,6 +8,8 @@ form, which repeats that heading path.
 
 from __future__ import annotations
 
+import re
+from dataclasses import replace
 from functools import lru_cache
 from pathlib import Path
 
@@ -28,6 +30,8 @@ from app.ingestion.types import PreparedChunk
 
 # text-embedding-3-small accepts 8191 tokens. Retrieval chunks stay much smaller.
 MAX_CHUNK_TOKENS = 512
+# The cover sits before Item 1 / Part I. Docling often gives it no heading.
+_BODY = re.compile(r"\b(?:item|part)\s+(?:[0-9]+|[ivx]+)\b", re.IGNORECASE)
 
 
 class _MarkdownTables(ChunkingSerializerProvider):
@@ -51,7 +55,7 @@ def openai_tokenizer(max_tokens: int = MAX_CHUNK_TOKENS) -> OpenAITokenizer:
 def hierarchical_chunks(document: DoclingDocument) -> list[PreparedChunk]:
     """One chunk per document element, with list items merged."""
     chunker = HierarchicalChunker(serializer_provider=_MarkdownTables())
-    return list(_prepare(chunker, document))
+    return tag_cover_chunks(list(_prepare(chunker, document)))
 
 
 def hybrid_chunks(
@@ -66,7 +70,7 @@ def hybrid_chunks(
         repeat_table_header=True,
         serializer_provider=_MarkdownTables(),
     )
-    return list(_prepare(chunker, document))
+    return tag_cover_chunks(list(_prepare(chunker, document)))
 
 
 def document_from_html(path: Path) -> DoclingDocument:
@@ -83,6 +87,28 @@ def document_from_html_string(
     if result.status.name != "SUCCESS":
         raise RuntimeError(f"{name} converted with status {result.status.name}")
     return result.document
+
+
+def tag_cover_chunks(chunks: list[PreparedChunk]) -> list[PreparedChunk]:
+    """Tag every chunk before the first Item or Part as the cover page."""
+    first_body = next(
+        (
+            index
+            for index, chunk in enumerate(chunks)
+            if _BODY.search(chunk.text)
+            or any(_BODY.search(heading) for heading in chunk.headings)
+        ),
+        None,
+    )
+    if first_body is None:
+        return list(chunks)
+    tagged: list[PreparedChunk] = []
+    for index, chunk in enumerate(chunks):
+        if index >= first_body:
+            tagged.append(chunk)
+            continue
+        tagged.append(replace(chunk, headings=["Cover"]))
+    return tagged
 
 
 def _prepare(chunker: HierarchicalChunker | HybridChunker, document: DoclingDocument):

@@ -2,20 +2,25 @@
 
 from __future__ import annotations
 
+import re
 from collections.abc import Mapping
 from dataclasses import dataclass
 from uuid import UUID
 
 from app.assistant.outputs import GroundedAnswer
+from app.grounding.tables import (
+    YEAR_HEADER_SPAN,
+    GroundingError,
+    locate_line,
+    locator_in_text,
+    reject_wrong_column,
+)
 from app.retrieval.retriever import RetrievedPassage
 
 NOT_ENOUGH_EVIDENCE = "not enough evidence"
 CORPUS_PHRASE = "does not contain enough evidence"
-_EXCERPT_LIMIT = 500
-
-
-class GroundingError(Exception):
-    """The answer cited something this request did not retrieve."""
+_NUMBER = re.compile(r"\d[\d,]*(?:\.\d+)?%?")
+_WORD = re.compile(r"[A-Za-z]{4,}")
 
 
 @dataclass(frozen=True, slots=True)
@@ -37,9 +42,15 @@ def says_not_enough(answer: str) -> bool:
 
 
 def validate(
-    answer: GroundedAnswer, retrieved: Mapping[UUID, RetrievedPassage]
+    answer: GroundedAnswer,
+    retrieved: Mapping[UUID, RetrievedPassage],
+    question: str = "",
 ) -> ValidatedAnswer:
-    """Keep the answer only when every citation is a retrieved passage."""
+    """Keep the answer only when every citation is a retrieved passage.
+
+    The model's excerpt is ignored. The stored excerpt is an exact slice of
+    the named chunk. A year in the question has to match that column.
+    """
     text = answer.answer.strip()
     if not text:
         raise GroundingError("The answer is empty")
@@ -47,12 +58,20 @@ def validate(
         raise GroundingError("The answer has no citation")
 
     citations: list[ValidatedCitation] = []
+    cited: list[tuple[str, list[str]]] = []
     seen: set[tuple[UUID, str]] = set()
     for citation in answer.citations:
         passage = retrieved.get(citation.chunk_id)
         if passage is None:
             raise GroundingError(f"Chunk {citation.chunk_id} was not retrieved")
-        excerpt = _excerpt(passage.content, citation.excerpt)
+        try:
+            excerpt = locate_line(
+                passage.content, citation.label, citation.figure, text
+            )
+        except GroundingError as exc:
+            raise _classify_missing(
+                exc, retrieved, passage.chunk_id, citation.label, citation.figure
+            ) from exc
         key = (citation.chunk_id, excerpt)
         if key in seen:
             continue
@@ -64,26 +83,94 @@ def validate(
                 data=_citation_data(passage, excerpt),
             )
         )
+        cited.append((excerpt, _context_lines(passage, retrieved), passage.content))
+    if citations and not says_not_enough(text):
+        if not _supported(text, citations):
+            raise GroundingError("The cited passage does not support the answer")
+        try:
+            reject_wrong_column(question, text, cited)
+        except GroundingError as exc:
+            raise _classify_missing(exc, retrieved, None, "", "") from exc
     return ValidatedAnswer(answer=text, citations=tuple(citations))
 
 
-def _excerpt(content: str, excerpt: str) -> str:
-    cleaned = excerpt.strip()
-    if not cleaned:
-        raise GroundingError("A citation is missing its excerpt")
-    if cleaned in content:
-        stored = cleaned
-    elif _squash(cleaned) in _squash(content):
-        stored = _squash(cleaned)
-    else:
-        raise GroundingError("Excerpt is not in the retrieved passage")
-    if len(stored) > _EXCERPT_LIMIT:
-        stored = stored[:_EXCERPT_LIMIT].rstrip()
-    return stored
+def _classify_missing(
+    exc: GroundingError,
+    retrieved: Mapping[UUID, RetrievedPassage],
+    cited_id: UUID | None,
+    label: str,
+    figure: str,
+) -> GroundingError:
+    """A fact in some other retrieved chunk was cited wrong. One in none was invented."""
+    message = str(exc)
+    if not _is_missing_fact(message):
+        return exc
+    others = [
+        passage.content
+        for chunk_id, passage in retrieved.items()
+        if chunk_id != cited_id
+    ]
+    if _fact_elsewhere(message, label, figure, others):
+        return GroundingError(f"Citation mistake: {message}")
+    return GroundingError(f"Hallucination: {message}")
 
 
-def _squash(value: str) -> str:
-    return " ".join(value.split())
+def _is_missing_fact(message: str) -> bool:
+    return (
+        message == "Locator is not in the retrieved passage"
+        or message.endswith(" is not in the cited passage")
+    )
+
+
+def _fact_elsewhere(message: str, label: str, figure: str, others: list[str]) -> bool:
+    if message == "Locator is not in the retrieved passage":
+        return any(locator_in_text(content, label, figure) for content in others)
+    token = message[: -len(" is not in the cited passage")]
+    folded = token.casefold()
+    return any(folded in content.casefold() for content in others)
+
+
+def _supported(answer: str, citations: list[ValidatedCitation]) -> bool:
+    """A chunk id is not evidence unless the answer uses text from that chunk."""
+    haystack = "\n".join(citation.excerpt for citation in citations).casefold()
+    for number in _NUMBER.findall(answer):
+        if number.casefold() in haystack:
+            return True
+    for word in _WORD.findall(answer):
+        if word.casefold() in haystack:
+            return True
+    return False
+
+
+def _context_lines(
+    passage: RetrievedPassage, retrieved: Mapping[UUID, RetrievedPassage]
+) -> list[str]:
+    """Table lines from this chunk and nearby chunks of the same filing."""
+    blocks: list[tuple[int, str]] = []
+    seen: set[UUID] = set()
+
+    def add(index: int, chunk_id: UUID, content: str) -> None:
+        if chunk_id in seen:
+            return
+        seen.add(chunk_id)
+        blocks.append((index, content))
+
+    add(passage.chunk_index, passage.chunk_id, passage.content)
+    for neighbor in passage.neighbors:
+        if abs(neighbor.chunk_index - passage.chunk_index) <= 1:
+            add(neighbor.chunk_index, neighbor.chunk_id, neighbor.content)
+    for other in retrieved.values():
+        if other.document_id != passage.document_id:
+            continue
+        if abs(other.chunk_index - passage.chunk_index) > YEAR_HEADER_SPAN:
+            continue
+        add(other.chunk_index, other.chunk_id, other.content)
+    lines: list[str] = []
+    for _, content in sorted(blocks):
+        for line in content.splitlines():
+            if line.strip().startswith("|") and "---" not in line:
+                lines.append(line)
+    return lines
 
 
 def _citation_data(passage: RetrievedPassage, excerpt: str) -> dict[str, object]:

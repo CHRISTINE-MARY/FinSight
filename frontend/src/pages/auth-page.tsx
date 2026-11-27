@@ -74,7 +74,7 @@ export function AuthPage({ mode }: { mode: AuthMode }) {
   const title = mode === "signup" ? "Create your account" : "Sign in"
   const description =
     mode === "signup"
-      ? "Use your work email. Document Copilot is for Driftwood analysts."
+      ? "Use your work email to create your FinSight account."
       : "Sign in with the email and password you used to create your account."
 
   return (

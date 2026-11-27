@@ -18,7 +18,7 @@ export function ThreadSidebar({
   return (
     <aside className="flex max-h-64 w-full shrink-0 flex-col border-b bg-muted/40 md:h-svh md:max-h-none md:w-72 md:border-r md:border-b-0">
       <div className="flex items-center justify-between gap-3 px-4 py-4">
-        <p className="font-heading text-sm font-medium">Document Copilot</p>
+        <p className="font-heading text-sm font-medium">FinSight</p>
         <Button type="button" size="sm" onClick={onCreate}>
           New chat
         </Button>

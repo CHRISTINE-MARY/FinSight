@@ -62,7 +62,14 @@ def test_semantic_search_uses_cosine_distance_and_embedded_chunks() -> None:
     sql = str(connection.statement)
     assert "<=>" in sql
     assert "embedding_status = 'embedded'" in sql
-    assert connection.params == {"query_vector": "[0.25,0.5]", "limit": 50}
+    assert "source.ticker = :ticker" in sql
+    assert "source.fiscal_year = :fiscal_year" in sql
+    assert connection.params == {
+        "query_vector": "[0.25,0.5]",
+        "limit": 50,
+        "ticker": None,
+        "fiscal_year": None,
+    }
 
 
 def test_surrounding_query_selects_neighbor_indexes() -> None:
@@ -80,7 +87,14 @@ def test_full_text_search_ranks_the_search_vector() -> None:
     sql = str(connection.statement)
     assert "search_vector" in sql
     assert "ts_rank_cd" in sql
-    assert connection.params == {"query": question, "limit": 50}
+    assert "source.ticker = :ticker" in sql
+    assert "source.fiscal_year = :fiscal_year" in sql
+    assert connection.params == {
+        "query": question,
+        "limit": 50,
+        "ticker": None,
+        "fiscal_year": None,
+    }
 
 
 def test_load_passages_keeps_neighbors_out_of_the_hit() -> None:
@@ -127,11 +141,13 @@ def test_retrieve_loads_only_the_fused_top_hits(
     )
     monkeypatch.setattr(
         "app.retrieval.retriever.semantic_search",
-        lambda _connection, _embedding, limit: [HIT, SECOND] if limit == 50 else [],
+        lambda _connection, _embedding, limit, **_kwargs: (
+            [HIT, SECOND] if limit == 50 else []
+        ),
     )
     monkeypatch.setattr(
         "app.retrieval.retriever.full_text_search",
-        lambda _connection, _query, _limit: [HIT, THIRD],
+        lambda _connection, _query, _limit, **_kwargs: [HIT, THIRD],
     )
     monkeypatch.setattr(
         "app.retrieval.retriever.database_engine",
@@ -158,11 +174,11 @@ def test_retrieve_returns_empty_when_both_searches_miss(
     )
     monkeypatch.setattr(
         "app.retrieval.retriever.semantic_search",
-        lambda _connection, _embedding, _limit: [],
+        lambda _connection, _embedding, _limit, **_kwargs: [],
     )
     monkeypatch.setattr(
         "app.retrieval.retriever.full_text_search",
-        lambda _connection, _query, _limit: [],
+        lambda _connection, _query, _limit, **_kwargs: [],
     )
     monkeypatch.setattr(
         "app.retrieval.retriever.database_engine",

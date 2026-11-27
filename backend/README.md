@@ -1,6 +1,6 @@
 # Backend
 
-FastAPI service for Document Copilot. Run these commands from `backend/`.
+FastAPI service for FinSight. Run these commands from `backend/`.
 
 ## Setup
 

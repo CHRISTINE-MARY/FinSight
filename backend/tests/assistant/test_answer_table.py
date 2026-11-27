@@ -1,4 +1,13 @@
-from app.assistant.outputs import AnswerTable, compose_answer
+import pytest
+from pydantic import ValidationError
+
+from app.assistant.outputs import (
+    REFUSAL_SENTENCE,
+    AnswerTable,
+    Claim,
+    ModelAnswer,
+    compose_answer,
+)
 
 
 def test_compose_answer_appends_a_markdown_table() -> None:
@@ -20,6 +29,21 @@ def test_compose_answer_appends_a_markdown_table() -> None:
 
 def test_compose_answer_leaves_a_paragraph_unchanged() -> None:
     assert compose_answer("Services gained share.", None) == "Services gained share."
+
+
+def test_an_empty_model_answer_is_rejected() -> None:
+    with pytest.raises(ValidationError, match="empty object"):
+        ModelAnswer()
+    with pytest.raises(ValidationError, match="empty object"):
+        ModelAnswer.model_validate({})
+
+
+def test_a_refusal_or_a_claim_is_accepted() -> None:
+    refused = ModelAnswer(answer=REFUSAL_SENTENCE)
+    claimed = ModelAnswer(claims=[Claim(text="Apple had 166,000 employees.", chunk=1)])
+
+    assert refused.claims == []
+    assert claimed.answer == ""
 
 
 def test_compose_answer_does_not_duplicate_an_existing_table() -> None:

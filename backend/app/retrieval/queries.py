@@ -18,11 +18,14 @@ if TYPE_CHECKING:
 # The vector type lives in the extensions schema on Supabase.
 SEMANTIC_SEARCH = text(
     """
-    SELECT id
-    FROM document_chunks
-    WHERE embedding_status = 'embedded'
-      AND embedding IS NOT NULL
-    ORDER BY embedding <=> CAST(:query_vector AS extensions.vector)
+    SELECT chunk.id
+    FROM document_chunks AS chunk
+    JOIN source_documents AS source ON source.id = chunk.document_id
+    WHERE chunk.embedding_status = 'embedded'
+      AND chunk.embedding IS NOT NULL
+      AND (CAST(:ticker AS text) IS NULL OR source.ticker = :ticker)
+      AND (CAST(:fiscal_year AS integer) IS NULL OR source.fiscal_year = :fiscal_year)
+    ORDER BY chunk.embedding <=> CAST(:query_vector AS extensions.vector)
     LIMIT :limit
     """
 )
@@ -41,12 +44,15 @@ FULL_TEXT_SEARCH = text(
         SELECT to_tsquery('english', string_agg(lexeme, ' | ')) AS tsq
         FROM lexemes
     )
-    SELECT document_chunks.id
-    FROM document_chunks
+    SELECT chunk.id
+    FROM document_chunks AS chunk
+    JOIN source_documents AS source ON source.id = chunk.document_id
     CROSS JOIN query
     WHERE query.tsq IS NOT NULL
-      AND document_chunks.search_vector @@ query.tsq
-    ORDER BY ts_rank_cd(document_chunks.search_vector, query.tsq) DESC
+      AND chunk.search_vector @@ query.tsq
+      AND (CAST(:ticker AS text) IS NULL OR source.ticker = :ticker)
+      AND (CAST(:fiscal_year AS integer) IS NULL OR source.fiscal_year = :fiscal_year)
+    ORDER BY ts_rank_cd(chunk.search_vector, query.tsq) DESC
     LIMIT :limit
     """
 )
@@ -134,18 +140,63 @@ class RankedHit:
     lexical_rank: int | None
 
 
+INDEXED_YEARS = text(
+    """
+    SELECT DISTINCT fiscal_year
+    FROM source_documents
+    WHERE ticker = :ticker
+    """
+)
+
+
+def indexed_fiscal_years(connection: Connection, ticker: str) -> set[int]:
+    """Fiscal years that already have a filing stored for this company."""
+    rows = connection.execute(INDEXED_YEARS, {"ticker": ticker}).all()
+    years: set[int] = set()
+    for row in rows:
+        value = row[0]
+        if isinstance(value, int):
+            years.add(value)
+    return years
+
+
 def semantic_search(
-    connection: Connection, query_embedding: list[float], limit: int
+    connection: Connection,
+    query_embedding: list[float],
+    limit: int,
+    *,
+    ticker: str | None = None,
+    fiscal_year: int | None = None,
 ) -> list[UUID]:
     rows = connection.execute(
         SEMANTIC_SEARCH,
-        {"query_vector": _vector_literal(query_embedding), "limit": limit},
+        {
+            "query_vector": _vector_literal(query_embedding),
+            "limit": limit,
+            "ticker": ticker,
+            "fiscal_year": fiscal_year,
+        },
     )
     return _ids(rows)
 
 
-def full_text_search(connection: Connection, query: str, limit: int) -> list[UUID]:
-    rows = connection.execute(FULL_TEXT_SEARCH, {"query": query, "limit": limit})
+def full_text_search(
+    connection: Connection,
+    query: str,
+    limit: int,
+    *,
+    ticker: str | None = None,
+    fiscal_year: int | None = None,
+) -> list[UUID]:
+    rows = connection.execute(
+        FULL_TEXT_SEARCH,
+        {
+            "query": query,
+            "limit": limit,
+            "ticker": ticker,
+            "fiscal_year": fiscal_year,
+        },
+    )
     return _ids(rows)
 
 
